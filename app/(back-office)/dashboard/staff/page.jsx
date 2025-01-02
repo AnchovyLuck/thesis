@@ -3,7 +3,7 @@ import React from 'react'
 export default function page() {
   return (
     <div>
-        <h2>Categories</h2>
+        <h2>Nhân viên</h2>
     </div>
   )
 }
