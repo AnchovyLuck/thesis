@@ -9,11 +9,11 @@ export default function SmallCard({ data }) {
         <div
           className={`w-12 h-12 ${iconBg} rounded-full items-center flex justify-center`}
         >
-          <ShoppingCart />
+          <Icon />
         </div>
         <div className="">
           <p>{title}</p>
-          <h3 className="text-2xl ">{number}</h3>
+          <h3 className="text-2xl font-bold">{number}</h3>
         </div>
       </div>
     </div>

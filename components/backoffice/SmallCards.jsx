@@ -1,6 +1,6 @@
 import React from "react";
-import LargeCard from "./LargeCard";
 import SmallCard from "./SmallCard";
+import { CheckCheck, Loader2, RefreshCcw, ShoppingCart } from "lucide-react";
 
 export default function SmallCards() {
   const orderStatus = [
@@ -11,20 +11,22 @@ export default function SmallCards() {
       icon: ShoppingCart
     },
     {
-      title: "Đang xử lý",
-      number: 37,
+      title: "Đang chờ xử lý",
+      number: 30,
       iconBg: "bg-blue-600",
-      icon: ShoppingCart
+      icon: Loader2
     },
     {
-      title: "Đang giao hàng",
+      title: "Đang xử lý",
       number: 0,
       iconBg: "bg-orange-600",
+      icon: RefreshCcw
     },
     {
       title: "Đã giao",
       number: 7,
-      iconBg: "bg-blue-600",
+      iconBg: "bg-purple-600",
+      icon: CheckCheck
     }
   ];
   return (
