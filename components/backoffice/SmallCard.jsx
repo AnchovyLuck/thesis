@@ -4,12 +4,12 @@ import React from "react";
 export default function SmallCard({ data }) {
   const { title, number, iconBg, icon: Icon } = data;
   return (
-    <div className={`rounded-lg text-white shadow-lg bg-slate-700 p-4`}>
+    <div className={`rounded-lg text-slate-800 dark:text-slate-50 shadow-lg bg-slate-50 dark:bg-slate-700 p-4`}>
       <div className="flex space-x-4">
         <div
           className={`w-12 h-12 ${iconBg} rounded-full items-center flex justify-center`}
         >
-          <Icon />
+          <Icon className="text-slate-50"/>
         </div>
         <div className="">
           <p>{title}</p>

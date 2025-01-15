@@ -28,8 +28,8 @@ export default function BestSellingProductsChart() {
     ],
   };
   return (
-    <div className="bg-slate-700 p-8 rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Biểu đồ sản phẩm bán chạy</h2>
+    <div className="bg-slate-50 dark:bg-slate-700 p-8 rounded-lg shadow-xl">
+      <h2 className="text-xl font-bold mb-4 text-slate-800 dark:text-slate-50">Biểu đồ sản phẩm bán chạy</h2>
       <Pie data={data} className="p-4" />
     </div>
   );

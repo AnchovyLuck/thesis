@@ -73,13 +73,15 @@ export default function WeeklySalesChart() {
             backgroundColor: "rgba(0, 137, 132, 0.5)",
           },
         ],
-      }
+      },
     },
   ];
   const [chartToDisplay, setChartToDisplay] = useState(tabs[0].type);
   return (
-    <div className="bg-slate-700 p-8 rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Biểu đồ doanh số</h2>
+    <div className="bg-slate-50 dark:bg-slate-700 p-8 rounded-lg shadow-xl">
+      <h2 className="text-xl font-bold mb-4 text-slate-800 dark:text-slate-50">
+        Biểu đồ doanh số
+      </h2>
       <div className="text-sm font-medium text-center text-gray-200 border-b border-gray-100 dark:text-gray-400 dark:border-gray-700">
         <ul className="flex flex-wrap -mb-px">
           {tabs.map((tab, i) => {
@@ -90,7 +92,7 @@ export default function WeeklySalesChart() {
                   className={
                     chartToDisplay == tab.type
                       ? "inline-block p-4 text-orange-600 border-b-2 border-orange-600 rounded-t-lg active dark:text-orange-500 dark:border-orange-500"
-                      : "inline-block p-4 border-b-2 border-transparent rounded-t-lg text-gray-200 hover:text-gray-300 hover:border-gray-100 dark:hover:text-gray-100"
+                      : "inline-block p-4 border-b-2 border-transparent rounded-t-l text-gray-800 hover:border-gray-100 dark:text-gray-100"
                   }
                 >
                   {tab.title}
@@ -102,7 +104,7 @@ export default function WeeklySalesChart() {
       </div>
       {tabs.map((tab, i) => {
         if (chartToDisplay === tab.type) {
-          return <Line options={options} data={tab.data} key={i}/>;
+          return <Line options={options} data={tab.data} key={i} />;
           return null;
         }
       })}

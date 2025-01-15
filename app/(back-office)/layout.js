@@ -5,12 +5,10 @@ import React from 'react'
 export default function Layout ({ children }) {
   return (
     <div className='flex'>
-      {/* sidebar */}
       <Sidebar />
-      <div className='w-full'>
-        {/* Header */}
+      <div className='flex-grow bg-slate-100 min-h-screen'>
         <Navbar />
-        <main className='p-8 bg-slate-950 text-slate-50 min-h-screen mt-16 ml-60'>
+        <main className='p-8 bg-slate-100 dark:bg-slate-900 text-slate-50 mt-16 ml-60'>
           {children}
         </main>
         {/* Main */}

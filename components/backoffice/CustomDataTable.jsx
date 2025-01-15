@@ -15,12 +15,14 @@ export default function CustomDataTable() {
   const itemEndIndex = Math.min(startIndex + PAGE_SIZE, data.length);
   function handlePageChange(page) {}
   return (
-    <div className="">
-      <h2 className="text-xl font-bold mb-4">Danh sách đơn hàng gần đây</h2>
+    <div className="mt-10">
+      <h2 className="text-xl font-bold mb-4 text-slate-800 dark:text-slate-50">
+        Danh sách đơn hàng gần đây
+      </h2>
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg z-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-500 dark:text-gray-200">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-500 dark:text-gray-200">
             <tr className="text-center">
               <th scope="col" className="p-4">
                 <div className="flex items-center">
@@ -137,7 +139,7 @@ export default function CustomDataTable() {
                     disabled={currentPage === index + 1}
                     className={
                       currentPage === index + 1
-                        ? "flex items-center justify-center px-3 h-10 leading-tight text-gray-50 bg-blue-600 border border-blue-300 hover:bg-blue-800 hover:text-white dark:bg-blue-800 dark:border-blue-700 dark:text-white dark:hover:bg-blue-700 dark:hover:text-white"
+                        ? "flex items-center justify-center px-3 h-10 leading-tight text-gray-50 bg-blue-600 hover:bg-blue-800 hover:text-white dark:bg-slate-100 dark:text-slate-800 dark:hover:text-slate-900 border border-blue-300 dark:border-gray-500 dark:border-r-2"
                         : "flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                     }
                   >
