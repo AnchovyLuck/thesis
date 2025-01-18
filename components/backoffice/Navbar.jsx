@@ -20,22 +20,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ThemeSwitcherButton from "../ui/ThemeSwitcherButton";
+import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbar({ setShowSidebar, showSidebar }) {
   return (
-    <div className="flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 fixed top-0 w-full left-60 z-20 pr-[20rem]">
-      {/* Icon */}
-      <button className="text-lime-700 dark:text-lime-500">
+    <div
+      className={
+        showSidebar
+          ? "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 fixed top-0 w-full md:left-64 left-0 right-0 pr-[20rem] z-50"
+          : "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 fixed top-0 w-full right-0 pr-[4rem] z-50"
+      }
+    >
+      <Link href={"/dashboard"} className="sm:hidden">Logo</Link>
+      <button
+        onClick={() => setShowSidebar(!showSidebar)}
+        className="text-lime-700 dark:text-lime-500 pe-6"
+      >
         <AlignJustify />
       </button>
-      {/* 3 Icons */}
       <div className="flex space-x-3">
         <ThemeSwitcherButton />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-transparent rounded-lg "
+              className="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-transparent rounded-lg"
             >
               <Bell className="text-lime-700 dark:text-lime-500" />
               <span className="sr-only">Thông báo</span>
@@ -44,7 +53,7 @@ export default function Navbar() {
               </div>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="px-4 py-2">
+          <DropdownMenuContent className="px-2 py-2">
             <DropdownMenuLabel>Thông báo</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
@@ -129,7 +138,7 @@ export default function Navbar() {
                 alt="Thông tin người dùng"
                 width={200}
                 height={200}
-                className="w-8 h-8 rounded-full"
+                className="min-w-[32px] w-8 h-8 rounded-full"
               />
             </button>
           </DropdownMenuTrigger>
