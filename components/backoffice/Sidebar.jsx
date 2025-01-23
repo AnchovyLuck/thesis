@@ -32,7 +32,7 @@ import {
 
 import { usePathname } from "next/navigation";
 
-export default function Sidebar({ showSidebar, setShowSidebar }) {
+export default function Sidebar({ showSidebar }) {
   const pathname = usePathname();
   const sidebarLinks = [
     {
