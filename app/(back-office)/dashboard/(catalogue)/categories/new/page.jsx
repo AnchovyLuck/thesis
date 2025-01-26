@@ -1,22 +1,30 @@
 "use client";
 import FormHeader from "@/components/backoffice/FormHeader";
+import ImageInput from "@/components/formInputs/ImageInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
+import { makePostRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function NewCategory() {
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
   async function onSubmit(data) {
-    const slug = generateSlug(data.title)
-    data.slug = slug
+    const slug = generateSlug(data.title);
+    data.slug = slug;
+    data.imageUrl = imageUrl;
     console.log(data);
+    makePostRequest(setLoading, "api/categories", data, "Loại sản phẩm", reset);
+    setImageUrl("");
   }
   return (
     <div>
@@ -32,17 +40,23 @@ export default function NewCategory() {
             register={register}
             errors={errors}
           />
+          <TextareaInput
+            label="Mô tả loại sản phẩm"
+            name="description"
+            register={register}
+            errors={errors}
+          />
+          <ImageInput
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+            endpoint="categoryImageUploader"
+            label="Ảnh loại sản phẩm"
+          />
         </div>
-        <TextareaInput
-          label="Mô tả loại sản phẩm"
-          name="description"
-          register={register}
-          errors={errors}
-        />
         <SubmitButton
-          isLoading={false}
+          isLoading={loading}
           buttonTitle="Lưu"
-          loadingButtonTitle="Đang lưu. Chờ chút nha..."
+          loadingButtonTitle="Đang lưu..."
         />
       </form>
     </div>

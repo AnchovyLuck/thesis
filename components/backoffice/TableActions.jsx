@@ -2,8 +2,8 @@ import React from "react";
 import { Download, Plus, Search, Trash } from "lucide-react";
 export default function TableActions() {
   return (
-    <div className="flex justify-between py-6 px-12 bg-slate-700 rounded-lg items-center gap-8">
-      <button className="relative inline-flex items-center justify-center p-0.5 py-3 px-4 space-x-3 text-base font-medium text-gray-900 rounded-lg group bg-slate-800  hover:text-white border border-lime-500 dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+    <div className="flex justify-between py-6 px-12 bg-white dark:bg-slate-700 rounded-lg items-center gap-8">
+      <button className="relative inline-flex items-center justify-center p-0.5 py-3 px-4 space-x-3 text-base font-medium text-gray-900 rounded-lg group bg-lime-600  hover:text-white dark:text-white hover:bg-lime-600/90">
         <Download />
         <span>Xuất File</span>
       </button>
@@ -23,7 +23,7 @@ export default function TableActions() {
           />
         </div>
       </div>
-      <button className="flex items-center space-x-2 bg-red-600 text-white rounded-lg px-6 py-3">
+      <button className="flex items-center space-x-2 bg-red-700 hover:bg-red-600 text-white rounded-lg px-6 py-3">
         <Trash />
         <span>Xoá Nhiều Dòng</span>
       </button>
