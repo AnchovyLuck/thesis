@@ -32,14 +32,14 @@ export default function NewCoupon () {
       >
         <div className='grid gap-4 sm:grid-cols-2 sm:gap-6 items-center'>
           <TextInput
-            label='Tên khuyến mãi'
+            label='Tên khuyến mãi *'
             name='title'
             register={register}
             errors={errors}
             className='w-full'
           />
           <TextInput
-            label='Ngày hết hạn'
+            label='Ngày hết hạn *'
             name='expiryDate'
             type='date'
             register={register}

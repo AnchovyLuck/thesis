@@ -41,12 +41,12 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/customers",
     },
     {
-      title: "Kho Hàng",
+      title: "Nhà Cung Cấp",
       icon: Warehouse,
       href: "/dashboard/markets",
     },
     {
-      title: "Nông Dân",
+      title: "Nông Trại",
       icon: UserSquare2,
       href: "/dashboard/farmers",
     },
@@ -93,19 +93,14 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/categories",
     },
     {
-      title: "Thuộc Tính",
-      icon: SendToBack,
-      href: "/dashboard/attributes",
-    },
-    {
       title: "Khuyến Mãi",
       icon: ScanSearch,
       href: "/dashboard/coupons",
     },
     {
-      title: "Slider",
+      title: "Banner",
       icon: MonitorPlay,
-      href: "/dashboard/sliders",
+      href: "/dashboard/banners",
     },
   ];
   const [openMenu, setOpenMenu] = useState(false);

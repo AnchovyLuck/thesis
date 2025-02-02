@@ -6,8 +6,17 @@ const f = createUploadthing()
 export const ourFileRouter = {
   categoryImageUploader: f({ image: { maxFileSize: '5MB' } }).onUploadComplete(
     async ({ metadata, file }) => {
-      console.log('file url', file.url, metadata)
-      return { uploadedBy: "Anchovy" }
+      return { uploadedBy: 'Anchovy' }
+    }
+  ),
+  bannerImageUploader: f({ image: { maxFileSize: '5MB' } }).onUploadComplete(
+    async ({ metadata, file }) => {
+      return { uploadedBy: 'Anchovy' }
+    }
+  ),
+  marketLogoUploader: f({ image: { maxFileSize: '5MB' } }).onUploadComplete(
+    async ({ metadata, file }) => {
+      return { uploadedBy: 'Anchovy' }
     }
   )
 }

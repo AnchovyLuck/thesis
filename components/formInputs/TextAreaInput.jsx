@@ -27,7 +27,7 @@ export default function TextareaInput({
         />
         {errors[`${name}`] && (
           <span className="text-sm text-red-600 ">
-            {label} cần được điền trước khi lưu!
+            {label} chưa được điền!
           </span>
         )}
       </div>
