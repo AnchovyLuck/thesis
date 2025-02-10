@@ -3,7 +3,7 @@ import React from 'react'
 export default function UpdateMarket() {
   return (
     <div>
-        <h2>Cập Nhật Nhà Cung Cấp</h2>
+        <h2>Cập Nhật Chợ</h2>
     </div>
   )
 }

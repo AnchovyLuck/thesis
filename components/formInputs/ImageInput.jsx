@@ -45,8 +45,6 @@ export default function ImageInput({
           onClientUploadComplete={(res) => {
             setImageUrl(res[0].url);
             toast.success("Tải ảnh hoàn tất!");
-            console.log("Files: ", res.url);
-            console.log("Upload Completed");
           }}
           onUploadError={(error) => {
             toast.error("Tải ảnh thất bại!");
@@ -54,17 +52,16 @@ export default function ImageInput({
           }}
           content={{
             button({ files }) {
-              console.log(files);
               if (files.length > 0)
                 return (
-                  <div className="flex justify-center space-x-3">
+                  <div className="flex justify-center space-x-3 text-sm font-medium">
                     <Upload />
                     <span>Tải Ảnh Lên</span>
                   </div>
                 );
               return (
-                <div className="flex justify-center">
-                  <span>Chọn 1 Ảnh</span>
+                <div className="flex justify-center text-sm font-medium">
+                  <span>Chọn Ảnh</span>
                 </div>
               );
             },

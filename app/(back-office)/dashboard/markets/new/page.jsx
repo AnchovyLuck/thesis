@@ -9,7 +9,7 @@ import { generateSlug } from "@/lib/generateSlug";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function NewBanner() {
+export default function NewMarket() {
   const [logoUrl, setLogoUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const {
@@ -35,7 +35,7 @@ export default function NewBanner() {
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
-            label="Tên nhà cung cấp"
+            label="Tên chợ *"
             name="title"
             register={register}
             errors={errors}
@@ -48,10 +48,10 @@ export default function NewBanner() {
             label="Logo chợ"
           />
           <TextareaInput
-          label="Mô tả nhà cung cấp"
-          name="description"
-          register={register}
-          errors={errors}
+            label="Mô tả chợ *"
+            name="description"
+            register={register}
+            errors={errors}
           />
         </div>
         <SubmitButton

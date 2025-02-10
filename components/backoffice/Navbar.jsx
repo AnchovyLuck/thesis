@@ -27,8 +27,8 @@ export default function Navbar({ setShowSidebar, showSidebar }) {
     <div
       className={
         showSidebar
-          ? "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 fixed top-0 w-full md:left-64 left-0 right-0 pr-[20rem] z-50"
-          : "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 fixed top-0 w-full right-0 pr-[4rem] z-50"
+          ? "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 md:ml-64 px-8 py-8 w-full pr-[20rem] z-50"
+          : "flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 px-8 py-8 w-full pr-[4rem] z-50"
       }
     >
       <Link href={"/dashboard"} className="sm:hidden">Logo</Link>

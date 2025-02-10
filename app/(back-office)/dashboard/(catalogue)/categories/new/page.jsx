@@ -12,6 +12,20 @@ import { useForm } from "react-hook-form";
 
 export default function NewCategory() {
   const [imageUrl, setImageUrl] = useState("");
+  const markets = [
+    {
+      id: 1,
+      title: "Chợ Bắp Cải",
+    },
+    {
+      id: 2,
+      title: "Chợ Cà Rốt",
+    },
+    {
+      id: 3,
+      title: "Chợ Súp Lơ",
+    },
+  ]
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -42,13 +56,15 @@ export default function NewCategory() {
             errors={errors}
             className="w-full"
           />
-          {/* <SelectInput
-            label="Chọn nhà cung cấp *"
-            name="markets"
+          <SelectInput
+            label="Chọn chợ *"
+            name="marketsIds"
             register={register}
             errors={errors}
             className="w-full"
-          /> */}
+            options={markets}
+            multiple={false}
+          />
           <TextareaInput
             label="Mô tả loại sản phẩm *"
             name="description"
@@ -59,7 +75,7 @@ export default function NewCategory() {
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
             endpoint="categoryImageUploader"
-            label="Ảnh loại sản phẩm *"
+            label="Ảnh loại sản phẩm"
           />
         </div>
         <SubmitButton

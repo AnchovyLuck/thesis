@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function UpdateCategory() {
+export default function UpdateBanner() {
   return (
     <div>
-        <h2>Cập Nhật Loại Sản Phẩm</h2>
+        <h2>Cập Nhật Banner</h2>
     </div>
   )
 }

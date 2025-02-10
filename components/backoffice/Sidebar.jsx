@@ -41,7 +41,7 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/customers",
     },
     {
-      title: "Nhà Cung Cấp",
+      title: "Chợ",
       icon: Warehouse,
       href: "/dashboard/markets",
     },

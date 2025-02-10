@@ -35,13 +35,13 @@ export default function NewBanner() {
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
-            label="Tên banner"
+            label="Tên banner *"
             name="title"
             register={register}
             errors={errors}
           />
           <TextInput
-            label="Link banner"
+            label="Link banner *"
             name="link"
             type="url"
             register={register}
