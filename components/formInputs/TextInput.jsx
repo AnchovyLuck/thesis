@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 

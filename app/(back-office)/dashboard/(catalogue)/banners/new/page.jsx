@@ -4,6 +4,7 @@ import ImageInput from "@/components/formInputs/ImageInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
+import ToggleInput from "@/components/formInputs/ToggleInput";
 import { makePostRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import React, { useState } from "react";
@@ -15,9 +16,15 @@ export default function NewBanner() {
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValue: {
+      isActive: true,
+    },
+  });
+  const isActive = watch("isActive");
   async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
@@ -28,7 +35,7 @@ export default function NewBanner() {
   }
   return (
     <div>
-      <FormHeader title="Banner Mới" />
+      <FormHeader title="Thêm Banner" />
       <form
         className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5"
         onSubmit={handleSubmit(onSubmit)}
@@ -52,6 +59,14 @@ export default function NewBanner() {
             setImageUrl={setImageUrl}
             endpoint="bannerImageUploader"
             label="Ảnh banner"
+          />
+          <ToggleInput
+            label="Đăng banner ?"
+            name="isActive"
+            toggle={isActive}
+            trueTitle="Có"
+            falseTitle="Không"
+            register={register}
           />
         </div>
         <SubmitButton

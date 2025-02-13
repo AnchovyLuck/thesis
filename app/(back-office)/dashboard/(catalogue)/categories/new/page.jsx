@@ -5,6 +5,7 @@ import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
+import ToggleInput from "@/components/formInputs/ToggleInput";
 import { makePostRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import React, { useState } from "react";
@@ -25,14 +26,20 @@ export default function NewCategory() {
       id: 3,
       title: "Chợ Súp Lơ",
     },
-  ]
+  ];
   const [loading, setLoading] = useState(false);
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      isActive: true,
+    },
+  });
+  const isActive = watch("isActive");
   async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
@@ -43,7 +50,7 @@ export default function NewCategory() {
   }
   return (
     <div>
-      <FormHeader title="Loại Sản Phẩm Mới" />
+      <FormHeader title="Thêm Loại Sản Phẩm" />
       <form
         className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5"
         onSubmit={handleSubmit(onSubmit)}
@@ -76,6 +83,14 @@ export default function NewCategory() {
             setImageUrl={setImageUrl}
             endpoint="categoryImageUploader"
             label="Ảnh loại sản phẩm"
+          />
+          <ToggleInput
+            label="Đăng loại sản phẩm ?"
+            name="isActive"
+            toggle={isActive}
+            trueTitle="Có"
+            falseTitle="Không"
+            register={register}
           />
         </div>
         <SubmitButton
