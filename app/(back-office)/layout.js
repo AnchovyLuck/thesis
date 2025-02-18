@@ -19,9 +19,7 @@ export default function Layout ({ children }) {
         >
           {children}
         </main>
-        {/* Main */}
       </div>
-      {/*Main Body*/}
     </div>
   )
 }

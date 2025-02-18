@@ -43,7 +43,7 @@ export default function ImageInput({
         <UploadDropZone
           endpoint={endpoint}
           onClientUploadComplete={(res) => {
-            setImageUrl(res[0].url);
+            setImageUrl(res[0].ufsUrl);
             toast.success("Tải ảnh hoàn tất!");
           }}
           onUploadError={(error) => {

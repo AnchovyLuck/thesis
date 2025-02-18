@@ -23,11 +23,18 @@ export default function TextareaInput({
           rows={3}
           className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 dark:focus:ring-slate-500 sm:text-sm sm:leading-6 dark:bg-transparent dark:text-slate-100"
           defaultValue={""}
-          placeholder={`Nhập ${label.toLowerCase()}`}
+          placeholder={`Nhập ${
+            label.charAt(label.length - 1) === "*"
+              ? label.slice(0, -2).toLowerCase()
+              : label.toLowerCase()
+          }`}
         />
         {errors[`${name}`] && (
           <span className="text-sm text-red-600 ">
-            {label} chưa được điền!
+            {label.charAt(label.length - 1) === "*"
+              ? label.slice(0, -2)
+              : label}{" "}
+            chưa được điền!
           </span>
         )}
       </div>

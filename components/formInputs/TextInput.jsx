@@ -12,12 +12,9 @@ export default function TextInput({
   type = "text",
   className = "sm:col-span-2",
   defaultValue = "",
+  beginYear = new Date().getFullYear(),
+  length = 10
 }) {
-  const formattedDate = (date) => {
-    if (!date) return "";
-    const formattedDate = new Date(date);
-    return formattedDate.toISOString().split("T")[0];
-  };
   return (
     <div className={className}>
       <label
@@ -35,7 +32,7 @@ export default function TextInput({
             render={({ field: { onChange, value } }) => (
               <DatePicker
                 selected={value}
-                onChange={(date) => onChange(formattedDate(date))}
+                onChange={(date) => onChange(date)}
                 dateFormat="dd/MM/yyyy"
                 openToDate={value || new Date()}
                 showMonthDropdown
@@ -73,8 +70,8 @@ export default function TextInput({
                         onChange={({ target: { value } }) => changeYear(value)}
                       >
                         {Array.from(
-                          { length: 10 },
-                          (_, i) => date.getFullYear() + i
+                          { length: length },
+                          (_, i) => new Date().getFullYear() - beginYear + i
                         ).map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -84,7 +81,7 @@ export default function TextInput({
                     </div>
                   </div>
                 )}
-                // shouldCloseOnSelect={true}
+                 shouldCloseOnSelect={true}
                 className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 dark:focus:ring-slate-500 sm:text-sm sm:leading-6 dark:bg-transparent dark:text-slate-100"
                 name={name}
                 id={name}
@@ -110,13 +107,13 @@ export default function TextInput({
             defaultValue={defaultValue}
             autoComplete={name}
             className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-slate-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 dark:focus:ring-slate-500 sm:text-sm sm:leading-6 dark:bg-transparent dark:text-slate-100"
-            placeholder={`Nhập ${label.toLowerCase()}`}
+            placeholder={`Nhập ${label.charAt(label.length-1) === '*' ? label.slice(0,-2).toLowerCase(): label.toLowerCase()}`}
           />
         )}
         {errors[`${name}`] && (
           <span className="text-sm text-red-600">
             {errors[`${name}`].type === "required" &&
-              `${label} chưa được điền!`}
+              (`${label.charAt(label.length - 1) === '*' ? label.slice(0,-2) : label} chưa được điền!`)}
             {type === "tel" &&
               errors[`${name}`].type === "pattern" &&
               "Vui lòng nhập số điện thoại hợp lệ!"}

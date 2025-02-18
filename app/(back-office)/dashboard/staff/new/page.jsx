@@ -5,6 +5,7 @@ import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
 import ToggleInput from "@/components/formInputs/ToggleInput";
 import { makePostRequest } from "@/lib/apiRequest";
+import { generateIsoFormattedDate } from "@/lib/generateIsoFormattedDate";
 import { generateUserCode } from "@/lib/generateUserCode";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,7 +27,8 @@ export default function NewStaff() {
   });
   const isActive = watch("isActive");
   async function onSubmit(data) {
-    const code = generateUserCode("FARM", data.name);
+    const code = generateUserCode("STAFF", data.fullName);
+    data.birthday = generateIsoFormattedDate(data.birthday);
     data.code = code;
     console.log(data);
     makePostRequest(setLoading, "api/staff", data, "Nhân viên", reset);
@@ -41,9 +43,27 @@ export default function NewStaff() {
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 items-center">
           <TextInput
             label="Tên nhân viên *"
-            name="name"
+            name="fullName"
             register={register}
             errors={errors}
+          />
+          <TextInput
+            label="ID nhân viên *"
+            name="staffId"
+            register={register}
+            errors={errors}
+            className="w-full"
+          />
+          <TextInput
+            label="Ngày sinh *"
+            name="birthday"
+            type="date"
+            control={control}
+            register={register}
+            errors={errors}
+            beginYear={35}
+            length={18}
+            className="w-full"
           />
           <TextInput
             label="Mật khẩu *"
@@ -55,6 +75,7 @@ export default function NewStaff() {
           />
           <TextInput
             label="Email nhân viên *"
+            type="email"
             name="email"
             register={register}
             errors={errors}
@@ -69,7 +90,7 @@ export default function NewStaff() {
             className="w-full"
           />
           <TextInput
-            label="Địa chỉ nhân viên*"
+            label="Địa chỉ nhân viên *"
             name="physicalAddress"
             register={register}
             errors={errors}
@@ -81,6 +102,15 @@ export default function NewStaff() {
             register={register}
             errors={errors}
             isRequired={false}
+          />
+          <ToggleInput
+            label="Trạng thái"
+            name="isActive"
+            control={control}
+            register={register}
+            toggle={isActive}
+            trueTitle="Đang làm việc"
+            falseTitle="Đã nghỉ việc"
           />
         </div>
         <SubmitButton

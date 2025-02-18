@@ -6,6 +6,7 @@ import TextInput from "@/components/formInputs/TextInput";
 import ToggleInput from "@/components/formInputs/ToggleInput";
 import { makePostRequest } from "@/lib/apiRequest";
 import { generateUserCode } from "@/lib/generateUserCode";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -25,11 +26,22 @@ export default function NewFarmer() {
     },
   });
   const isActive = watch("isActive");
+  const router = useRouter();
+  const redirect = () => {
+    router.push("/dashboard/farmers");
+  };
   async function onSubmit(data) {
     const code = generateUserCode("FARM", data.name);
     data.code = code;
     console.log(data);
-    makePostRequest(setLoading, "api/farmers", data, "Nông trại", reset);
+    makePostRequest(
+      setLoading,
+      "api/farmers",
+      data,
+      "Nông trại",
+      reset,
+      redirect
+    );
   }
   return (
     <div>
