@@ -8,25 +8,26 @@ import TextInput from "@/components/formInputs/TextInput";
 import ToggleInput from "@/components/formInputs/ToggleInput";
 import { makePostRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function NewCategory() {
   const [imageUrl, setImageUrl] = useState("");
-  const markets = [
-    {
-      id: 1,
-      title: "Chợ Bắp Cải",
-    },
-    {
-      id: 2,
-      title: "Chợ Cà Rốt",
-    },
-    {
-      id: 3,
-      title: "Chợ Súp Lơ",
-    },
-  ];
+  // const markets = [
+  //   {
+  //     id: 1,
+  //     title: "Chợ Bắp Cải",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Chợ Cà Rốt",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Chợ Súp Lơ",
+  //   },
+  // ];
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -40,12 +41,16 @@ export default function NewCategory() {
     },
   });
   const isActive = watch("isActive");
+  const router = useRouter();
+  const redirect = () => {
+    router.push("/dashboard/categories");
+  };
   async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.imageUrl = imageUrl;
     console.log(data);
-    makePostRequest(setLoading, "api/categories", data, "Loại sản phẩm", reset);
+    makePostRequest(setLoading, "api/categories", data, "Loại sản phẩm", reset, redirect);
     setImageUrl("");
   }
   return (
@@ -61,17 +66,8 @@ export default function NewCategory() {
             name="title"
             register={register}
             errors={errors}
-            className="w-full"
           />
-          <SelectInput
-            label="Chọn chợ *"
-            name="marketsIds"
-            register={register}
-            errors={errors}
-            className="w-full"
-            options={markets}
-            multiple={false}
-          />
+
           <TextareaInput
             label="Mô tả loại sản phẩm *"
             name="description"

@@ -1,5 +1,6 @@
 "use client";
 import FormHeader from "@/components/backoffice/FormHeader";
+import ImageInput from "@/components/formInputs/ImageInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
@@ -11,6 +12,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function NewFarmer() {
+  const [logoUrl, setLogoUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [couponCode, setCouponCode] = useState();
   const {
@@ -53,7 +55,7 @@ export default function NewFarmer() {
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 items-center">
           <TextInput
             label="Tên nông trại *"
-            name="name"
+            name="farmerName"
             register={register}
             errors={errors}
             className="w-full"
@@ -81,25 +83,34 @@ export default function NewFarmer() {
             className="w-full"
           />
           <TextInput
-            label="Người liên hệ *"
+            label="Người liên hệ"
             name="contactPerson"
             register={register}
             errors={errors}
+            isRequired={false}
             className="w-full"
           />
           <TextInput
-            label="Số điện thoại người liên hệ *"
+            label="Số điện thoại người liên hệ"
             name="contactPersonPhone"
             type="tel"
             register={register}
             errors={errors}
+            isRequired={false}
             className="w-full"
           />
+          <ImageInput
+            imageUrl={logoUrl}
+            setImageUrl={setLogoUrl}
+            endpoint="farmerProfileUploader"
+            label="Ảnh nông trại"
+          />
           <TextareaInput
-            label="Hợp đồng thanh toán *"
+            label="Hợp đồng thanh toán"
             name="terms"
             register={register}
             errors={errors}
+            isRequired={false}
           />
           <TextareaInput
             label="Ghi chú"

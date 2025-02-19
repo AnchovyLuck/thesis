@@ -24,3 +24,23 @@ export async function POST (request) {
     )
   }
 }
+
+export async function GET (request) {
+  try {
+    const banners = await db.banner.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+    return NextResponse.json(banners)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Hiển thị danh sách banner thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

@@ -19,14 +19,19 @@ export const ourFileRouter = {
       return { uploadedBy: 'Anchovy' }
     }
   ),
-  productImageUploader: f({ image: { maxFileSize: '5MB', maxFileCount: 3 } }).onUploadComplete(
-    async ({ metadata, file }) => {
-      return { uploadedBy: 'Anchovy' }
-    }
-  ),
-  trainingImageUploader: f({ image: { maxFileSize: '5MB', maxFileCount: 3 } }).onUploadComplete(
-    async ({ metadata, file }) => {
-      return { uploadedBy: 'Anchovy' }
-    }
-  ),
+  productImageUploader: f({
+    image: { maxFileSize: '5MB', maxFileCount: 3 }
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: 'Anchovy' }
+  }),
+  trainingImageUploader: f({
+    image: { maxFileSize: '5MB', maxFileCount: 3 }
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: 'Anchovy' }
+  }),
+  farmerProfileUploader: f({
+    image: { maxFileSize: '5MB', maxFileCount: 1 }
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: 'Anchovy' }
+  })
 }

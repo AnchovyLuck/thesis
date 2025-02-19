@@ -14,16 +14,20 @@ export async function POST (request) {
       code,
       isActive
     } = await request.json()
-    const newStaff = { fullName,
-      staffId,
-      birthday,
-      password,
-      email,
-      phone,
-      physicalAddress,
-      notes,
-      code,
-      isActive }
+    const newStaff = db.staff.create({
+      data: {
+        fullName,
+        staffId,
+        birthday,
+        password,
+        email,
+        phone,
+        physicalAddress,
+        notes,
+        code,
+        isActive
+      }
+    })
     return NextResponse.json(newStaff)
   } catch (error) {
     console.error(error)

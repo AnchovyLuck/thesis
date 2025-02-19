@@ -1,6 +1,7 @@
 "use client";
 import FormHeader from "@/components/backoffice/FormHeader";
 import ImageInput from "@/components/formInputs/ImageInput";
+import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
@@ -13,6 +14,20 @@ import { useForm } from "react-hook-form";
 export default function NewMarket() {
   const [logoUrl, setLogoUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const categories = [
+    {
+      id: 1,
+      title: "Loại sản phẩm  1",
+    },
+    {
+      id: 1,
+      title: "Loại sản phẩm  2",
+    },
+    {
+      id: 1,
+      title: "Loại sản phẩm  3",
+    },
+  ];
   const {
     register,
     reset,
@@ -25,7 +40,7 @@ export default function NewMarket() {
     },
   });
   const isActive = watch("isActive");
-  async function onSubmit(data) { 
+  async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.logoUrl = logoUrl;
@@ -46,8 +61,17 @@ export default function NewMarket() {
             name="title"
             register={register}
             errors={errors}
+            className="w-full"
           />
-
+          <SelectInput
+            label="Chọn loại sản phẩm *"
+            name="categoryIds"
+            register={register}
+            errors={errors}
+            className="w-full"
+            options={categories}
+            multiple={true}
+          />
           <ImageInput
             imageUrl={logoUrl}
             setImageUrl={setLogoUrl}

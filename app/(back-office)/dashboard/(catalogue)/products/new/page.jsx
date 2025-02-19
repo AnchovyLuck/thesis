@@ -76,7 +76,7 @@ export default function NewProduct() {
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
             label="Tên sản phẩm *"
-            name="title"
+            name="productName"
             register={register}
             errors={errors}
           />

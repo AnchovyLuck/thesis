@@ -3,12 +3,13 @@ import { NextResponse } from 'next/server'
 
 export async function POST (request) {
   try {
-    const { title, couponCode, expiryDate } = await request.json()
+    const { title, couponCode, expiryDate, isActive } = await request.json()
     const newCoupon = await db.coupon.create({
       data: {
         title,
         couponCode,
-        expiryDate
+        expiryDate,
+        isActive
       }
     })
     return NextResponse.json(newCoupon)
@@ -17,6 +18,26 @@ export async function POST (request) {
     return NextResponse.json(
       {
         message: 'Thêm khuyến mãi thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET (request) {
+  try {
+    const coupons = await db.coupon.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+    return NextResponse.json(coupons)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Hiển thị danh sách khuyến mãi thất bại!',
         error
       },
       { status: 500 }
