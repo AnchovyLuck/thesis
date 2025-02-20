@@ -46,7 +46,7 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/markets",
     },
     {
-      title: "Nông Trại",
+      title: "Nông Dân",
       icon: UserSquare2,
       href: "/dashboard/farmers",
     },

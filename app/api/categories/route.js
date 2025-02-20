@@ -14,6 +14,22 @@ export async function POST (request) {
         isActive
       }
     })
+    const existingCategory = await db.category.findUnique({
+      where: {
+        slug
+      }
+    })
+    if (n) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Loại sản phẩm đã tồn tại!'
+        },
+        {
+          status: 409
+        }
+      )
+    }
     return NextResponse.json(newCategory)
   } catch (error) {
     console.error(error)

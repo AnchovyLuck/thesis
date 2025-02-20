@@ -5,9 +5,10 @@ export default function SubmitButton({
   isLoading = false,
   buttonTitle,
   loadingButtonTitle,
+  className = "",
 }) {
   return (
-    <div className="sm:col-span-1">
+    <div className={`${className} sm:col-span-1`}>
       {isLoading ? (
         <button
           disabled

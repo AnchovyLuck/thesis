@@ -13,7 +13,8 @@ export default function TextInput({
   className = "sm:col-span-2",
   defaultValue = "",
   beginYear = new Date().getFullYear(),
-  length = 10
+  length = 10,
+  placeholder = ""
 }) {
   return (
     <div className={className}>
