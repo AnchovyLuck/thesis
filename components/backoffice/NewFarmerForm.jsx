@@ -38,6 +38,7 @@ export default function NewFarmerForm ({ user }) {
     const code = generateUserCode('FARM', data.userName)
     data.code = code
     data.userId = user.id
+    data.profileImageUrl = profileImageUrl
     data.products = products
     console.log(data)
     makePostRequest(

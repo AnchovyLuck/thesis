@@ -1,6 +1,7 @@
 "use client";
 import FormHeader from "@/components/backoffice/FormHeader";
 import ImageInput from "@/components/formInputs/ImageInput";
+import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
@@ -11,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function NewBanner() {
+export default function NewMarketForm({categories}) {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const {
@@ -21,62 +22,64 @@ export default function NewBanner() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValue: {
+    defaultValues: {
       isActive: true,
     },
   });
   const isActive = watch("isActive");
-  const router = useRouter();
+  const router = useRouter()
   const redirect = () => {
-    router.push("/dashboard/banners");
+    router.push("/dashboard/markets");
   };
   async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
-    data.imageUrl = imageUrl;
+    data.logoUrl = imageUrl;
     console.log(data);
-    makePostRequest(
-      setLoading,
-      "api/banners",
-      data,
-      "Banner",
-      reset,
-      redirect
-    );
+    makePostRequest(setLoading, "api/markets", data, "Chợ", reset, redirect);
   }
   return (
     <div>
-      <FormHeader title="Thêm Banner" />
+      <FormHeader title="Thêm Chợ" />
       <form
         className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
-            label="Tên banner *"
+            label="Tên chợ *"
             name="title"
             register={register}
             errors={errors}
+            className="w-full"
           />
-          <TextInput
-            label="Link banner *"
-            name="link"
-            type="url"
+          <SelectInput
+            label="Chọn loại sản phẩm *"
+            name="categoryIds"
             register={register}
             errors={errors}
+            className="w-full"
+            options={categories}
+            multiple={true}
           />
           <ImageInput
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
-            endpoint="bannerImageUploader"
-            label="Ảnh banner"
+            endpoint="marketLogoUploader"
+            label="Logo chợ"
+          />
+          <TextareaInput
+            label="Mô tả chợ *"
+            name="description"
+            register={register}
+            errors={errors}
           />
           <ToggleInput
-            label="Đăng banner ?"
+            label="Tình trạng ?"
             name="isActive"
             toggle={isActive}
-            trueTitle="Có"
-            falseTitle="Không"
+            trueTitle="Đang hoạt động"
+            falseTitle="Không hoạt động"
             register={register}
           />
         </div>

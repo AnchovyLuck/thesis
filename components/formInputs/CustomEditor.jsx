@@ -123,7 +123,7 @@ const CustomEditor = ({
         <div ref={editorRef}>
           <CKEditor
             editor={ClassicEditor}
-            data={"<h1></h1>"}
+            data={value}
             config={{
               licenseKey: LICENSE_KEY,
               title: {
@@ -419,8 +419,10 @@ const CustomEditor = ({
               },
               translations: [translations],
             }}
-            value={value}
-            onChange={onChange}
+            onChange={(event, editor) => {
+              const data = editor.getData()
+              onChange(data)
+            }}
           />
         </div>
         <div

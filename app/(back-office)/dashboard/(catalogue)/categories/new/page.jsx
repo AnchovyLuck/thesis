@@ -1,7 +1,6 @@
 "use client";
 import FormHeader from "@/components/backoffice/FormHeader";
 import ImageInput from "@/components/formInputs/ImageInput";
-import SelectInput from "@/components/formInputs/SelectInput";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";
@@ -51,7 +50,6 @@ export default function NewCategory() {
     data.imageUrl = imageUrl;
     console.log(data);
     makePostRequest(setLoading, "api/categories", data, "Loại sản phẩm", reset, redirect);
-    setImageUrl("");
   }
   return (
     <div>

@@ -5,21 +5,12 @@ export async function POST (request) {
   try {
     const { title, slug, imageUrl, description, isActive } =
       await request.json()
-    const newCategory = await db.category.create({
-      data: {
-        title,
-        slug,
-        imageUrl,
-        description,
-        isActive
-      }
-    })
     const existingCategory = await db.category.findUnique({
       where: {
         slug
       }
     })
-    if (n) {
+    if (existingCategory) {
       return NextResponse.json(
         {
           data: null,
@@ -30,6 +21,16 @@ export async function POST (request) {
         }
       )
     }
+    const newCategory = await db.category.create({
+      data: {
+        title,
+        slug,
+        imageUrl,
+        description,
+        isActive
+      }
+    })
+
     return NextResponse.json(newCategory)
   } catch (error) {
     console.error(error)
