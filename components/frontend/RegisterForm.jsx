@@ -143,30 +143,12 @@ export default function RegisterForm({role = "USER"}) {
       )} */}
       <SubmitButton
         isLoading={loading}
-        buttonTitle="Tạo tài khoản"
+        buttonTitle="Đăng ký"
         loadingButtonTitle="Đang xử lý..."
         className="text-center pb-4"
       />
 
-      {/* <div className="">
-        <button
-          type="button"
-          onClick={() => signIn("google")}
-          className="w-full text-slate-950 bg-white hover:bg-slate-50 focus:ring-4 focus:outline-none focus:ring-slate-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center flex items-center dark:focus:ring-slate-100 me-2 mb-4 border border-slate-200"
-        >
-          <FaGoogle className="mr-2 text-red-600 w-4 h-4" />
-          Đăng ký với Google
-        </button>
-        <button
-          type="button"
-          onClick={() => signIn("github")}
-          className="w-full justify-center text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2"
-        >
-         
-          <FaGithub className="mr-2 w-4 h-4" />
-          Đăng ký với Github
-        </button>
-      </div> */}
+      
     </form>
   );
 }

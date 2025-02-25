@@ -1,3 +1,5 @@
+const flowbite = require('flowbite-react/tailwind')
+
 /** @type {import('tailwindcss').Config} */
 import { withUt } from 'uploadthing/tw'
 export default withUt({
@@ -5,7 +7,8 @@ export default withUt({
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx,html}',
     './components/**/*.{js,ts,jsx,tsx,mdx,html}',
-    './app/**/*.{js,ts,jsx,tsx,mdx,html}'
+    './app/**/*.{js,ts,jsx,tsx,mdx,html}',
+    flowbite.content()
   ],
   theme: {
     extend: {
@@ -103,5 +106,9 @@ export default withUt({
       ]
     }
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/forms'),
+    flowbite.plugin()
+  ]
 })
