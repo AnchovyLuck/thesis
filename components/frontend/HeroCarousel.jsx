@@ -25,12 +25,12 @@ export default function HeroCarousel () {
     >
       <Link href='#'>
         <SwiperSlide>
-          <img src='/banners/1.png' />
+          <img src='/banners/1.png' alt='banner' />
         </SwiperSlide>
       </Link>
       <Link href='#'>
         <SwiperSlide>
-          <img src='/banners/2.png' />
+          <img src='/banners/2.png' alt='banner' />
         </SwiperSlide>
       </Link>
     </Swiper>

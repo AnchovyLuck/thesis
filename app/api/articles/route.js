@@ -21,7 +21,7 @@ export async function POST (request) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Khoá đào tạo cùng tên đã tồn tại!'
+          message: 'Bài viết cùng tên đã tồn tại!'
         },
         {
           status: 409
@@ -44,7 +44,7 @@ export async function POST (request) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Thêm khoá đào tạo thất bại!',
+        message: 'Thêm bài viết thất bại!',
         error
       },
       { status: 500 }

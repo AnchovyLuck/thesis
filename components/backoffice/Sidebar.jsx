@@ -61,9 +61,9 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/staff",
     },
     {
-      title: "Cộng Đồng",
+      title: "Bài đăng",
       icon: Building2,
-      href: "/dashboard/community",
+      href: "/dashboard/article",
     },
     {
       title: "Ví",

@@ -7,9 +7,9 @@ export default function page() {
     <div>
       {
         <PageHeader
-          heading="Cộng Đồng"
-          href="/dashboard/community/new"
-          linkTitle="Thêm Khoá Đào Tạo"
+          heading="Bài viết"
+          href="/dashboard/articles/new"
+          linkTitle="Thêm Bài viết"
         />
       }
       <TableActions />

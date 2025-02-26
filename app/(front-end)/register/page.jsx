@@ -3,7 +3,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <section class="bg-gray-50 dark:bg-gray-900">
+    <section>
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         <a
           href="#"

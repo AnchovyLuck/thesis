@@ -12,7 +12,7 @@ export default function Navbar() {
     <div className="bg-gray-200 dark:bg-slate-800 h-28 fixed w-full">
       <div className="flex items-center justify-between py-3 w-full mx-auto px-8 gap-8">
         <Link className="" href="/">
-          <Image src={logo} alt="online shop logo" className="w-24" />
+          <Image src={logo} alt="online shop logo" className="w-24 text-gray-200 dark:text-slate-800" />
         </Link>
         <div className="flex-grow">
           <SearchForm />

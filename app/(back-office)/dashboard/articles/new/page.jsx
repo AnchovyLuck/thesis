@@ -1,4 +1,4 @@
-import NewTrainingForm from '@/components/backoffice/NewTrainingForm'
+import NewArticleForm from '@/components/backoffice/NewArticleForm'
 import { getData } from '@/lib/getData'
 import React from 'react'
 
@@ -10,5 +10,5 @@ export default async function page () {
       title: category.title
     }
   })
-  return <NewTrainingForm categories={categories}/>
+  return <NewArticleForm categories={categories}/>
 }
