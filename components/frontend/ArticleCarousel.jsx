@@ -9,8 +9,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function ArticleCarousel () {
-  const slides = [{}, {}, {}, {}, {}, {}, {}]
+export default function ArticleCarousel ({articles}) {
+
   return (
     <Swiper
       direction={'horizontal'}
@@ -33,29 +33,25 @@ export default function ArticleCarousel () {
       modules={[Navigation, Mousewheel]}
       className='rounded-lg'
     >
-      {slides.map((slide, i) => {
+      {articles.map((article, i) => {
         return (
-          <div key={i}>
-            <SwiperSlide className='flex flex-col rounded-lg border-0 bg-slate-50 dark:bg-slate-600 text-slate-800 dark:text-slate-50'>
-              <Link href='#'>
+          <SwiperSlide key={i} className='flex flex-col rounded-lg border-0 bg-slate-50 dark:bg-slate-600 text-slate-800 dark:text-slate-50'>
+              <Link href='#' className='w-32 h-32'>
                 <Image
-                  src='/banners/1.png'
-                  alt='vegetables'
-                  width={556}
-                  height={556}
-                  className='w-full bg-slate-50 dark:bg-slate-600 rounded-lg'
+                  src={article.imageUrl}
+                  alt={article.title}
+                  width={128}
+                  height={128}
+                  className='bg-slate-50 dark:bg-slate-600 rounded-lg'
                 />
               </Link>
               <h2 className='text-slate-600 dark:text-slate-200 w-full bg-slate-50 dark:bg-slate-600 border-0 font-semibold my-2 text-xl'>
-                Rau củ
+                {article.title}
               </h2>
               <p className='px-4 line-clamp-3 text-start'>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                ipsum commodi eveniet similique sequi cupiditate officiis totam
-                suscipit pariatur. Fugit accusantium delectus itaque illum
-                atque, omnis modi quia nobis mollitia!
+                {article.description}
               </p>
-              <div className='flex items-center space-x-6 my-2 w-full px-4'>
+              <div className='flex items-center justify-around space-x-6 my-2 w-full px-4'>
                 <Link
                   className='bg-slate-300 hover:bg-slate-400 dark:bg-lime-900 dark:hover:bg-lime-800 text-slate-800 dark:text-slate-50 rounded-md px-4 py-2'
                   href='#'
@@ -66,7 +62,6 @@ export default function ArticleCarousel () {
               </div>
               
             </SwiperSlide>
-          </div>
         )
       })}
     </Swiper>

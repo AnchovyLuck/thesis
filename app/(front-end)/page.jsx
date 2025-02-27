@@ -2,26 +2,25 @@ import ArticleList from '@/components/frontend/ArticleList'
 import CategoryList from '@/components/frontend/CategoryList'
 import Hero from '@/components/frontend/Hero'
 import MarketList from '@/components/frontend/MarketList'
+import { getData } from '@/lib/getData'
 import Link from 'next/link'
 import React from 'react'
-import Footer from '@/components/frontend/Footer'
 
-export default function page () {
+export default async function page () {
+  const categories = await getData('categories')
   return (
     <>
       <Hero />
       <div className='py-4'>
         <MarketList />
       </div>
-      <div className='py-4'>
-        <CategoryList />
-      </div>
-      <div className='py-4'>
-        <CategoryList />
-      </div>
-      <div className='py-4'>
-        <CategoryList />
-      </div>
+      {categories.map((category, i) => {
+        return (
+          <div className='py-4' key={i}>
+            <CategoryList category={category} />
+          </div>
+        )
+      })}
       <div className='py-4'>
         <ArticleList />
       </div>

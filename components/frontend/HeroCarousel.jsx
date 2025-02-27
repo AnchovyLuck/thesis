@@ -1,3 +1,4 @@
+'use client'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 
@@ -8,7 +9,7 @@ import 'swiper/css/pagination'
 import React from 'react'
 import Link from 'next/link'
 
-export default function HeroCarousel () {
+export default function HeroCarousel ({ banners }) {
   return (
     <Swiper
       pagination={{
@@ -23,16 +24,15 @@ export default function HeroCarousel () {
       modules={[Navigation, Pagination, Autoplay]}
       className='rounded-lg'
     >
-      <Link href='#'>
-        <SwiperSlide>
-          <img src='/banners/1.png' alt='banner' />
-        </SwiperSlide>
-      </Link>
-      <Link href='#'>
-        <SwiperSlide>
-          <img src='/banners/2.png' alt='banner' />
-        </SwiperSlide>
-      </Link>
+      {banners.map(banner => {
+        return (
+          <SwiperSlide key={banner.id}>
+            <Link href={banner.link}>
+              <img src={banner.imageUrl} alt={banner.title} className='w-full h-full' />
+            </Link>
+          </SwiperSlide>
+        )
+      })}
     </Swiper>
   )
 }

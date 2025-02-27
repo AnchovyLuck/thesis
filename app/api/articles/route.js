@@ -12,12 +12,12 @@ export async function POST (request) {
       isActive,
       content
     } = await request.json()
-    const existingTraining = await db.training.findUnique({
+    const existingArticle = await db.article.findUnique({
       where: {
         slug
       }
     })
-    if (existingTraining) {
+    if (existingArticle) {
       return NextResponse.json(
         {
           data: null,
@@ -28,7 +28,7 @@ export async function POST (request) {
         }
       )
     }
-    const newTraining = await db.training.create({
+    const newArticle = await db.article.create({
       data: {
         title,
         slug,
@@ -39,7 +39,7 @@ export async function POST (request) {
         content
       }
     })
-    return NextResponse.json(newTraining)
+    return NextResponse.json(newArticle)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
@@ -54,17 +54,17 @@ export async function POST (request) {
 
 export async function GET (request) {
   try {
-    const trainings = await db.training.findMany({
+    const articles = await db.article.findMany({
       orderBy: {
         createdAt: 'desc'
       }
     })
-    return NextResponse.json(trainings)
+    return NextResponse.json(articles)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị danh sách khoá đào tạo thất bại!',
+        message: 'Hiển thị danh sách bài viết thất bại!',
         error
       },
       { status: 500 }
