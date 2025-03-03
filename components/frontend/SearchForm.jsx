@@ -24,7 +24,7 @@ export default function SearchForm() {
       </div>
       <button
         type="submit"
-        className="inline-flex whitespace-nowrap justify-center items-center min-w-36 py-2.5 px-3 ms-2 text-sm font-medium text-white bg-lime-700 rounded-lg border border-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
+        className="text-slate-900 inline-flex whitespace-nowrap justify-center items-center min-w-36 py-2.5 px-3 ms-2 text-sm font-medium bg-lime-500 rounded-lg hover:bg-lime-600 focus:ring-4"
       >
         <Search className="w-4 h-4 me-2"/>
         Tìm kiếm
