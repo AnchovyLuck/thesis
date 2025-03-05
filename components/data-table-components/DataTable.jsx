@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useState } from 'react'
-import {DataTablePagination} from './DataTablePagination'
+import { DataTablePagination } from './DataTablePagination'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -56,35 +56,6 @@ export default function DataTable ({ columns, data }) {
     getFacetedUniqueValues: getFacetedUniqueValues()
   })
 
-  const getColumnDisplayText = column => {
-    const header = column.columnDef.header
-    if (typeof header === 'function') {
-      try {
-        const headerElement = header({ column })
-
-        if (headerElement && headerElement.props) {
-          const children = headerElement.props.children
-
-          if (Array.isArray(children)) {
-            const textChild = children.find(child => typeof child === 'string')
-            return textChild || column.id
-          }
-          if (typeof children === 'string') {
-            return children
-          }
-        }
-      } catch (error) {
-        console.log('Error extracting header text:', error)
-      }
-    }
-
-    if (typeof header === 'string') {
-      return header
-    }
-
-    return ''
-  }
-
   return (
     <div className='space-y-4'>
       <DataTableToolbar table={table} />
@@ -131,7 +102,7 @@ export default function DataTable ({ columns, data }) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  Không tìm thấy kết quả.
                 </TableCell>
               </TableRow>
             )}

@@ -38,21 +38,13 @@ export const columns = [
     }
   },
   {
-    accessorKey: 'imageUrl',
-    header: () => <div className='shrink-0 text-center'>Ảnh</div>,
-    cell: ({ row }) => <ImageColumn row={row} accessorKey='imageUrl' />,
-    enableHiding: false,
-    meta: {
-      alwaysVisible: true
-    }
+    accessorKey: 'couponCode',
+    header: 'Mã khuyến mãi'
   },
   {
-    accessorKey: 'description',
-    header: () => <div className='shrink-0 text-center'>Mô tả</div>,
-    cell: ({ row }) => {
-      const description = row.getValue('description')
-      return <div className='line-clamp-1'>{description}</div>
-    }
+    accessorKey: 'expiryDate',
+    header: 'Ngày hết hạn',
+    cell: ({ row }) => <DateColumn row={row} accessorKey='expiryDate' />
   },
   {
     accessorKey: 'isActive',

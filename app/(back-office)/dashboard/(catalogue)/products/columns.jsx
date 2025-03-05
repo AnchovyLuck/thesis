@@ -47,14 +47,6 @@ export const columns = [
     }
   },
   {
-    accessorKey: 'description',
-    header: () => <div className='shrink-0 text-center'>Mô tả</div>,
-    cell: ({ row }) => {
-      const description = row.getValue('description')
-      return <div className='line-clamp-1'>{description}</div>
-    }
-  },
-  {
     accessorKey: 'isActive',
     header: () => <div className=' shrink-0 text-center'>Trạng thái</div>,
     cell: ({ row }) => {

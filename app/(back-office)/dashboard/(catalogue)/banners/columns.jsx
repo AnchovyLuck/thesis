@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { Button } from '@/components/ui/button'
+import SortableColumn from '@/components/data-table-components/SortableColumn'
+import ImageColumn from '@/components/data-table-components/ImageColumn'
 
 export const columns = [
   {
@@ -40,17 +42,7 @@ export const columns = [
   },
   {
     accessorKey: 'title',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Tên
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      )
-    },
+    header: ({ column }) => <SortableColumn column={column} title="Tên"/>,
     enableHiding: false,
     meta: {
       alwaysVisible: true
@@ -59,21 +51,7 @@ export const columns = [
   {
     accessorKey: 'imageUrl',
     header: () => <div className='shrink-0 text-center'>Ảnh</div>,
-    cell: ({ row }) => {
-      const imageUrl = row.getValue('imageUrl')
-
-      return (
-        <div className='shrink-0 flex justify-center items-center'>
-          <Image
-            src={imageUrl}
-            width={96}
-            height={96}
-            alt='image'
-            className='w-24 h-24 rounded-full'
-          />
-        </div>
-      )
-    },
+    cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
     enableHiding: false,
     meta: {
       alwaysVisible: true
