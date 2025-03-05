@@ -80,6 +80,10 @@ export const columns = [
     }
   },
   {
+    accessorKey: 'link',
+    header: 'Đường dẫn'
+  },
+  {
     accessorKey: 'isActive',
     header: () => <div className=' shrink-0 text-center'>Trạng thái</div>,
     cell: ({ row }) => {
