@@ -1,8 +1,11 @@
 import PageHeader from "@/components/backoffice/PageHeader";
-import TableActions from "@/components/backoffice/TableActions";
+import DataTable from "@/components/data-table-components/DataTable";
+import { getData } from "@/lib/getData";
 import React from "react";
+import { columns } from "./columns";
 
-export default function page() {
+export default async function page() {
+  const articles = await getData("articles")
   return (
     <div>
       {
@@ -12,9 +15,8 @@ export default function page() {
           linkTitle="Thêm Bài viết"
         />
       }
-      <TableActions />
       <div className="py-8">
-        <h2>Bảng</h2>
+        <DataTable data={articles} columns={columns}/>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function ImageColumn ({ row, accessorKey }) {
         width={96}
         height={96}
         alt='image'
-        className='w-24 h-24 rounded-full'
+        className='h-auto rounded-full'
       />
     </div>
   )

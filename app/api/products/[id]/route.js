@@ -4,20 +4,21 @@ import { NextResponse } from 'next/server'
 export async function GET (request, { params }) {
   const { id } = await params
   try {
-    const category = await db.category.findUnique({
+    const product = await db.product.findUnique({
       where: {
         id
       },
       include: {
-        products: true
+        category: true,
+        user: true
       }
     })
-    return NextResponse.json(category)
+    return NextResponse.json(product)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị loại sản phẩm thất bại!',
+        message: 'Hiển thị sản phẩm thất bại!',
         error
       },
       { status: 500 }
@@ -28,36 +29,37 @@ export async function GET (request, { params }) {
 export async function DELETE (request, { params }) {
   const { id } = await params
   try {
-    const existingCategory = await db.category.findUnique({
+    const existingProduct = await db.product.findUnique({
       where: {
         id
       },
       include: {
-        products: true
+        category: true,
+        user: true
       }
     })
-    if (!existingCategory) {
+    if (!existingProduct) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Không tìm thấy loại sản phẩm!'
+          message: 'Không tìm thấy sản phẩm!'
         },
         {
           status: 404
         }
       )
     }
-    const deletedCategory = await db.category.delete({
+    const deletedProduct = await db.product.delete({
       where: {
         id
       }
     })
-    return NextResponse.json(deletedCategory)
+    return NextResponse.json(deletedProduct)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Xoá loại sản phẩm thất bại!',
+        message: 'Xoá sản phẩm thất bại!',
         error
       },
       { status: 500 }

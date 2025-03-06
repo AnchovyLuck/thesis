@@ -4,31 +4,31 @@ import { NextResponse } from 'next/server'
 export async function POST (request) {
   try {
     const { title, slug, logoUrl, description, isActive, categoryIds } = await request.json()
-    const existingMarket = await db.market.findUnique({
+    const existingBrand = await db.brand.findUnique({
       where: {
         slug
       }
     })
-    if (existingMarket) {
+    if (existingBrand) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Chợ đã tồn tại!'
+          message: 'Thương hiệu này đã tồn tại!'
         },
         {
           status: 409
         }
       )
     }
-    const newMarket = await db.market.create({
+    const newBrand = await db.brand.create({
       data: { title, slug, logoUrl, description, isActive, categoryIds }
     })
-    return NextResponse.json(newMarket)
+    return NextResponse.json(newBrand)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Thêm chợ thất bại!',
+        message: 'Thêm thương hiệu thất bại!',
         error
       },
       { status: 500 }
@@ -38,17 +38,17 @@ export async function POST (request) {
 
 export async function GET (request) {
   try {
-    const markets = await db.market.findMany({
+    const brands = await db.brand.findMany({
       orderBy: {
         createdAt: 'desc'
       }
     })
-    return NextResponse.json(markets)
+    return NextResponse.json(brands)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị danh sách chợ thất bại!',
+        message: 'Hiển thị danh sách thương hiệu thất bại!',
         error
       },
       { status: 500 }

@@ -1,4 +1,4 @@
-import NewMarketForm from '@/components/backoffice/NewMarketForm'
+import NewBrandForm from '@/components/backoffice/NewBrandForm'
 import { getData } from '@/lib/getData'
 import React from 'react'
 
@@ -11,6 +11,6 @@ export default async function NewMarket() {
     }
   })
   return (
-    <NewMarketForm categories={categories}/>
+    <NewBrandForm categories={categories}/>
   )
 }

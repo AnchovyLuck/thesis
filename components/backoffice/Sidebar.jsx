@@ -41,9 +41,9 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/customers",
     },
     {
-      title: "Chợ",
+      title: "Thương hiệu",
       icon: Warehouse,
-      href: "/dashboard/markets",
+      href: "/dashboard/brands",
     },
     {
       title: "Nông Dân",
@@ -61,9 +61,9 @@ export default function Sidebar({ showSidebar }) {
       href: "/dashboard/staff",
     },
     {
-      title: "Bài đăng",
+      title: "Bài viết",
       icon: Building2,
-      href: "/dashboard/article",
+      href: "/dashboard/articles",
     },
     {
       title: "Ví",

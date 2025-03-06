@@ -4,20 +4,17 @@ import { NextResponse } from 'next/server'
 export async function GET (request, { params }) {
   const { id } = await params
   try {
-    const category = await db.category.findUnique({
+    const staff = await db.staff.findUnique({
       where: {
         id
-      },
-      include: {
-        products: true
       }
     })
-    return NextResponse.json(category)
+    return NextResponse.json(staff)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị loại sản phẩm thất bại!',
+        message: 'Hiển thị thông tin nhân viên thất bại!',
         error
       },
       { status: 500 }
@@ -28,36 +25,33 @@ export async function GET (request, { params }) {
 export async function DELETE (request, { params }) {
   const { id } = await params
   try {
-    const existingCategory = await db.category.findUnique({
+    const existingStaff = await db.staff.findUnique({
       where: {
         id
-      },
-      include: {
-        products: true
       }
     })
-    if (!existingCategory) {
+    if (!existingStaff) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Không tìm thấy loại sản phẩm!'
+          message: 'Không tìm thấy nhân viên!'
         },
         {
           status: 404
         }
       )
     }
-    const deletedCategory = await db.category.delete({
+    const deletedStaff = await db.staff.delete({
       where: {
         id
       }
     })
-    return NextResponse.json(deletedCategory)
+    return NextResponse.json(deletedStaff)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Xoá loại sản phẩm thất bại!',
+        message: 'Xoá nhân viên thất bại!',
         error
       },
       { status: 500 }

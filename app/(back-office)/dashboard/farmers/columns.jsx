@@ -1,21 +1,10 @@
 'use client'
 
-import { ColumnDef } from '@tanstack/react-table'
-import Image from 'next/image'
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-
-import { Button } from '@/components/ui/button'
-import SortableColumn from '@/components/data-table-components/SortableColumn'
+import DateColumn from '@/components/data-table-components/DateColumn'
 import ImageColumn from '@/components/data-table-components/ImageColumn'
+import SortableColumn from '@/components/data-table-components/SortableColumn'
+import ActionColumn from '@/components/data-table-components/ActionColumn'
 
 export const columns = [
   {
@@ -41,7 +30,7 @@ export const columns = [
     enableHiding: false
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'userName',
     header: ({ column }) => <SortableColumn column={column} title='Tên' />,
     enableHiding: false,
     meta: {
@@ -49,17 +38,17 @@ export const columns = [
     }
   },
   {
-    accessorKey: 'imageUrl',
-    header: () => <div className='shrink-0 text-center'>Ảnh</div>,
-    cell: ({ row }) => <ImageColumn row={row} accessorKey='imageUrl' />,
+    accessorKey: 'profileImageUrl',
+    header: () => <div className='shrink-0 text-center'>Ảnh đại diện</div>,
+    cell: ({ row }) => <ImageColumn row={row} accessorKey='profileImageUrl' />,
     enableHiding: false,
     meta: {
       alwaysVisible: true
     }
   },
   {
-    accessorKey: 'link',
-    header: 'Đường dẫn'
+    accessorKey: 'email',
+    header: <div className=' shrink-0 text-center'>Email</div>
   },
   {
     accessorKey: 'isActive',
@@ -76,26 +65,17 @@ export const columns = [
   {
     accessorKey: 'createdAt',
     header: 'Ngày tạo',
-    cell: ({ row }) => {
-      const createdAt = row.getValue('createdAt')
-      const originalDate = new Date(createdAt)
-      const day = originalDate.getDate()
-      const month = originalDate.toLocaleString('default', { month: '2-digit' })
-      const year = originalDate.getFullYear()
-      const formatted = `${day}/${month}/${year}`
-
-      return <div>{formatted}</div>
-    }
+    cell: ({ row }) => <DateColumn row={row} accessorKey='createdAt' />
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const banner = row.original
+      const farmer = row.original
       return (
         <ActionColumn
           row={row}
-          endpoint={`banners/${banner.id}`}
-          title='banner'
+          endpoint={`farmers/${farmer.id}`}
+          title='nông dân'
         />
       )
     },

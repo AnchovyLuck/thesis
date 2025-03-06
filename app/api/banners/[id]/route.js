@@ -4,20 +4,17 @@ import { NextResponse } from 'next/server'
 export async function GET (request, { params }) {
   const { id } = await params
   try {
-    const category = await db.category.findUnique({
+    const banner = await db.banner.findUnique({
       where: {
         id
-      },
-      include: {
-        products: true
       }
     })
-    return NextResponse.json(category)
+    return NextResponse.json(banner)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị loại sản phẩm thất bại!',
+        message: 'Hiển thị banner thất bại!',
         error
       },
       { status: 500 }
@@ -28,36 +25,33 @@ export async function GET (request, { params }) {
 export async function DELETE (request, { params }) {
   const { id } = await params
   try {
-    const existingCategory = await db.category.findUnique({
+    const existingBanner = await db.banner.findUnique({
       where: {
         id
-      },
-      include: {
-        products: true
       }
     })
-    if (!existingCategory) {
+    if (!existingBanner) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Không tìm thấy loại sản phẩm!'
+          message: 'Không tìm thấy banner!'
         },
         {
           status: 404
         }
       )
     }
-    const deletedCategory = await db.category.delete({
+    const deletedBanner = await db.banner.delete({
       where: {
         id
       }
     })
-    return NextResponse.json(deletedCategory)
+    return NextResponse.json(deletedBanner)
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Xoá loại sản phẩm thất bại!',
+        message: 'Xoá banner thất bại!',
         error
       },
       { status: 500 }

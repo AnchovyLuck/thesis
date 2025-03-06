@@ -25,6 +25,7 @@ export default function SelectInput ({
           options={options.map(option => ({value: option.id, label: option.title}))}
           className='basic-multi-select text-gray-900 rounded-md'
           classNamePrefix='Chọn loại sản phẩm'
+          placeholder='...'
           />
         ) : (
           <select

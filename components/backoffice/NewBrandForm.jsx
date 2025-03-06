@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function NewMarketForm({categories}) {
+export default function NewBrandForm({categories}) {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const {
@@ -29,25 +29,25 @@ export default function NewMarketForm({categories}) {
   const isActive = watch("isActive");
   const router = useRouter()
   const redirect = () => {
-    router.push("/dashboard/markets");
+    router.push("/dashboard/brands");
   };
   async function onSubmit(data) {
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.logoUrl = imageUrl;
     console.log(data);
-    makePostRequest(setLoading, "api/markets", data, "Chợ", reset, redirect);
+    makePostRequest(setLoading, "api/brands", data, "Thương hiệu", reset, redirect);
   }
   return (
     <div>
-      <FormHeader title="Thêm Chợ" />
+      <FormHeader title="Thêm Thương Hiệu" />
       <form
         className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
-            label="Tên chợ *"
+            label="Tên thương hiệu *"
             name="title"
             register={register}
             errors={errors}
@@ -69,13 +69,13 @@ export default function NewMarketForm({categories}) {
             label="Logo chợ"
           />
           <TextareaInput
-            label="Mô tả chợ *"
+            label="Mô tả thương hiệu *"
             name="description"
             register={register}
             errors={errors}
           />
           <ToggleInput
-            label="Tình trạng ?"
+            label="Trạng thái ?"
             name="isActive"
             toggle={isActive}
             trueTitle="Đang hoạt động"

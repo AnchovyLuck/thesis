@@ -65,7 +65,16 @@ export const columns = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <ActionColumn row={row} />,
+    cell: ({ row }) => {
+      const product = row.original
+      return (
+        <ActionColumn
+          row={row}
+          endpoint={`products/${product.id}`}
+          title='sản phẩm'
+        />
+      )
+    },
     enableHiding: false,
     meta: {
       alwaysVisible: true
