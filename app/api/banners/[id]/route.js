@@ -58,3 +58,40 @@ export async function DELETE (request, { params }) {
     )
   }
 }
+
+export async function PUT (request, { params }) {
+  const { id } = await params
+  try {
+    const { title, link, imageUrl, isActive } = await request.json()
+    const existingBanner = await db.banner.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingBanner) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy banner!'
+        },
+        {
+          status: 404
+        }
+      )
+    }
+    const updatedBanner = await db.banner.update({
+      where: { id },
+      data: { title, link, imageUrl, isActive }
+    })
+    return NextResponse.json(updatedBanner)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Cập nhật bài viết thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

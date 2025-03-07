@@ -1,9 +1,20 @@
+import { getData } from '@/lib/getData'
 import React from 'react'
 
-export default function UpdateMarket() {
+export default async function page ({ params }) {
+  const { id } = await params
+  const brand = await getData(`brands/${id}`)
+  const categoriesData = await getData('categories')
+  const categories = categoriesData.map(category => {
+    return {
+      id: category.id,
+      title: category.title
+    }
+  })
   return (
     <div>
-        <h2>Cập Nhật Chợ</h2>
+      <FormHeader title='Cập nhật Thương Hiệu' />
+      <BrandForm categories={categories} updateData={brand} />
     </div>
   )
 }

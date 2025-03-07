@@ -66,3 +66,80 @@ export async function DELETE (request, { params }) {
     )
   }
 }
+
+export async function PUT (request, { params }) {
+  const { id } = await params
+  try {
+    const {
+      title,
+      sku,
+      barcode,
+      productPrice,
+      salePrice,
+      productStock,
+      unit,
+      categoryId,
+      farmerId,
+      isWholeSale,
+      wholeSalePrice,
+      wholeSaleQty,
+      imageUrl,
+      tags,
+      description,
+      isActive,
+      productCode,
+      slug,
+      qty
+    } = await request.json()
+    const existingProduct = await db.product.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingProduct) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy sản phẩm!'
+        },
+        {
+          status: 404
+        }
+      )
+    }
+    const updatedProduct = await db.product.update({
+      where: { id },
+      data: {
+        title,
+        sku,
+        barcode,
+        productPrice,
+        salePrice,
+        productStock,
+        unit,
+        categoryId,
+        farmerId,
+        isWholeSale,
+        wholeSalePrice,
+        wholeSaleQty,
+        imageUrl,
+        tags,
+        description,
+        isActive,
+        productCode,
+        slug,
+        qty
+      }
+    })
+    return NextResponse.json(updatedProduct)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Cập nhật sản phẩm thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

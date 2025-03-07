@@ -64,3 +64,56 @@ export async function DELETE (request, { params }) {
     )
   }
 }
+
+export async function PUT (request, { params }) {
+  const { id } = await params
+  try {
+    const {
+      title,
+      slug,
+      categoryId,
+      imageUrl,
+      description,
+      isActive,
+      content
+    } = await request.json()
+    const existingArticle = await db.article.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingArticle) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy bài viết!'
+        },
+        {
+          status: 404
+        }
+      )
+    }
+    const updatedArticle = await db.article.update({
+      where: { id },
+      data: {
+        title,
+        slug,
+        categoryId,
+        imageUrl,
+        description,
+        isActive,
+        content
+      }
+    })
+    return NextResponse.json(updatedArticle)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Cập nhật bài viết thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

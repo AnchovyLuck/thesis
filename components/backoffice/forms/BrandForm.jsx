@@ -1,5 +1,5 @@
 'use client'
-import FormHeader from '@/components/backoffice/FormHeader'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
 import ImageInput from '@/components/formInputs/ImageInput'
 import SelectInput from '@/components/formInputs/SelectInput'
 import SubmitButton from '@/components/formInputs/SubmitButton'
@@ -8,20 +8,15 @@ import TextInput from '@/components/formInputs/TextInput'
 import ToggleInput from '@/components/formInputs/ToggleInput'
 import { makePostRequest } from '@/lib/apiRequest'
 import { generateSlug } from '@/lib/generateSlug'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/navigation'
 
-const CustomEditor = dynamic(
-  () => import('@/components/formInputs/CustomEditor'),
-  { ssr: false }
-)
-
-export default function NewArticleForm ({ categories }) {
-  const [imageUrl, setImageUrl] = useState('')
+export default function BrandForm ({ categories, updateData = {} }) {
+  const initialImageUrl = updateData?.imageUrl ?? ''
+  const id = updateData?.id ?? ''
+  const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const [loading, setLoading] = useState(false)
-  const [content, setContent] = useState('<h1></h1>')
   const {
     register,
     reset,
@@ -30,44 +25,51 @@ export default function NewArticleForm ({ categories }) {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      isActive: true
+      isActive: true,
+      ...updateData
     }
   })
-
-  const handleEditorChange = newContent => {
-    setContent(newContent)
-  }
-
   const isActive = watch('isActive')
   const router = useRouter()
   const redirect = () => {
-    router.push('/dashboard/articles')
+    router.push('/dashboard/brands')
   }
   async function onSubmit (data) {
     const slug = generateSlug(data.title)
     data.slug = slug
-    data.imageUrl = imageUrl
-    data.content = content
+    data.logoUrl = imageUrl
     console.log(data)
-    makePostRequest(
-      setLoading,
-      'api/articles',
-      data,
-      'Bài viết',
-      reset,
-      redirect
-    )
+    if (id) {
+      data.id = id
+      makePutRequest(
+        setLoading,
+        `api/brands/${id}`,
+        data,
+        'thương hiệu',
+        reset,
+        redirect
+      )
+    } else {
+      makePostRequest(
+        setLoading,
+        'api/brands',
+        data,
+        'Thương hiệu',
+        reset,
+        redirect
+      )
+    }
   }
   return (
     <div>
-      <FormHeader title='Thêm Bài viết' />
+      <FormHeader title='Thêm Thương Hiệu' />
       <form
         className='w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5'
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className='grid gap-4 sm:grid-cols-2 sm:gap-6'>
           <TextInput
-            label='Tiêu đề bài viết *'
+            label='Tên thương hiệu *'
             name='title'
             register={register}
             errors={errors}
@@ -75,36 +77,31 @@ export default function NewArticleForm ({ categories }) {
           />
           <SelectInput
             label='Chọn loại sản phẩm *'
-            name='categoryId'
+            name='categoryIds'
             register={register}
             errors={errors}
             className='w-full'
             options={categories}
-            multiple={false}
-          />
-          <TextareaInput
-            label='Mô tả bài viết *'
-            name='description'
-            register={register}
-            errors={errors}
+            multiple={true}
           />
           <ImageInput
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
-            endpoint='trainingImageUploader'
-            label='Thumbnail bài viết'
+            endpoint='marketLogoUploader'
+            label='Logo chợ'
           />
-          <CustomEditor
-            label='Nội dung bài viết'
-            value={content}
-            onChange={handleEditorChange}
+          <TextareaInput
+            label='Mô tả thương hiệu *'
+            name='description'
+            register={register}
+            errors={errors}
           />
           <ToggleInput
-            label='Đăng công khai ?'
+            label='Trạng thái ?'
             name='isActive'
             toggle={isActive}
-            trueTitle='Có'
-            falseTitle='Không'
+            trueTitle='Đang hoạt động'
+            falseTitle='Không hoạt động'
             register={register}
           />
         </div>

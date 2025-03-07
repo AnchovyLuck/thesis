@@ -61,3 +61,40 @@ export async function DELETE (request, { params }) {
     )
   }
 }
+
+export async function PUT (request, { params }) {
+  const { id } = await params
+  try {
+    const { userName, email, password, role } = await request.json()
+    const existingUser = await db.user.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingUser) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy người dùng!'
+        },
+        {
+          status: 404
+        }
+      )
+    }
+    const updatedUser = await db.user.update({
+      where: { id },
+      data: { userName, email, password, role }
+    })
+    return NextResponse.json(updatedUser)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Cập nhật thông tin người dùng thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

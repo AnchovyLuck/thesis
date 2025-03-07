@@ -63,21 +63,22 @@ export const columns = [
     header: 'Ngày tạo',
     cell: ({ row }) => <DateColumn row={row} accessorKey='createdAt' />
   },
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      const brand = row.original
-      return (
-        <ActionColumn
-          row={row}
-          endpoint={`brands/${brand.id}`}
-          title='thương hiệu'
-        />
-      )
-    },
-    enableHiding: false,
-    meta: {
-      alwaysVisible: true
-    }
-  }
+ {
+     id: 'actions',
+     cell: ({ row }) => {
+       const brand = row.original
+       return (
+         <ActionColumn
+           row={row}
+           endpoint={`brands/${brand.id}`}
+           editEndpoint={`brands/update/${brand.id}`}
+           title='thương hiệu'
+         />
+       )
+     },
+     enableHiding: false,
+     meta: {
+       alwaysVisible: true
+     }
+   }
 ]

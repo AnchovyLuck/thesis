@@ -88,20 +88,21 @@ export const columns = [
     }
   },
   {
-    id: 'actions',
-    cell: ({ row }) => {
-      const banner = row.original
-      return (
-        <ActionColumn
-          row={row}
-          endpoint={`banners/${banner.id}`}
-          title='banner'
-        />
-      )
-    },
-    enableHiding: false,
-    meta: {
-      alwaysVisible: true
+      id: 'actions',
+      cell: ({ row }) => {
+        const banner = row.original
+        return (
+          <ActionColumn
+            row={row}
+            endpoint={`banners/${banner.id}`}
+            editEndpoint={`banners/update/${banner.id}`}
+            title='banner'
+          />
+        )
+      },
+      enableHiding: false,
+      meta: {
+        alwaysVisible: true
+      }
     }
-  }
 ]

@@ -1,5 +1,5 @@
 "use client";
-import FormHeader from "@/components/backoffice/FormHeader";
+import FormHeader from "@/components/backoffice/forms/FormHeader";
 import SubmitButton from "@/components/formInputs/SubmitButton";
 import TextareaInput from "@/components/formInputs/TextAreaInput";
 import TextInput from "@/components/formInputs/TextInput";

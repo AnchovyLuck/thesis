@@ -36,7 +36,7 @@ export default function ArticleCarousel ({articles}) {
       {articles.map((article, i) => {
         return (
           <SwiperSlide key={i} className='flex flex-col rounded-lg border-0 bg-slate-100 dark:bg-slate-600 text-slate-800 dark:text-slate-50'>
-              <Link href='#' className='w-32 h-32'>
+              <Link href='#' className='w-full h-32'>
                 <Image
                   src={article.imageUrl}
                   alt={article.title}

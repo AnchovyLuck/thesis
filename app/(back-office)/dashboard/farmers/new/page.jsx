@@ -1,13 +1,13 @@
-"use client";
-import FormHeader from "@/components/backoffice/FormHeader";
-import NewFarmerForm from "@/components/backoffice/NewFarmerForm";
-import React from "react";
+'use client'
+import FarmerForm from '@/components/backoffice/forms/FarmerForm'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
+import React from 'react'
 
-export default function NewFarmer() {
+export default function page () {
   return (
     <div>
-      <FormHeader title="Thêm Nông Dân" />
-      <NewFarmerForm />
+      <FormHeader title='Thêm Nông Dân' />
+      <FarmerForm />
     </div>
-  );
+  )
 }

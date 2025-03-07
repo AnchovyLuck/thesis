@@ -64,3 +64,41 @@ export async function DELETE (request, { params }) {
     )
   }
 }
+
+export async function PUT (request, { params }) {
+  const { id } = await params
+  try {
+    const { title, slug, logoUrl, description, isActive, categoryIds } =
+      await request.json()
+    const existingBrand = await db.brand.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!existingBrand) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy thương hiệu!'
+        },
+        {
+          status: 404
+        }
+      )
+    }
+    const updatedCategory = await db.brand.update({
+      where: { id },
+      data: { title, slug, logoUrl, description, isActive, categoryIds }
+    })
+    return NextResponse.json(updatedCategory)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Cập nhật thương hiệu thất bại!',
+        error
+      },
+      { status: 500 }
+    )
+  }
+}

@@ -1,4 +1,5 @@
-import NewArticleForm from '@/components/backoffice/NewArticleForm'
+import ArticleForm from '@/components/backoffice/forms/ArticleForm'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
 import { getData } from '@/lib/getData'
 import React from 'react'
 
@@ -10,5 +11,10 @@ export default async function page () {
       title: category.title
     }
   })
-  return <NewArticleForm categories={categories}/>
+  return (
+    <div>
+      <FormHeader title='Thêm bài viết' />
+      <ArticleForm categories={categories} />
+    </div>
+  ) 
 }

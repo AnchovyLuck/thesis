@@ -33,8 +33,8 @@ export async function POST (request) {
     })
     console.log(newUser)
     return NextResponse.json({
-        data: newUser,
-        message: "Tạo tài khoản thành công!"
+      data: newUser,
+      message: 'Tạo tài khoản thành công!'
     })
   } catch (error) {
     console.log(error)
@@ -51,21 +51,21 @@ export async function POST (request) {
 }
 
 export async function GET (request) {
-    try {
-      const users = await db.user.findMany({
-        orderBy: {
-          createdAt: 'desc'
-        }
-      })
-      return NextResponse.json(users)
-    } catch (error) {
-      console.error(error)
-      return NextResponse.json(
-        {
-          message: 'Hiển thị danh sách tài khoản thất bại!',
-          error
-        },
-        { status: 500 }
-      )
-    }
+  try {
+    const users = await db.user.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+    return NextResponse.json(users)
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: 'Hiển thị danh sách tài khoản thất bại!',
+        error
+      },
+      { status: 500 }
+    )
   }
+}

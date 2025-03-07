@@ -1,5 +1,5 @@
 'use client'
-import FormHeader from '@/components/backoffice/FormHeader'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
 import ArrayItemsInput from '@/components/formInputs/ArrayItemsInput'
 import ImageInput from '@/components/formInputs/ImageInput'
 import SelectInput from '@/components/formInputs/SelectInput'
@@ -14,8 +14,14 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function NewProductForm ({categories, farmers}) {
-  const [imageUrl, setImageUrl] = useState('')
+export default function ProductForm ({
+  categories,
+  farmers,
+  updateData = {}
+}) {
+  const initialImageUrl = updateData?.imageUrl ?? ''
+  const id = updateData?.id ?? ''
+  const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(false)
   const {
@@ -27,7 +33,8 @@ export default function NewProductForm ({categories, farmers}) {
   } = useForm({
     defaultValues: {
       isActive: true,
-      isWholeSale: false
+      isWholeSale: false,
+      ...updateData
     }
   })
   const isActive = watch('isActive')
@@ -38,16 +45,32 @@ export default function NewProductForm ({categories, farmers}) {
   }
   async function onSubmit (data) {
     const slug = generateSlug(data.title)
-    const productCode = generateUserCode("PRODUCT", data.title)
+    const productCode = generateUserCode('PRODUCT', data.title)
     data.slug = slug
     data.imageUrl = imageUrl
     data.tags = tags
     data.qty = 1
     data.productCode = productCode
-    
-    console.log(wholeSalePrice)
-    console.log(wholeSaleQty)
-    makePostRequest(setLoading, 'api/products', data, 'Sản phẩm', reset, redirect)   
+    if (id) {
+      data.id = id
+      makePutRequest(
+        setLoading,
+        `api/products/${id}`,
+        data,
+        'sản phẩm',
+        reset,
+        redirect
+      )
+    } else {
+      makePostRequest(
+        setLoading,
+        'api/products',
+        data,
+        'Sản phẩm',
+        reset,
+        redirect
+      )
+    }
   }
   return (
     <div>
@@ -132,28 +155,26 @@ export default function NewProductForm ({categories, farmers}) {
             falseTitle='Không'
             register={register}
           />
-         {
-          isWholeSale && (
-           <>
-            <TextInput
-            label='Giá bán sỉ'
-            name='wholeSalePrice'
-            type='number'
-            register={register}
-            errors={errors}
-            className='w-full'
-          />
-          <TextInput
-            label='Số lượng tối thiểu để mua với giá sỉ'
-            name='wholeSaleQty'
-            type='number'
-            register={register}
-            errors={errors}
-            className='w-full'
-          />
-           </>
-          )
-         }
+          {isWholeSale && (
+            <>
+              <TextInput
+                label='Giá bán sỉ'
+                name='wholeSalePrice'
+                type='number'
+                register={register}
+                errors={errors}
+                className='w-full'
+              />
+              <TextInput
+                label='Số lượng tối thiểu để mua với giá sỉ'
+                name='wholeSaleQty'
+                type='number'
+                register={register}
+                errors={errors}
+                className='w-full'
+              />
+            </>
+          )}
           <ImageInput
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}

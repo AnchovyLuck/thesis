@@ -1,21 +1,24 @@
 'use client'
+import ArrayItemsInput from '@/components/formInputs/ArrayItemsInput'
 import ImageInput from '@/components/formInputs/ImageInput'
 import SubmitButton from '@/components/formInputs/SubmitButton'
 import TextareaInput from '@/components/formInputs/TextAreaInput'
 import TextInput from '@/components/formInputs/TextInput'
 import ToggleInput from '@/components/formInputs/ToggleInput'
-import { makePostRequest } from '@/lib/apiRequest'
+import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
 import { generateUserCode } from '@/lib/generateUserCode'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import ArrayItemsInput from '../formInputs/ArrayItemsInput'
 
-export default function NewFarmerForm ({ user }) {
-  const [profileImageUrl, setProfileImageUrl] = useState('')
+export default function FarmerForm ({ user, updateData = {} }) {
+  const initialImageUrl = updateData?.farmerProfile?.profileImageUrl ?? ''
+  const productList = updateData?.farmerProfile?.products ?? []
+  const userId = updateData?.id ?? ''
+  const farmerId = updateData?.farmerProfile?.id ?? ''
+  const [profileImageUrl, setProfileImageUrl] = useState(initialImageUrl)
   const [loading, setLoading] = useState(false)
-  const [couponCode, setCouponCode] = useState()
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState(productList)
   const {
     register,
     reset,
@@ -26,7 +29,8 @@ export default function NewFarmerForm ({ user }) {
   } = useForm({
     defaultValues: {
       isActive: true,
-      ...user
+      ...user,
+      ...updateData
     }
   })
   const isActive = watch('isActive')
@@ -35,20 +39,32 @@ export default function NewFarmerForm ({ user }) {
     router.push('/dashboard/farmers')
   }
   async function onSubmit (data) {
-    const code = generateUserCode('FARM', data.userName)
-    data.code = code
-    data.userId = user.id
     data.profileImageUrl = profileImageUrl
     data.products = products
     console.log(data)
-    makePostRequest(
-      setLoading,
-      'api/farmers',
-      data,
-      'Nông dân',
-      reset,
-      redirect
-    )
+    if (userId) {
+      data.code = updateData?.farmerProfile?.code
+      data.userId = updateData?.userId
+      makePutRequest(
+        setLoading,
+        `api/farmers/${farmerId}`,
+        data,
+        'nông dân',
+        reset,
+        redirect
+      )
+    } else {
+      const code = generateUserCode('FARM', data.userName)
+      data.code = code
+      makePostRequest(
+        setLoading,
+        'api/farmers',
+        data,
+        'Nông dân',
+        reset,
+        redirect
+      )
+    }
   }
   return (
     <form
@@ -70,6 +86,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.phone ?? ''}
         />
         <TextInput
           label='Email nông dân *'
@@ -84,6 +101,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.physicalAddress ?? ''}
         />
         <TextInput
           label='Họ tên người đại diện'
@@ -92,6 +110,7 @@ export default function NewFarmerForm ({ user }) {
           errors={errors}
           isRequired={false}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.contactPerson ?? ''}
         />
         <TextInput
           label='Số điện thoại người đại diện'
@@ -100,6 +119,7 @@ export default function NewFarmerForm ({ user }) {
           errors={errors}
           isRequired={false}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.contactPersonPhone ?? ''}
         />
         <TextInput
           label='Diện tích đất nông nghiệp (m²)'
@@ -108,6 +128,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.landSize ?? ''}
         />
         <TextInput
           label='Sản phẩm nông nghiệp chính'
@@ -116,6 +137,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={updateData?.farmerProfile?.mainCrop ?? ''}
         />
         <ArrayItemsInput
           setItems={setProducts}
@@ -134,6 +156,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           isRequired={false}
+          defaultValue={updateData?.farmerProfile?.terms ?? ''}
         />
         <TextareaInput
           label='Ghi chú'
@@ -141,6 +164,7 @@ export default function NewFarmerForm ({ user }) {
           register={register}
           errors={errors}
           isRequired={false}
+          defaultValue={updateData?.farmerProfile?.notes ?? ''}
         />
         <ToggleInput
           label='Tình trạng ?'

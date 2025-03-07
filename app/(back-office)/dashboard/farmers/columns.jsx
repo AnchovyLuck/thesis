@@ -38,29 +38,12 @@ export const columns = [
     }
   },
   {
-    accessorKey: 'profileImageUrl',
-    header: () => <div className='shrink-0 text-center'>Ảnh đại diện</div>,
-    cell: ({ row }) => <ImageColumn row={row} accessorKey='profileImageUrl' />,
-    enableHiding: false,
-    meta: {
-      alwaysVisible: true
-    }
-  },
-  {
     accessorKey: 'email',
-    header: <div className=' shrink-0 text-center'>Email</div>
+    header: 'Email'
   },
   {
-    accessorKey: 'isActive',
-    header: () => <div className=' shrink-0 text-center'>Trạng thái</div>,
-    cell: ({ row }) => {
-      const status = row.getValue('isActive')
-      return (
-        <div className='shrink-0 flex items-center justify-center'>
-          <span>{status.toString()}</span>
-        </div>
-      )
-    }
+    accessorKey: 'role',
+    header: 'Vai trò'
   },
   {
     accessorKey: 'createdAt',
@@ -75,6 +58,7 @@ export const columns = [
         <ActionColumn
           row={row}
           endpoint={`farmers/${farmer.id}`}
+          editEndpoint={`farmers/update/${farmer.id}`}
           title='nông dân'
         />
       )

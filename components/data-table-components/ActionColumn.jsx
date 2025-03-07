@@ -10,8 +10,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import DeleteButton from '../actions/DeleteButton'
+import EditButton from '../actions/EditButton'
 
-export default function ActionColumn ({ row, endpoint, title }) {
+export default function ActionColumn ({ row, endpoint, editEndpoint, title }) {
   const isActive = row.isActive
   return (
     <DropdownMenu>
@@ -23,9 +24,11 @@ export default function ActionColumn ({ row, endpoint, title }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem>
-          <DeleteButton id={row.id} endpoint={endpoint} title={title} />
+          <DeleteButton endpoint={endpoint} title={title} />
         </DropdownMenuItem>
-        <DropdownMenuItem>Chỉnh sửa</DropdownMenuItem>
+        <DropdownMenuItem>
+          <EditButton endpoint={editEndpoint} title={title} />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

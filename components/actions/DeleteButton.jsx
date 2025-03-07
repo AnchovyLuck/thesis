@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
-export default function DeleteButton({ id, endpoint, title }) {
+export default function DeleteButton({ endpoint, title }) {
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function DeleteButton({ id, endpoint, title }) {
       confirmButtonText: "Đồng ý!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await fetch(`${baseUrl}/api/${endpoint}?id=${id}`, {
+        const res = await fetch(`${baseUrl}/api/${endpoint}`, {
           method: "DELETE",
         });
         console.log(res);
@@ -68,7 +68,7 @@ export default function DeleteButton({ id, endpoint, title }) {
           onClick={handleDelete}
           className="h-full w-full font-medium text-red-600 dark:text-red-500 flex items-center space-x-1"
         >
-          <Trash2 className="w-4 h-4" />
+          <Trash2 className="mr-2 w-4 h-4" />
           <span>Xoá</span>
         </button>
       )}

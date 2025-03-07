@@ -1,22 +1,28 @@
-import NewProductForm from '@/components/backoffice/NewProductForm'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
+import ProductForm from '@/components/backoffice/forms/ProductForm'
 import { getData } from '@/lib/getData'
 import React from 'react'
 
-export default async function NewProduct() {
-  const categoriesData = await getData("categories")
-  const usersData = await getData("users")
-  const farmersData = usersData.filter((user) => user.role === "FARMER")
-  const farmers = farmersData.map((farmer) => {
+export default async function page () {
+  const categoriesData = await getData('categories')
+  const usersData = await getData('users')
+  const farmersData = usersData.filter(user => user.role === 'FARMER')
+  const farmers = farmersData.map(farmer => {
     return {
       id: farmer.id,
-      title: farmer.userName,
+      title: farmer.userName
     }
   })
-  const categories = categoriesData.map((category) => {
+  const categories = categoriesData.map(category => {
     return {
       id: category.id,
-      title: category.title,
+      title: category.title
     }
   })
-  return <NewProductForm categories={categories} farmers={farmers}/>
+  return (
+    <div>
+      <FormHeader title='Thêm Sản Phẩm' />
+      <ProductForm categories={categories} farmers={farmers} />
+    </div>
+  )
 }
