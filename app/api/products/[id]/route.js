@@ -113,22 +113,23 @@ export async function PUT (request, { params }) {
         title,
         sku,
         barcode,
-        productPrice,
-        salePrice,
-        productStock,
+        productPrice: parseFloat(productPrice),
+        salePrice: parseFloat(salePrice),
+        productStock: parseInt(productStock),
         unit,
         categoryId,
-        farmerId,
+        userId: farmerId,
+        farmerProfileId: farmerId,
         isWholeSale,
-        wholeSalePrice,
-        wholeSaleQty,
+        wholeSalePrice: parseFloat(wholeSalePrice),
+        wholeSaleQty: parseInt(wholeSaleQty),
         imageUrl,
         tags,
         description,
         isActive,
         productCode,
         slug,
-        qty
+        qty: parseInt(qty)
       }
     })
     return NextResponse.json(updatedProduct)

@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button'
 import SortableColumn from '@/components/data-table-components/SortableColumn'
 import ImageColumn from '@/components/data-table-components/ImageColumn'
+import ActionColumn from '@/components/data-table-components/ActionColumn'
 
 export const columns = [
   {

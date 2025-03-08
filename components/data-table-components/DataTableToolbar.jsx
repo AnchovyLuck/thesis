@@ -23,7 +23,7 @@ export function DataTableToolbar ({ table, filterKeys }) {
   }
 
   return (
-    <div className='flex items-center justify-between'>
+    <div className='flex items-center justify-between text-slate-900 dark:text-slate-100'>
       <div className='flex flex-1 items-center space-x-2'>
         {filterKeys.map(key => (
           <Input

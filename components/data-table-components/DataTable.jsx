@@ -61,13 +61,13 @@ export default function DataTable ({
   })
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900'>
       <DataTableToolbar table={table} filterKeys={filterKeys} />
       <div className='rounded-md border'>
-        <Table>
+        <Table >
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="hover:bg-slate-200 dark:hover:bg-slate-800">
                 {headerGroup.headers.map(header => {
                   return (
                     <TableHead key={header.id} colSpan={header.colSpan}>
@@ -89,6 +89,7 @@ export default function DataTable ({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  className="hover:bg-slate-200 dark:hover:bg-slate-800"
                 >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>

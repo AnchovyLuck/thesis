@@ -1,5 +1,4 @@
 'use client'
-import FormHeader from '@/components/backoffice/forms/FormHeader'
 import ImageInput from '@/components/formInputs/ImageInput'
 import SelectInput from '@/components/formInputs/SelectInput'
 import SubmitButton from '@/components/formInputs/SubmitButton'
@@ -61,56 +60,53 @@ export default function BrandForm ({ categories, updateData = {} }) {
     }
   }
   return (
-    <div>
-      <FormHeader title='Thêm Thương Hiệu' />
-      <form
-        className='w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5'
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className='grid gap-4 sm:grid-cols-2 sm:gap-6'>
-          <TextInput
-            label='Tên thương hiệu *'
-            name='title'
-            register={register}
-            errors={errors}
-            className='w-full'
-          />
-          <SelectInput
-            label='Chọn loại sản phẩm *'
-            name='categoryIds'
-            register={register}
-            errors={errors}
-            className='w-full'
-            options={categories}
-            multiple={true}
-          />
-          <ImageInput
-            imageUrl={imageUrl}
-            setImageUrl={setImageUrl}
-            endpoint='marketLogoUploader'
-            label='Logo chợ'
-          />
-          <TextareaInput
-            label='Mô tả thương hiệu *'
-            name='description'
-            register={register}
-            errors={errors}
-          />
-          <ToggleInput
-            label='Trạng thái ?'
-            name='isActive'
-            toggle={isActive}
-            trueTitle='Đang hoạt động'
-            falseTitle='Không hoạt động'
-            register={register}
-          />
-        </div>
-        <SubmitButton
-          isLoading={loading}
-          buttonTitle='Lưu'
-          loadingButtonTitle='Đang lưu...'
-        />
-      </form>
+    <form
+    className='w-full max-w-4xl p-4 bg-white border border-gray-200 rounded shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 space-y-5'
+    onSubmit={handleSubmit(onSubmit)}
+  >
+    <div className='grid gap-4 sm:grid-cols-2 sm:gap-6'>
+      <TextInput
+        label='Tên thương hiệu *'
+        name='title'
+        register={register}
+        errors={errors}
+        className='w-full'
+      />
+      <SelectInput
+        label='Chọn loại sản phẩm *'
+        name='categoryIds'
+        register={register}
+        errors={errors}
+        className='w-full'
+        options={categories}
+        multiple={true}
+      />
+      <ImageInput
+        imageUrl={imageUrl}
+        setImageUrl={setImageUrl}
+        endpoint='marketLogoUploader'
+        label='Logo chợ'
+      />
+      <TextareaInput
+        label='Mô tả thương hiệu *'
+        name='description'
+        register={register}
+        errors={errors}
+      />
+      <ToggleInput
+        label='Trạng thái ?'
+        name='isActive'
+        toggle={isActive}
+        trueTitle='Đang hoạt động'
+        falseTitle='Không hoạt động'
+        register={register}
+      />
     </div>
+    <SubmitButton
+      isLoading={loading}
+      buttonTitle='Lưu'
+      loadingButtonTitle='Đang lưu...'
+    />
+  </form>
   )
 }

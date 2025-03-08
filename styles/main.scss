@@ -300,8 +300,8 @@ body {
 
 .swiper {
 	position: relative;
-	width : 100%;
-	height: 100%;
+	width   : 100%;
+	height  : 100%;
 
 	.swiper-slide {
 		text-align     : center;
@@ -332,8 +332,8 @@ body {
 		background-color: rgba($color: black, $alpha: 0.2);
 
 		&:after {
-			font-size: 20px;
-			color    : #84cc16;
+			font-size  : 20px;
+			color      : #84cc16;
 			font-weight: bold;
 		}
 
@@ -350,4 +350,10 @@ body {
 			visibility: visible;
 		}
 	}
+}
+
+.table-image {
+	height: 6rem;
+	width : 6rem;
+	max-width: none;
 }

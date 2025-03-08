@@ -12,7 +12,7 @@ export default function TextInput({
   type = "text",
   className = "sm:col-span-2",
   defaultValue = "",
-  beginYear = new Date().getFullYear(),
+  beginYear = 0,
   length = 10,
   placeholder = ""
 }) {
@@ -44,7 +44,7 @@ export default function TextInput({
                   <div className="flex justify-between px-2 py-2">
                     <div className="flex gap-2">
                       <select
-                        value={date.getMonth()}
+                        value={(new Date(date)).getMonth()}
                         onChange={({ target: { value } }) => changeMonth(value)}
                       >
                         {[
@@ -67,7 +67,7 @@ export default function TextInput({
                         ))}
                       </select>
                       <select
-                        value={date.getFullYear()}
+                        value={(new Date(date)).getFullYear()}
                         onChange={({ target: { value } }) => changeYear(value)}
                       >
                         {Array.from(
