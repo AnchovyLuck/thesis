@@ -36,7 +36,7 @@ export default function FarmerForm ({ user, updateData = {} }) {
   const isActive = watch('isActive')
   const router = useRouter()
   const redirect = () => {
-    router.push('/dashboard/farmers')
+    router.push('/login')
   }
   async function onSubmit (data) {
     data.profileImageUrl = profileImageUrl

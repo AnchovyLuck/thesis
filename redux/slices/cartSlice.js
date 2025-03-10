@@ -1,6 +1,8 @@
 const { createSlice } = require('@reduxjs/toolkit')
 
-const initialState = []
+const initialState =
+  (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('cart'))) ||
+  []
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -11,31 +13,39 @@ const cartSlice = createSlice({
       if (existingItem) {
         existingItem.qty += 1
       } else {
-        state.push({
-          id,
-          title,
-          salePrice,
-          qty: 1,
-          imageUrl
-        })
+        const newItem = { id, title, salePrice, imageUrl, qty: 1 }
+        state.push(newItem)
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('cart', JSON.stringify([...state]))
+        }
       }
     },
     removeFromCart: (state, action) => {
       const cartId = action.payload
-      return state.filter(item => item.id !== cartId)
+      const newState = state.filter(item => item.id !== cartId)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('cart', JSON.stringify(newState))
+      }
+      return newState
     },
     incrementQty: (state, action) => {
       const cartId = action.payload
-      const cartItem = state.find(item => item.id === cartId) 
+      const cartItem = state.find(item => item.id === cartId)
       if (cartItem) {
         cartItem.qty += 1
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('cart', JSON.stringify([...state]))
+        }
       }
     },
     decrementQty: (state, action) => {
       const cartId = action.payload
-      const cartItem = state.find(item => item.id === cartId) 
+      const cartItem = state.find(item => item.id === cartId)
       if (cartItem && cartItem.qty > 1) {
         cartItem.qty -= 1
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('cart', JSON.stringify([...state]))
+        }
       }
     }
   }

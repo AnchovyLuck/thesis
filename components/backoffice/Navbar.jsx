@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ThemeSwitcherButton from "../ui/ThemeSwitcherButton";
+import ThemeSwitcherButton from "../ui/theme-switcher-button";
 import Link from "next/link";
 
 export default function Navbar({ setShowSidebar, showSidebar }) {

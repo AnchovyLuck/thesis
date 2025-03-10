@@ -5,6 +5,30 @@ export async function POST (request) {
   try {
     const farmerData = await request.json()
     console.log(farmerData)
+    const existingUser = await db.user.findUnique({
+      where: {
+        id: farmerData.id,
+      }
+    })
+    if (!existingUser) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: 'Không tìm thấy tài khoản!'
+        },
+        {
+          status: 409
+        }
+      )
+    }
+    const updatedUser = await db.user.update({
+      where: {
+        id: farmerData.id,
+      },
+      data: {
+        emailVerified: true
+      }
+    })
     const newFarmerProfile = await db.farmerProfile.create({
       data: {
         code: farmerData.code,
@@ -21,7 +45,7 @@ export async function POST (request) {
         products: farmerData.products,
         landSize: parseFloat(farmerData.landSize),
         mainCrop: farmerData.mainCrop,
-        userId: farmerData.userId
+        userId: farmerData.id
       }
     })
     return NextResponse.json(newFarmerProfile)

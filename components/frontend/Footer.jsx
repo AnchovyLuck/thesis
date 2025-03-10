@@ -8,8 +8,9 @@ const Footer = () => {
           <div className='col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8'>
             <img
               className='w-auto h-14'
-              src="/logo-nocap.png"
-              alt=''
+              src='/logo-nocap.png'
+              alt='logo'
+              loading="lazy"
             />
 
             <p className='text-base leading-relaxed text-gray-600 mt-7'>
@@ -211,8 +212,7 @@ const Footer = () => {
                 <input
                   type='email'
                   name='email'
-                  id='email'
-                  placeholder='Enter your email'
+                  placeholder='Nhập email của bạn...'
                   className='block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600'
                 />
               </div>

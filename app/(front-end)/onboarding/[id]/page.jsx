@@ -1,4 +1,4 @@
-import NewFarmerForm from "@/components/backoffice/NewFarmerForm";
+import FarmerForm from "@/components/backoffice/forms/FarmerForm";
 import { getData } from "@/lib/getData";
 import React from "react";
 
@@ -11,7 +11,7 @@ export default async function page({params}) {
       <div className="max-w-4xl p-4 mx-auto">
         <h2 className="text-3xl font-extrabold text-center">Xin chào {user?.userName}, vui lòng bổ sung thông tin!</h2>
       </div>
-      <NewFarmerForm user={user}/>
+      <FarmerForm user={user}/>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '../../public/logo-nocap.png'
 import { User } from 'lucide-react'
-import ThemeSwitcherButton from '../ui/ThemeSwitcherButton'
+import ThemeSwitcherButton from '../ui/theme-switcher-button'
 import HelpModal from './HelpModal'
 import CartCount from './CartCount'
 

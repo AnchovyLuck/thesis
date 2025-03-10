@@ -5,11 +5,13 @@ import Image from 'next/image'
 import { numberWithCommas } from '@/lib/numberWithCommas'
 import { useDispatch } from 'react-redux'
 import { decrementQty, incrementQty, removeFromCart } from '@/redux/slices/cartSlice'
+import toast from 'react-hot-toast'
 
 export default function CartProduct ({ cartItem }) {
   const dispatch = useDispatch()
   const handleCartItemDelete = cartId => {
     dispatch(removeFromCart(cartId))
+    toast.success("Xoá sản phẩm thành công!")
   }
   const handleQtyIncrement = cartId => {
     dispatch(incrementQty(cartId))
