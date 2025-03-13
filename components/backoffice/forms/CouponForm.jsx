@@ -3,6 +3,7 @@ import SubmitButton from '@/components/formInputs/SubmitButton'
 import TextInput from '@/components/formInputs/TextInput'
 import ToggleInput from '@/components/formInputs/ToggleInput'
 import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
+import { generateCouponCode } from '@/lib/generateCouponCode'
 import { generateSlug } from '@/lib/generateSlug'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -19,7 +20,7 @@ export default function CouponForm ({ updateData = {} }) {
     control,
     watch,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
       isActive: true,
@@ -36,6 +37,10 @@ export default function CouponForm ({ updateData = {} }) {
     data.slug = slug
     data.imageUrl = imageUrl
     console.log(data)
+    data.couponCode = generateCouponCode(
+      data.title,
+      new Date(data.expiryDate).getFullYear()
+    )
 
     if (id) {
       data.id = id
