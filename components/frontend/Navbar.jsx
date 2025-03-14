@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import SearchForm from './SearchForm'
 import Link from 'next/link'
@@ -7,8 +8,16 @@ import { User } from 'lucide-react'
 import ThemeSwitcherButton from '../ui/theme-switcher-button'
 import HelpModal from './HelpModal'
 import CartCount from './CartCount'
+import { useSession } from 'next-auth/react'
+import Loading from '@/app/Loading'
+import UserAvatar from '../backoffice/UserAvatar'
 
 export default function Navbar () {
+  const { data: session, status } = useSession()
+  if (status === 'loading') {
+    return <Loading />
+  }
+
   return (
     <div className='bg-gray-200 dark:bg-slate-800 h-28 fixed w-full'>
       <div className='flex items-center justify-between py-3 w-full mx-auto px-8 gap-8'>
@@ -23,15 +32,19 @@ export default function Navbar () {
           <SearchForm />
         </div>
         <div className='flex gap-8'>
-          <Link
-            href='/login'
-            className='flex items-center text-green-950 dark:text-slate-100 space-x-2'
-          >
-            <User />
-            <span className='absolute invisible lg:visible lg:relative font-bold'>
-              Đăng nhập
-            </span>
-          </Link>
+          {status === 'unauthenticated' ? (
+            <Link
+              href='/login'
+              className='flex items-center text-green-950 dark:text-slate-100 space-x-2'
+            >
+              <User />
+              <span className='absolute invisible lg:visible lg:relative font-bold'>
+                Đăng nhập
+              </span>
+            </Link>
+          ) : (
+            <UserAvatar user={session?.user} />
+          )}
 
           <HelpModal />
           <CartCount />

@@ -7,9 +7,6 @@ import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
-import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
-import { getData } from '@/lib/getData'
 export default function LoginForm () {
   const router = useRouter()
   // const token = searchParams.get('token')
@@ -135,31 +132,6 @@ export default function LoginForm () {
           </button>
         )}
       </div>
-      <div className='flex items-center'>
-        <div className='w-full bg-slate-500 h-[1px]'></div>
-        <span className='mx-2'>or</span>
-        <div className='w-full bg-slate-500 h-[1px]'></div>
-      </div>
-      <div className=''>
-        <button
-          type='button'
-          className='w-full text-slate-950 bg-white hover:bg-slate-50 focus:ring-4 focus:outline-none focus:ring-slate-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center justify-center flex items-center dark:focus:ring-slate-100 me-2 mb-4 border border-slate-200'
-          onClick={() => signIn('google')}
-        >
-          <FaGoogle className='mr-2 text-red-600 w-4 h-4' />
-          Đăng nhập với Google
-        </button>
-        <button
-          onClick={() => signIn('github')}
-          type='button'
-          className='w-full justify-center text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2'
-        >
-          {/* Icon */}
-          <FaGithub className='mr-2 w-4 h-4' />
-          Đăng nhập với Github
-        </button>
-      </div>
-
       <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
         Bạn chưa có tài khoản?{' '}
         <Link

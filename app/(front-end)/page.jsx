@@ -5,14 +5,14 @@ import { getData } from '@/lib/getData'
 import Link from 'next/link'
 import React from 'react'
 import BrandList from '@/components/frontend/BrandList'
-import {auth} from '@/lib/auth'
+import { authOptions } from '@/lib/authOptions'
+import { getServerSession } from 'next-auth'
 export default async function page () {
   const categories = await getData('categories')
   const filteredCategories = categories.filter(category => {
     return category.products.length > 3
   })
-
-  const session = await auth()
+  const session = await getServerSession(authOptions)
   return (
     <>
       <Hero />
