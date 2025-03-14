@@ -12,9 +12,13 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
+import { generateInitials } from '@/lib/generateInitials'
 
-export default function UserAvatar ({ user }) {
+export default function UserAvatar ({ user = {} }) {
   const router = useRouter()
+  const { userName, image } = user
+  const initials = generateInitials(userName)
   const handleLogout = async () => {
     await signOut()
     router.push('/')
@@ -23,29 +27,38 @@ export default function UserAvatar ({ user }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button>
-          <Image
-            src='/profile.jpg'
-            alt='Thông tin người dùng'
-            width={200}
-            height={200}
-            className='min-w-[32px] w-8 h-8 rounded-full'
-          />
+          {image ? (
+            <Image
+              src='/profile.jpg'
+              alt='Thông tin người dùng'
+              width={200}
+              height={200}
+              className='min-w-[32px] w-10 h-10 rounded-full'
+            />
+          ) : (
+            <div className='min-w-[32px] w-10 h-10 p-2 flex items-center justify-center rounded-full bg-slate-900 shadow-md border border-slate-600'>
+              {initials}
+            </div>
+          )}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='px-4 py-2'>
-        <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>
+        <DropdownMenuLabel>{userName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <button className='flex items-center space-x-2'>
+          <Link href='/dashboard' className='flex items-center space-x-2'>
             <LayoutDashboard className='mr-2 h-4 w-4' />
             <span>Tổng quan</span>
-          </button>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <button className='flex items-center space-x-2'>
+          <Link
+            href='/dashboard/profile'
+            className='flex items-center space-x-2'
+          >
             <Settings className='mr-2 h-4 w-4' />
             <span>Cập nhật tài khoản</span>
-          </button>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <button

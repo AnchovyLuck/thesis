@@ -1,18 +1,30 @@
-import CustomDataTable from "@/components/backoffice/CustomDataTable";
-import DashboardCharts from "@/components/backoffice/DashboardCharts";
-import Heading from "@/components/backoffice/Heading";
-import LargeCards from "@/components/backoffice/LargeCards";
-import SmallCards from "@/components/backoffice/SmallCards";
-import React from "react";
+import CustomDataTable from '@/components/backoffice/CustomDataTable'
+import DashboardCharts from '@/components/backoffice/DashboardCharts'
+import FarmerDashboard from '@/components/backoffice/FarmerDashboard'
+import Heading from '@/components/backoffice/Heading'
+import LargeCards from '@/components/backoffice/LargeCards'
+import SmallCards from '@/components/backoffice/SmallCards'
+import UserDashboard from '@/components/backoffice/UserDashboard'
+import { authOptions } from '@/lib/authOptions'
+import { getServerSession } from 'next-auth'
+import React from 'react'
 
-export default function page() {
+export default async function page () {
+  const session = await getServerSession(authOptions)
+  const role = session?.user?.role
+  if (role === "USER") {
+    return <UserDashboard />
+  }
+  if (role === "FARMER") {
+    return <FarmerDashboard />
+  }
   return (
     <div>
-      <Heading title="Báo Cáo Doanh Số" />
+      <Heading title='Tổng quan cửa hàng' />
       <LargeCards />
       <SmallCards />
       <DashboardCharts />
       <CustomDataTable />
     </div>
-  );
+  )
 }

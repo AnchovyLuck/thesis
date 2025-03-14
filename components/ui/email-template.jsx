@@ -19,11 +19,13 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const EmailTemplate = ({
   userName = '',
   redirectUrl = '/login',
-  linkText
+  linkText,
+  description,
+  subject
 }) => (
   <Html>
     <Head />
-    <Preview>Xác minh email</Preview>
+    <Preview>{subject}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={section}>
@@ -31,8 +33,7 @@ export const EmailTemplate = ({
             Xin chào <strong>{userName}</strong>!
           </Text>
           <Text style={text}>
-            Cảm ơn bạn vì đã tạo tài khoản trên web của chúng tôi. Vui lòng nhấp
-            vào đường dẫn bên dưới để xác minh tài khoản của bạn.
+            {description}
           </Text>
 
           <Link style={button} href={`${baseUrl}/${redirectUrl}`}>

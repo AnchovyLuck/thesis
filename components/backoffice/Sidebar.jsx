@@ -1,8 +1,8 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import logo from "../../public/logo.png";
-import Image from "next/image";
+'use client'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import logo from '../../public/logo.png'
+import Image from 'next/image'
 import {
   Book,
   Boxes,
@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Compass,
   ExternalLink,
+  HeartHandshake,
   LayoutGrid,
   LayoutList,
   LogOut,
@@ -19,174 +20,263 @@ import {
   SendToBack,
   Settings,
   User,
+  UserRoundPen,
   Users,
   UserSquare2,
   Wallet,
-  Warehouse,
-} from "lucide-react";
+  Warehouse
+} from 'lucide-react'
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  CollapsibleTrigger
+} from '@/components/ui/collapsible'
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react'
+import Loading from '@/app/Loading'
 
-export default function Sidebar({ showSidebar }) {
-  const pathname = usePathname();
-  const sidebarLinks = [
+export default function Sidebar ({ showSidebar }) {
+  const { data: session, status } = useSession()
+  const pathname = usePathname()
+  const [openMenu, setOpenMenu] = useState(false)
+  const router = useRouter()
+  if (status === 'loading') {
+    return <Loading />
+  }
+  const role = session?.user?.role
+  
+  const handleLogout = async () => {
+    await signOut()
+    router.push('/')
+  }
+  let sidebarLinks = [
     {
-      title: "Khách Hàng",
+      title: 'Khách Hàng',
       icon: Users,
-      href: "/dashboard/customers",
+      href: '/dashboard/customers'
     },
     {
-      title: "Thương hiệu",
+      title: 'Thương hiệu',
       icon: Warehouse,
-      href: "/dashboard/brands",
+      href: '/dashboard/brands'
     },
     {
-      title: "Nông Dân",
+      title: 'Nông Dân',
       icon: UserSquare2,
-      href: "/dashboard/farmers",
+      href: '/dashboard/farmers'
     },
     {
-      title: "Đơn Hàng",
+      title: 'Đơn Hàng',
       icon: Compass,
-      href: "/dashboard/orders",
+      href: '/dashboard/orders'
     },
     {
-      title: "Nhân Viên",
+      title: 'Nhân Viên',
       icon: User,
-      href: "/dashboard/staff",
+      href: '/dashboard/staff'
     },
     {
-      title: "Bài viết",
+      title: 'Bài viết',
       icon: Building2,
-      href: "/dashboard/articles",
+      href: '/dashboard/articles'
     },
     {
-      title: "Ví",
+      title: 'Ví',
       icon: Wallet,
-      href: "/dashboard/wallet",
+      href: '/dashboard/wallet'
     },
     {
-      title: "Cài Đặt",
+      title: 'Hỗ trợ cộng tác viên',
+      icon: HeartHandshake,
+      href: '/dashboard/farmer-support'
+    },
+    {
+      title: 'Cài Đặt',
       icon: Settings,
-      href: "/dashboard/settings",
+      href: '/dashboard/settings'
     },
     {
-      title: "Cửa Hàng Liên Kết",
+      title: 'Cửa Hàng Liên Kết',
       icon: ExternalLink,
-      href: "/",
-    },
-  ];
-  const catalogueLinks = [
+      href: '/'
+    }
+  ]
+  let catalogueLinks = [
     {
-      title: "Sản Phẩm",
+      title: 'Sản Phẩm',
       icon: Boxes,
-      href: "/dashboard/products",
+      href: '/dashboard/products'
     },
     {
-      title: "Loại Sản Phẩm",
+      title: 'Loại Sản Phẩm',
       icon: LayoutList,
-      href: "/dashboard/categories",
+      href: '/dashboard/categories'
     },
     {
-      title: "Khuyến Mãi",
+      title: 'Khuyến Mãi',
       icon: ScanSearch,
-      href: "/dashboard/coupons",
+      href: '/dashboard/coupons'
     },
     {
-      title: "Banner",
+      title: 'Banner',
       icon: MonitorPlay,
-      href: "/dashboard/banners",
-    },
-  ];
-  const [openMenu, setOpenMenu] = useState(false);
+      href: '/dashboard/banners'
+    }
+  ]
+
+  if (role === 'FARMER') {
+    sidebarLinks = [
+      {
+        title: 'Khách Hàng',
+        icon: Users,
+        href: '/dashboard/customers'
+      },
+      {
+        title: 'Thương hiệu',
+        icon: Warehouse,
+        href: '/dashboard/brands'
+      },
+      {
+        title: 'Đơn Hàng',
+        icon: Compass,
+        href: '/dashboard/orders'
+      },
+      {
+        title: 'Bài viết',
+        icon: Building2,
+        href: '/dashboard/articles'
+      },
+      {
+        title: 'Ví',
+        icon: Wallet,
+        href: '/dashboard/wallet'
+      },
+      {
+        title: 'Hỗ trợ cộng tác viên',
+        icon: HeartHandshake,
+        href: '/dashboard/farmer-support'
+      },
+      {
+        title: 'Cài Đặt',
+        icon: Settings,
+        href: '/dashboard/settings'
+      },
+      {
+        title: 'Cửa Hàng Liên Kết',
+        icon: ExternalLink,
+        href: '/'
+      }
+    ]
+  }
+  if (role === 'USER') {
+    sidebarLinks = [
+      {
+        title: 'Đơn Hàng',
+        icon: Compass,
+        href: '/dashboard/orders'
+      },
+      {
+        title: 'Cập nhật tài khoản',
+        icon: UserRoundPen,
+        href: '/dashboard/profile'
+      },
+      {
+        title: 'Cửa Hàng Liên Kết',
+        icon: ExternalLink,
+        href: '/'
+      }
+    ]
+    catalogueLinks = []
+  }
   return (
     <div
       className={
         showSidebar
-          ? "sm:block mt-20 md:mt-0 bg-slate-50 dark:bg-slate-700 w-64 text-slate-800 dark:text-slate-50 fixed left-0 top-0 right-0 shadow-md z-50 h-[calc(100vh-5rem)] md:h-full overflow-y-auto"
-          : "hidden"
+          ? 'sm:block mt-20 md:mt-0 bg-slate-50 dark:bg-slate-700 w-64 text-slate-800 dark:text-slate-50 fixed left-0 top-0 right-0 shadow-md z-50 h-[calc(100vh-5rem)] md:h-full overflow-y-auto'
+          : 'hidden'
       }
     >
-      <Link href="/dashboard">
+      <Link href='/dashboard'>
         <Image
           src={logo}
-          alt="Online Shop Logo"
-          className="h-56 w-full mx-auto -mt-7"
+          alt='Online Shop Logo'
+          className='h-56 w-full mx-auto -mt-7'
         />
       </Link>
-      <div className="space-y-3 flex flex-col -mt-5 pb-20 overflow-y-auto h-[calc(100%-11rem)]">
+      <div className='space-y-3 flex flex-col -mt-5 pb-20 overflow-y-auto h-[calc(100%-11rem)]'>
         <Link
-          href="/dashboard"
+          href='/dashboard'
           className={
-            pathname === "/dashboard"
-              ? "flex items-center space-x-3 px-6 py-2 border-l-8 border-lime-500 text-lime-500 font-bold"
-              : "flex items-center space-x-3 px-6 py-2 border-l-8 border-transparent"
+            pathname === '/dashboard'
+              ? 'flex items-center space-x-3 px-6 py-2 border-l-8 border-lime-500 text-lime-500 font-bold'
+              : 'flex items-center space-x-3 px-6 py-2 border-l-8 border-transparent'
           }
         >
           <LayoutGrid />
           <span>Tổng Quan</span>
         </Link>
-        <Collapsible>
-          <CollapsibleTrigger
-            asChild
-            className=""
-            onClick={() => setOpenMenu(!openMenu)}
-          >
-            <button className="flex items-center space-x-1 px-6 py-2 border-l-8 border-transparent">
-              <div className="flex space-x-3">
-                <Book />
-                <span>Danh Mục</span>
-              </div>
-              {openMenu ? <ChevronDown /> : <ChevronRight />}
-            </button>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="rounded-lg mx-8 py-3 bg-slate-200 dark:bg-slate-800 shadow-inner">
-            {catalogueLinks.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  href={item.href}
-                  className={
-                    pathname === item.href
-                      ? "flex items-center space-x-3 py-2 px-4 text-lime-500 font-bold"
-                      : "flex items-center space-x-3 py-2 px-4"
-                  }
-                  key={i}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.title}</span>
-                </Link>
-              );
-            })}
-          </CollapsibleContent>
-        </Collapsible>
+        {catalogueLinks.length > 0 && (
+          <Collapsible>
+            <CollapsibleTrigger
+              asChild
+              className=''
+              onClick={() => setOpenMenu(!openMenu)}
+            >
+              <button className='flex items-center space-x-1 px-6 py-2 border-l-8 border-transparent'>
+                <div className='flex space-x-3'>
+                  <Book />
+                  <span>Danh Mục</span>
+                </div>
+                {openMenu ? <ChevronDown /> : <ChevronRight />}
+              </button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className='rounded-lg mx-8 py-3 bg-slate-200 dark:bg-slate-800 shadow-inner'>
+              {catalogueLinks.map((item, i) => {
+                const Icon = item.icon
+                return (
+                  <Link
+                    href={item.href}
+                    className={
+                      pathname === item.href
+                        ? 'flex items-center space-x-3 py-2 px-4 text-lime-500 font-bold'
+                        : 'flex items-center space-x-3 py-2 px-4'
+                    }
+                    key={i}
+                  >
+                    <Icon className='w-4 h-4' />
+                    <span>{item.title}</span>
+                  </Link>
+                )
+              })}
+            </CollapsibleContent>
+          </Collapsible>
+        )}
         {sidebarLinks.map((item, i) => {
-          const Icon = item.icon;
+          const Icon = item.icon
           return (
             <Link
               href={item.href}
               className={
                 pathname === item.href
-                  ? "flex items-center space-x-3 px-6 py-2 border-l-8 border-lime-500 text-lime-500 font-bold"
-                  : "flex items-center space-x-3 px-6 py-2 border-l-8 border-transparent"
+                  ? 'flex items-center space-x-3 px-6 py-2 border-l-8 border-lime-500 text-lime-500 font-bold'
+                  : 'flex items-center space-x-3 px-6 py-2 border-l-8 border-transparent'
               }
               key={i}
             >
               <Icon />
               <span>{item.title}</span>
             </Link>
-          );
+          )
         })}
-        <button className="flex items-center space-x-3 px-6 py-3 bg-lime-500 hover:bg-lime-400 dark:bg-lime-700 rounded-lg mx-10 :read-only dark:hover:bg-lime-600">
+        <button
+          onClick={handleLogout}
+          className='flex items-center space-x-3 px-6 py-3 bg-lime-500 hover:bg-lime-400 dark:bg-lime-700 rounded-lg mx-10 :read-only dark:hover:bg-lime-600'
+        >
           <LogOut />
           <span>Đăng Xuất</span>
         </button>
       </div>
     </div>
-  );
+  )
 }

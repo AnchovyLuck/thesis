@@ -55,17 +55,22 @@ export async function POST (request) {
       const linkText = 'Xác thực tài khoản'
       const userId = newUser.id
       const redirectUrl = `onboarding/${userId}?token=${token}`
+      const description =
+        'Cảm ơn bạn vì đã tạo tài khoản trên web của chúng tôi. Vui lòng nhấp vào đường dẫn bên dưới để xác minh tài khoản của bạn.'
+      const subject = 'Xác thực tài khoản'
       const emailTemplateHtml = await render(
         <EmailTemplate
           userName={userName}
           redirectUrl={redirectUrl}
           linkText={linkText}
+          description={description}
+          subject={subject}
         />
       )
       const info = await transporter.sendMail({
         from: process.env.MAILTRAP_FROM,
         to: email,
-        subject: 'Xác thực tài khoản',
+        subject: subject,
         html: emailTemplateHtml
       })
       console.log(info)

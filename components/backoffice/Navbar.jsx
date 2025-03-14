@@ -1,3 +1,4 @@
+'use client'
 import {
   AlignJustify,
   Bell,
@@ -22,10 +23,14 @@ import {
 import ThemeSwitcherButton from '../ui/theme-switcher-button'
 import Link from 'next/link'
 import UserAvatar from './UserAvatar'
+import { useSession } from 'next-auth/react'
+import Loading from '@/app/Loading'
 
 export default function Navbar ({ setShowSidebar, showSidebar }) {
-  const user = {}
-
+  const { data: session, status } = useSession()
+  if (status === 'loading') {
+    return <Loading />
+  }
   return (
     <div
       className={
@@ -136,7 +141,7 @@ export default function Navbar ({ setShowSidebar, showSidebar }) {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <UserAvatar user={user}/>
+        {status === 'authenticated' && <UserAvatar user={session?.user} />}
       </div>
     </div>
   )
