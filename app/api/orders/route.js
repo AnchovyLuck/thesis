@@ -1,4 +1,5 @@
 import db from '@/lib/db'
+import { generateOrderNumber } from '@/lib/generateOrderNumber'
 import { NextResponse } from 'next/server'
 
 export async function POST (request) {
@@ -31,7 +32,8 @@ export async function POST (request) {
         province,
         zipCode,
         shippingCost: parseFloat(shippingCost),
-        paymentMethod
+        paymentMethod,
+        orderNumber: generateOrderNumber(8)
       }
     })
 
@@ -40,7 +42,9 @@ export async function POST (request) {
         productId: item.id,
         quantity: parseInt(item.qty),
         price: parseFloat(item.salePrice),
-        orderId: newOrder.id
+        orderId: newOrder.id,
+        imageUrl: item.imageUrl,
+        title: item.title,
       }))
     })
     return NextResponse.json(newOrder)
@@ -61,6 +65,9 @@ export async function GET (request) {
     const orders = await db.order.findMany({
       orderBy: {
         createdAt: 'desc'
+      },
+      include: {
+        orderItems: true
       }
     })
     return NextResponse.json(orders)

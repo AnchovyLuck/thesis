@@ -182,7 +182,7 @@ export default function Sidebar ({ showSidebar }) {
         href: '/dashboard/profile'
       },
       {
-        title: 'Cửa Hàng Liên Kết',
+        title: 'Cửa Hàng',
         icon: ExternalLink,
         href: '/'
       }

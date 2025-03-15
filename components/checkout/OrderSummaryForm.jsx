@@ -36,11 +36,11 @@ export default function OrderSummaryForm () {
         },
         body: JSON.stringify(data)
       })
-
+      const responseData = await response.json()
       if (response.ok) {
         setLoading(false)
         toast.success('Đơn hàng đã được tạo!')
-        router.push('/order-confirmation')
+        router.push(`/order-confirmation/${responseData.id}`)
       } else {
         setLoading(false)
         toast.error('Đã có lỗi xảy ra!')

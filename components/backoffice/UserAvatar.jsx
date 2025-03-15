@@ -19,6 +19,7 @@ export default function UserAvatar ({ user = {} }) {
   const router = useRouter()
   const { userName, image } = user
   const initials = generateInitials(userName)
+  const role = user?.role
   const handleLogout = async () => {
     await signOut()
     router.push('/')
@@ -60,6 +61,17 @@ export default function UserAvatar ({ user = {} }) {
             <span>Cập nhật tài khoản</span>
           </Link>
         </DropdownMenuItem>
+        {role === 'USER' && (
+          <DropdownMenuItem>
+            <Link
+              href='/dashboard/orders'
+              className='flex items-center space-x-2'
+            >
+              <Settings className='mr-2 h-4 w-4' />
+              <span>Đơn hàng của tôi</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <button
             onClick={handleLogout}

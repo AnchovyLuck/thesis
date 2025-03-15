@@ -47,7 +47,7 @@ export default function PaymentMethodForm () {
                 type='radio'
                 id='hosting-small'
                 name='hosting'
-                value='Cash On Delivery'
+                value='Thanh toán khi nhận hàng'
                 className='hidden peer'
                 required
                 onChange={e => setPaymentMethod(e.target.value)}
@@ -68,7 +68,7 @@ export default function PaymentMethodForm () {
                 type='radio'
                 id='hosting-big'
                 name='hosting'
-                value='Credit Card'
+                value='Thẻ tín dụng/thẻ ghi nợ'
                 className='hidden peer'
                 onChange={e => setPaymentMethod(e.target.value)}
               />

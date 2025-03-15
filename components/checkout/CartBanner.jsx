@@ -20,7 +20,7 @@ export default function CartBanner () {
             </div>
             <p className='ml-3 text-base font-normal text-gray-900'>
               Bạn có {cartItems.length} sản phẩm trong giỏ hàng. Tổng số tiền
-              phải chi trả là{' '}
+              tạm tính là{' '}
               <span className='font-bold'>
                 {numberWithCommas(subTotal)} VNĐ
               </span>
