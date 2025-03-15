@@ -84,6 +84,7 @@ model Product {
   categoryId      String         @db.ObjectId
   user            User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId          String         @db.ObjectId
+  orderItems      OrderItem[]
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
@@ -133,13 +134,14 @@ model User {
   email             String?        @unique
   password          String
   emailVerified     Boolean        @default(false)
-  products           Product[]
+  products          Product[]
   role              UserRole       @default(USER)
   verificationToken String?
   farmerProfile     FarmerProfile?
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
   userProfile       UserProfile?
+  orders            Order[]
 }
 
 model UserProfile {
@@ -171,4 +173,36 @@ model FarmerProfile {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   Product            Product[]
+}
+
+model Order {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String      @unique @db.ObjectId
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  streetAddress String
+  ward          String
+  district      String
+  province      String
+  zipCode       String
+  shippingCost  Float
+  paymentMethod String
+  orderItems    OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  productId String   @db.ObjectId
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 }

@@ -19,7 +19,7 @@ export default function Steps ({ steps }) {
               className='inline-flex items-center p-1 text-sm font-medium text-gray-500 rounded-md focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-gray-900 dark:hover:text-lime-500 hover:text-gray-700'
             >
               Giỏ hàng
-              <span className='inline-flex items-center justify-center w-5 h-5 ml-2 text-xs font-bold bg-lime-400 rounded-full text-gray-50'>
+              <span className='inline-flex items-center justify-center w-5 h-5 ml-2 text-xs font-bold bg-lime-400 rounded-full text-gray-900'>
                 {' '}
                 4{' '}
               </span>

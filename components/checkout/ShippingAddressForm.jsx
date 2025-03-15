@@ -27,6 +27,10 @@ export default function ShippingAddressForm () {
       ...existingFormData
     }
   })
+  const cartItems = useSelector(store => store.cart)
+  const subTotal = cartItems.reduce((result, currentItem) => {
+    return result + currentItem.salePrice * currentItem.qty
+  }, 0)
   const initialShippingCost = existingFormData.shippingCost || ''
   const [shippingCost, setShippingCost] = useState(initialShippingCost)
   const processData = async data => {
@@ -88,7 +92,7 @@ export default function ShippingAddressForm () {
                 type='radio'
                 id='hosting-small'
                 name='hosting'
-                value='30000'
+                value={subTotal >= 100000 ? '0' : '30000'}
                 className='hidden peer'
                 required
                 onChange={e => setShippingCost(e.target.value)}
@@ -101,7 +105,7 @@ export default function ShippingAddressForm () {
                   <Truck className='w-6 h-6 ms-3 flex-shrink-0' />
                   <div className=''>
                     <p>Giao hàng nhanh</p>
-                    <p>Phí: 30.000đ</p>
+                    <p>{subTotal >= 100000 ? 'Miễn phí' : 'Phí: 30.000đ'}</p>
                   </div>
                 </div>
                 <Circle className='w-5 h-5 ms-3 flex-shrink-0' />
@@ -112,7 +116,7 @@ export default function ShippingAddressForm () {
                 type='radio'
                 id='hosting-big'
                 name='hosting'
-                value='20000'
+                value={subTotal >= 100000 ? '0' : '20000'}
                 className='hidden peer'
                 onChange={e => setShippingCost(e.target.value)}
               />
@@ -124,7 +128,7 @@ export default function ShippingAddressForm () {
                   <Truck className='w-6 h-6 ms-3 flex-shrink-0' />
                   <div className=''>
                     <p>Giao hàng tiết kiệm</p>
-                    <p>Phí: 20.000đ</p>
+                    <p>{subTotal >= 100000 ? 'Miễn phí' : 'Phí: 20.000đ'}</p>
                   </div>
                 </div>
                 <Circle className='w-5 h-5 ms-3 flex-shrink-0' />

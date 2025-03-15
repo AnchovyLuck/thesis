@@ -1,8 +1,15 @@
+'use client'
+import { numberWithCommas } from '@/lib/numberWithCommas'
 import { ShoppingBag } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 export default function CartBanner () {
+  const cartItems = useSelector(store => store.cart)
+  const subTotal = cartItems.reduce((result, currentItem) => {
+    return result + currentItem.salePrice * currentItem.qty
+  }, 0)
   return (
     <div className='bg-gray-100 rounded-xl mb-3'>
       <div className='p-4'>
@@ -12,8 +19,11 @@ export default function CartBanner () {
               <ShoppingBag className='w-6 h-6' />
             </div>
             <p className='ml-3 text-base font-normal text-gray-900'>
-              Bạn có 4 sản phẩm trong giỏ hàng. Tổng số tiền phải chi trả là{' '}
-              <span className='font-bold'>127,000 VNĐ</span>
+              Bạn có {cartItems.length} sản phẩm trong giỏ hàng. Tổng số tiền
+              phải chi trả là{' '}
+              <span className='font-bold'>
+                {numberWithCommas(subTotal)} VNĐ
+              </span>
             </p>
           </div>
 

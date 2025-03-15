@@ -6,7 +6,7 @@ export default function CartSubtotalCard ({ subTotal }) {
   const shipping = subTotal >= 100000 ? 0 : 30000
   const totalPrice = subTotal + shipping
   return (
-    <div className='md:col-span-4 col-span-full bg-slate-100 border rounded-lg dark:bg-gray-600 text-slate-800 overflow-y-hidden p-5 dark:text-slate-100 font-bold flex flex-col justify-between'>
+    <div className='md:col-span-4 col-span-full bg-slate-100 border rounded-lg dark:bg-gray-600 text-slate-800 overflow-y-hidden p-5 dark:text-slate-100 font-bold'>
       <h2 className='text-2xl pb-3'>Tóm tắt chi phí</h2>
       <div className='flex items-center justify-between border-b border-slate-500 pb-4'>
         <span>Tổng đơn giá tạm tính</span>
