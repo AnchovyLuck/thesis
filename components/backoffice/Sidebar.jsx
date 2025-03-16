@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import logo from '../../public/logo.png'
 import Image from 'next/image'
 import {
+  BadgeDollarSign,
   Book,
   Boxes,
   Building2,
@@ -70,6 +71,11 @@ export default function Sidebar ({ showSidebar }) {
       title: 'Đơn Hàng',
       icon: Compass,
       href: '/dashboard/orders'
+    },
+    {
+      title: 'Sales',
+      icon: BadgeDollarSign,
+      href: '/dashboard/sales'
     },
     {
       title: 'Nhân Viên',
@@ -172,7 +178,7 @@ export default function Sidebar ({ showSidebar }) {
   if (role === 'USER') {
     sidebarLinks = [
       {
-        title: 'Đơn Hàng',
+        title: 'Đơn hàng của tôi',
         icon: Compass,
         href: '/dashboard/orders'
       },

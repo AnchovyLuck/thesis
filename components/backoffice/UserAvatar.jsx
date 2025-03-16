@@ -1,5 +1,5 @@
 'use client'
-import { LayoutDashboard, LogOut, Settings } from 'lucide-react'
+import { LayoutDashboard, LogOut, ScrollText, Settings } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import {
@@ -37,7 +37,7 @@ export default function UserAvatar ({ user = {} }) {
               className='min-w-[32px] w-10 h-10 rounded-full'
             />
           ) : (
-            <div className='min-w-[32px] w-10 h-10 p-2 flex items-center justify-center rounded-full bg-slate-900 shadow-md border border-slate-600'>
+            <div className='min-w-[32px] w-10 h-10 p-2 flex items-center justify-center rounded-full bg-slate-300 dark:bg-slate-900 shadow-md border border-slate-600'>
               {initials}
             </div>
           )}
@@ -67,7 +67,7 @@ export default function UserAvatar ({ user = {} }) {
               href='/dashboard/orders'
               className='flex items-center space-x-2'
             >
-              <Settings className='mr-2 h-4 w-4' />
+              <ScrollText className='mr-2 h-4 w-4' />
               <span>Đơn hàng của tôi</span>
             </Link>
           </DropdownMenuItem>

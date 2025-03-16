@@ -102,7 +102,7 @@ export default function RegisterForm ({ role = 'USER' }) {
               href='/register-farmer'
               className='font-medium text-primary-600 hover:underline dark:text-primary-500'
             >
-              Đăng ký nhà phân phối
+              Đăng ký cộng tác viên
             </Link>
           </p>
         ) : (

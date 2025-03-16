@@ -24,7 +24,7 @@ export default function CartSubtotalCard ({ subTotal }) {
         Chúng tôi sẽ miễn phí vận chuyển đối với đơn hàng từ 100.000 VNĐ.
       </p>
       <div className='flex items-center justify-between pb-4 mt-2 font-bold'>
-        <span>Tổng thanh toán</span>
+        <span>Tổng cộng</span>
         <span>{numberWithCommas(totalPrice)} VNĐ</span>
       </div>
       <div className='mt-2'>

@@ -23,7 +23,7 @@ export default async function page ({ params }) {
                 type='button'
                 className='inline-flex items-center justify-center px-4 py-3 text-xs font-bold text-gray-900 transition-all duration-200 bg-gray-100 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-200'
               >
-                View invoice
+                Xem hoá đơn
               </button>
             </div>
 
@@ -82,7 +82,7 @@ export default async function page ({ params }) {
                                   <Image
                                     width={128}
                                     height={128}
-                                    className='object-cover rounded-lg'
+                                    className='object-cover rounded-lg order-image'
                                     src={item.imageUrl}
                                     alt={item.title}
                                   />
