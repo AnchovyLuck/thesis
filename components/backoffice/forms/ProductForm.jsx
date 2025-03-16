@@ -137,7 +137,7 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
           options={categories}
         />
         <SelectInput
-          label='Chọn nông dân *'
+          label='Chọn người bán *'
           name='farmerId'
           register={register}
           errors={errors}

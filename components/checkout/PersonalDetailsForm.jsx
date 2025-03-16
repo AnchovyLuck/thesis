@@ -30,9 +30,11 @@ export default function PersonalDetailsForm () {
     }
   })
   const processData = async data => {
-    data.userId = userId
-    dispatch(updateCheckoutFormData(data))
-    dispatch(setCurrentStep(currentStep + 1))
+    if (userId) {
+      data.userId = userId
+      dispatch(updateCheckoutFormData(data))
+      dispatch(setCurrentStep(currentStep + 1))
+    }
   }
   return (
     <form onSubmit={handleSubmit(processData)}>

@@ -19,35 +19,62 @@ export async function POST (request) {
       shippingCost,
       paymentMethod
     } = checkoutFormData
-    const newOrder = await db.order.create({
-      data: {
-        userId,
-        firstName,
-        lastName,
-        email,
-        phone,
-        streetAddress,
-        ward,
-        district,
-        province,
-        zipCode,
-        shippingCost: parseFloat(shippingCost),
-        paymentMethod,
-        orderNumber: generateOrderNumber(8)
-      }
+
+    const result = await db.$transaction(async prisma => {
+      const newOrder = await prisma.order.create({
+        data: {
+          userId,
+          firstName,
+          lastName,
+          email,
+          phone,
+          streetAddress,
+          ward,
+          district,
+          province,
+          zipCode,
+          shippingCost: parseFloat(shippingCost),
+          paymentMethod,
+          orderNumber: generateOrderNumber(8)
+        }
+      })
+
+      const newOrderItems = await prisma.orderItem.createMany({
+        data: orderItems.map(item => ({
+          productId: item.id,
+          vendorId: item.vendorId,
+          quantity: parseInt(item.qty),
+          price: parseFloat(item.salePrice),
+          orderId: newOrder.id,
+          imageUrl: item.imageUrl,
+          title: item.title
+        }))
+      })
+
+      const sales = await Promise.all(
+        orderItems.map(async item => {
+          const totalAmount = parseFloat(item.salePrice) * parseInt(item.qty)
+          const newSale = await prisma.sale.create({
+            data: {
+              orderId: newOrder.id,
+              productTitle: item.title,
+              productImage: item.imageUrl,
+              productPrice: parseFloat(item.salePrice),
+              productQty: parseInt(item.qty),
+              productId: item.id,
+              vendorId: item.vendorId,
+              total: totalAmount
+            }
+          })
+
+          return newSale
+        })
+      )
+
+      return { newOrder, newOrderItems, sales }
     })
 
-    const newOrderItems = await prisma.orderItem.createMany({
-      data: orderItems.map(item => ({
-        productId: item.id,
-        quantity: parseInt(item.qty),
-        price: parseFloat(item.salePrice),
-        orderId: newOrder.id,
-        imageUrl: item.imageUrl,
-        title: item.title,
-      }))
-    })
-    return NextResponse.json(newOrder)
+    return NextResponse.json(result.newOrder)
   } catch (error) {
     console.error(error)
     return NextResponse.json(

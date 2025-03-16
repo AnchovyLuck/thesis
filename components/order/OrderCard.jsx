@@ -1,5 +1,7 @@
 import { generateIsoFormattedDate } from '@/lib/generateIsoFormattedDate'
+import { generateSlug } from '@/lib/generateSlug'
 import { numberWithCommas } from '@/lib/numberWithCommas'
+import Link from 'next/link'
 import React from 'react'
 
 export default function OrderCard ({ order }) {
@@ -73,6 +75,7 @@ export default function OrderCard ({ order }) {
           <ul className='space-y-7'>
             {order.orderItems.length > 0 &&
               order.orderItems.map((item, i) => {
+                const slug = generateSlug(item.title)
                 return (
                   <li key={i} className='relative flex pb-10 sm:pb-0'>
                     <div className='flex-shrink-0'>
@@ -91,23 +94,26 @@ export default function OrderCard ({ order }) {
                           </p>
                         </div>
 
-                        <div className='mt-4 sm:mt-0'>
+                        <div className='mt-4 sm:mt-0 flex items-center justify-between'>
+                          <p className='text-sm font-medium text-gray-500 me-4'>
+                            x {item.quantity}
+                          </p>
                           <p className='text-base font-bold text-left text-gray-900 sm:text-right'>
-                            {item.quantity} x {numberWithCommas(item.price)} VNĐ
+                            {numberWithCommas(item.price)} VNĐ
                           </p>
                         </div>
                       </div>
 
                       <div className='absolute bottom-0 left-0 sm:relative'>
                         <div className='flex space-x-5'>
-                          <a
-                            href='#'
-                            title=''
+                          <Link
+                            href={`/products/${slug}`}
+                            title={item.title}
                             className='p-1 -m-1 text-sm font-medium text-gray-500 transition-all duration-200 rounded hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900'
                           >
                             {' '}
                             Xem sản phẩm{' '}
-                          </a>
+                          </Link>
 
                           <span className='text-gray-200'> | </span>
 
@@ -137,12 +143,12 @@ export default function OrderCard ({ order }) {
               Xem đơn hàng
             </button>
 
-            <button
-              type='button'
+            <Link
+              href={`/dashboard/orders/${order.id}/invoice`}
               className='inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-100'
             >
               Xem hoá đơn
-            </button>
+            </Link>
           </div>
         </div>
       </div>
