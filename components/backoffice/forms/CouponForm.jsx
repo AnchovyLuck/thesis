@@ -1,19 +1,21 @@
 'use client'
+import Loading from '@/app/Loading'
 import SubmitButton from '@/components/formInputs/SubmitButton'
 import TextInput from '@/components/formInputs/TextInput'
 import ToggleInput from '@/components/formInputs/ToggleInput'
 import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
 import { generateCouponCode } from '@/lib/generateCouponCode'
 import { generateSlug } from '@/lib/generateSlug'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function CouponForm ({ updateData = {} }) {
-  const initialImageUrl = updateData?.imageUrl ?? ''
-  const id = updateData?.id ?? ''
-  const [imageUrl, setImageUrl] = useState(initialImageUrl)
+  const { data: session, status } = useSession()
   const [loading, setLoading] = useState(false)
+  const initialImageUrl = updateData?.imageUrl ?? ''
+  const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const {
     register,
     reset,
@@ -27,20 +29,25 @@ export default function CouponForm ({ updateData = {} }) {
       ...updateData
     }
   })
+  if (status === 'loading') {
+    return <Loading />
+  }
+  const vendorId = session?.user?.id
+  
+  const id = updateData?.id ?? ''
+
   const isActive = watch('isActive')
   const router = useRouter()
   const redirect = () => {
     router.push('/dashboard/coupons')
   }
   async function onSubmit (data) {
+    data.vendorId = vendorId
     const slug = generateSlug(data.title)
     data.slug = slug
     data.imageUrl = imageUrl
     console.log(data)
-    data.couponCode = generateCouponCode(
-      data.title,
-      new Date(data.expiryDate).getFullYear()
-    )
+    data.couponCode = generateCouponCode(data.title, data.expiryDate)
 
     if (id) {
       data.id = id

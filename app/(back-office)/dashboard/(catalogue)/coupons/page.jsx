@@ -5,9 +5,21 @@ import { getData } from '@/lib/getData'
 import { cookies } from 'next/headers'
 import React from 'react'
 import { columns } from './columns'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/authOptions'
 
 export default async function page () {
-  const coupons = await getData('coupons')
+  const session = await getServerSession(authOptions)
+    if (!session) {
+      return null
+    }
+  const allCoupons = await getData('coupons')
+  const id = session?.user?.id
+  const role = session?.user?.role
+  const farmerCouponFilter = (coupon) => {
+    return product.userId === id
+  }
+  const farmerCoupons = allCoupons.filter(farmerCouponFilter)
   return (
     <div>
       {
@@ -19,7 +31,11 @@ export default async function page () {
       }
 
       <div className='py-8'>
-        <DataTable data={coupons} columns={columns} />
+        {role === 'ADMIN' ? (
+          <DataTable data={allCoupons} columns={columns} />
+        ) : (
+          <DataTable data={farmerCoupons} columns={columns} />
+        )}
       </div>
     </div>
   )

@@ -46,7 +46,7 @@ export default function Sidebar ({ showSidebar }) {
     return <Loading />
   }
   const role = session?.user?.role
-  
+
   const handleLogout = async () => {
     await signOut()
     router.push('/')
@@ -103,7 +103,7 @@ export default function Sidebar ({ showSidebar }) {
       href: '/dashboard/settings'
     },
     {
-      title: 'Cửa Hàng Liên Kết',
+      title: 'Cửa Hàng',
       icon: ExternalLink,
       href: '/'
     }
@@ -144,9 +144,9 @@ export default function Sidebar ({ showSidebar }) {
         href: '/dashboard/brands'
       },
       {
-        title: 'Đơn Hàng',
-        icon: Compass,
-        href: '/dashboard/orders'
+        title: 'Sales',
+        icon: BadgeDollarSign,
+        href: '/dashboard/sales'
       },
       {
         title: 'Bài viết',
@@ -169,10 +169,22 @@ export default function Sidebar ({ showSidebar }) {
         href: '/dashboard/settings'
       },
       {
-        title: 'Cửa Hàng Liên Kết',
+        title: 'Cửa Hàng',
         icon: ExternalLink,
         href: '/'
       }
+    ]
+    catalogueLinks = [
+      {
+        title: 'Sản Phẩm',
+        icon: Boxes,
+        href: '/dashboard/products'
+      },
+      {
+        title: 'Khuyến Mãi',
+        icon: ScanSearch,
+        href: '/dashboard/coupons'
+      },
     ]
   }
   if (role === 'USER') {
