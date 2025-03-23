@@ -90,7 +90,7 @@ model Product {
   sales           Sale[]
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
+  farmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
   farmerProfileId String?        @db.ObjectId
 }
 
@@ -158,11 +158,20 @@ model User {
 }
 
 model UserProfile {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String    @unique @db.ObjectId
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateOfBirth DateTime?
-  address     String?
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @unique @db.ObjectId
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName     String?
+  lastName      String?
+  email         String?
+  phone         String?
+  streetAddress String?
+  ward          String?
+  district      String?
+  province      String?
+  zipCode       String?
+  dateOfBirth   DateTime?
+  profileImage  String?
 }
 
 model FarmerProfile {

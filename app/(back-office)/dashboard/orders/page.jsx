@@ -17,14 +17,14 @@ export default async function page () {
     )
   }
   return (
-    <section className='py-12 bg-white sm:py-16 lg:py-20'>
+    <section className='py-12 bg-white dark:bg-slate-900 dark:text-slate-200 sm:py-16 lg:py-20'>
       <div className='px-4 m-auto sm:px-6 lg:px-8 max-w-7xl'>
         <div className='max-w-6xl mx-auto'>
           <div>
-            <h1 className='text-2xl font-bold text-gray-900 sm:text-3xl'>
+            <h1 className='text-2xl font-bold text-gray-900 dark:text-slate-200 sm:text-3xl'>
               Danh sách các đơn hàng của bạn
             </h1>
-            <p className='mt-2 text-sm font-normal text-gray-600'>
+            <p className='mt-2 text-sm font-normal text-gray-600 dark:text-slate-400'>
               Kiểm tra trạng thái các đơn hàng.
             </p>
           </div>

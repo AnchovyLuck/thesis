@@ -3,6 +3,7 @@ import { numberWithCommas } from '@/lib/numberWithCommas'
 import { Item } from '@radix-ui/react-dropdown-menu'
 import { CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default async function page ({ params }) {
@@ -18,13 +19,13 @@ export default async function page ({ params }) {
       <div className='px-4 mx-auto sm:px-6 lg:px-8 max-w-5xl'>
         <div className='max-w-2xl mx-auto'>
           <div className='relative mt-6 overflow-hidden bg-white dark:bg-slate-700 rounded-lg shadow md:mt-10'>
-            <div className='absolute top-4 right-4'>
-              <button
-                type='button'
+            <div className='absolute top-4 right-4 min-w-5'>
+              <Link
+                href={`/dashboard/orders/${id}/invoice`}
                 className='inline-flex items-center justify-center px-4 py-3 text-xs font-bold text-gray-900 transition-all duration-200 bg-gray-100 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-200'
               >
-                Xem hoá đơn
-              </button>
+                <span>Xem hoá đơn</span>
+              </Link>
             </div>
 
             <div className='px-4 py-6 sm:px-8 sm:py-10'>

@@ -33,5 +33,10 @@ export const ourFileRouter = {
     image: { maxFileSize: '5MB', maxFileCount: 1 }
   }).onUploadComplete(async ({ metadata, file }) => {
     return { uploadedBy: 'Anchovy' }
+  }),
+  customerProfileUploader: f({
+    image: { maxFileSize: '5MB', maxFileCount: 1 }
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: 'Anchovy' }
   })
 }

@@ -99,6 +99,9 @@ export async function GET (request) {
     const users = await db.user.findMany({
       orderBy: {
         createdAt: 'desc'
+      },
+      include: {
+        userProfile: true
       }
     })
     return NextResponse.json(users)

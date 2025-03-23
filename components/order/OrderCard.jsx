@@ -14,34 +14,34 @@ export default function OrderCard ({ order }) {
     return null
   }
   return (
-    <li className='overflow-hidden bg-white border border-gray-200 rounded-md'>
-      <div className='lg:flex'>
-        <div className='w-full border-b border-gray-200 lg:max-w-xs lg:border-b-0 lg:border-r bg-gray-50'>
+    <li className='overflow-hidden bg-white dark:bg-slate-800 border border-gray-200 rounded-md'>
+      <div className='lg:flex bg-slate-100 text-slate-900 dark:bg-slate-600 dark:text-slate-200'>
+        <div className='w-full border-b border-gray-200 lg:max-w-xs lg:border-b-0 lg:border-r bg-gray-50 dark:bg-slate-600'>
           <div className='px-4 py-6 sm:p-6 lg:p-8'>
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-1'>
               <div>
-                <p className='text-sm font-medium text-gray-500'>Mã đơn hàng</p>
+                <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>Mã đơn hàng</p>
                 <p className='text-sm font-bold text-gray-900 mt-0.5'>
                   #{order.orderNumber}
                 </p>
               </div>
 
               <div>
-                <p className='text-sm font-medium text-gray-500'>Ngày tạo</p>
+                <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>Ngày tạo</p>
                 <p className='text-sm font-bold text-gray-900 mt-0.5'>
                   {orderCreationDate}
                 </p>
               </div>
 
               <div>
-                <p className='text-sm font-medium text-gray-500'>Tổng cộng</p>
+                <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>Tổng cộng</p>
                 <p className='text-sm font-bold text-gray-900 mt-0.5'>
                   {numberWithCommas(total)} VNĐ
                 </p>
               </div>
 
               <div>
-                <p className='text-sm font-medium text-gray-500'>
+                <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>
                   Trạng thái đơn hàng
                 </p>
                 <div className='mt-0.5 flex items-center'>
@@ -95,7 +95,7 @@ export default function OrderCard ({ order }) {
                         </div>
 
                         <div className='mt-4 sm:mt-0 flex items-center justify-between'>
-                          <p className='text-sm font-medium text-gray-500 me-4'>
+                          <p className='text-sm font-medium text-gray-500 dark:text-gray-300 me-4'>
                             x {item.quantity}
                           </p>
                           <p className='text-base font-bold text-left text-gray-900 sm:text-right'>
@@ -109,7 +109,7 @@ export default function OrderCard ({ order }) {
                           <Link
                             href={`/products/${slug}`}
                             title={item.title}
-                            className='p-1 -m-1 text-sm font-medium text-gray-500 transition-all duration-200 rounded hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900'
+                            className='p-1 -m-1 text-sm font-medium text-gray-500 dark:text-gray-300 transition-all duration-200 rounded hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900'
                           >
                             {' '}
                             Xem sản phẩm{' '}
@@ -120,7 +120,7 @@ export default function OrderCard ({ order }) {
                           <a
                             href='#'
                             title=''
-                            className='p-1 -m-1 text-sm font-medium text-gray-500 transition-all duration-200 rounded hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900'
+                            className='p-1 -m-1 text-sm font-medium text-gray-500 dark:text-gray-300 transition-all duration-200 rounded hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900'
                           >
                             {' '}
                             Sản phẩm cùng loại{' '}
@@ -136,13 +136,6 @@ export default function OrderCard ({ order }) {
           <hr className='mt-8 border-gray-200' />
 
           <div className='flex items-center mt-8 space-x-5'>
-            <button
-              type='button'
-              className='inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-100'
-            >
-              Xem đơn hàng
-            </button>
-
             <Link
               href={`/dashboard/orders/${order.id}/invoice`}
               className='inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-100'

@@ -71,6 +71,42 @@ export async function POST (request) {
         })
       )
 
+      const existingUserProfile = await prisma.userProfile.findUnique({
+        where: { userId }
+      })
+
+      if (existingUserProfile) {
+        const updatedUserProfile = await prisma.userProfile.update({
+          where: { userId },
+          data: {
+            firstName,
+            lastName,
+            email,
+            phone,
+            streetAddress,
+            ward,
+            district,
+            province,
+            zipCode
+          }
+        })
+      } else {
+        const createdUserProfile = await prisma.userProfile.create({
+          data: {
+            userId,
+            firstName,
+            lastName,
+            email,
+            phone,
+            streetAddress,
+            ward,
+            district,
+            province,
+            zipCode
+          }
+        })
+      }
+
       return { newOrder, newOrderItems, sales }
     })
 

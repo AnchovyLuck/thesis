@@ -1,9 +1,17 @@
+import DataTable from '@/components/data-table-components/DataTable'
+import { getData } from '@/lib/getData'
 import React from 'react'
+import { columns } from './columns'
 
-export default function page() {
+export default async function page () {
+  const customers = await getData('customers')
+
   return (
     <div>
-        <h2>Khách hàng</h2>
+      <div className='py-8'>
+        <DataTable data={customers} columns={columns} />
+      </div>
     </div>
   )
 }
+ 

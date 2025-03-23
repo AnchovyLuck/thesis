@@ -144,9 +144,9 @@ export default function Sidebar ({ showSidebar }) {
         href: '/dashboard/brands'
       },
       {
-        title: 'Sales',
+        title: 'Đơn hàng',
         icon: BadgeDollarSign,
-        href: '/dashboard/sales'
+        href: '/dashboard/orders'
       },
       {
         title: 'Bài viết',

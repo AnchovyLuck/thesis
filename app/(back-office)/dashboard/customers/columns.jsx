@@ -5,7 +5,6 @@ import DateColumn from '@/components/data-table-components/DateColumn'
 import ImageColumn from '@/components/data-table-components/ImageColumn'
 import SortableColumn from '@/components/data-table-components/SortableColumn'
 import ActionColumn from '@/components/data-table-components/ActionColumn'
-import { numberWithCommas } from '@/lib/numberWithCommas'
 
 export const columns = [
   {
@@ -31,16 +30,7 @@ export const columns = [
     enableHiding: false
   },
   {
-    accessorKey: 'productImage',
-    header: () => <div className='shrink-0 text-center'>Ảnh</div>,
-    cell: ({ row }) => <ImageColumn row={row} accessorKey='productImage' />,
-    enableHiding: false,
-    meta: {
-      alwaysVisible: true
-    }
-  },
-  {
-    accessorKey: 'productTitle',
+    accessorKey: 'userName',
     header: ({ column }) => <SortableColumn column={column} title='Tên' />,
     enableHiding: false,
     meta: {
@@ -48,22 +38,30 @@ export const columns = [
     }
   },
   {
-    accessorKey: 'productPrice',
-    header: 'Đơn giá',
-    cell: ({ row }) => <div>{numberWithCommas(row.original.productPrice)}đ</div>
+    accessorKey: 'email',
+    header: 'Email'
   },
   {
-    accessorKey: 'productQty',
-    header: 'Số lượng'
-  },
-  {
-    accessorKey: 'total',
-    header: 'Tổng cộng',
-    cell: ({ row }) => <div>{numberWithCommas(row.original.total)}đ</div>
+    accessorKey: 'role',
+    header: 'Hạng'
   },
   {
     accessorKey: 'createdAt',
     header: 'Ngày tạo',
     cell: ({ row }) => <DateColumn row={row} accessorKey='createdAt' />
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const customer = row.original
+      return (
+        <ActionColumn
+          row={row}
+          title='Khách hàng'
+          editEndpoint={`customers/update/${customer.id}`}
+          endpoint={`customers/${customer.id}`}
+        />
+      )
+    }
   }
 ]
