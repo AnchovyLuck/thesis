@@ -43,7 +43,7 @@ export default function BrandCarousel ({ brands }) {
                 alt={brand.title}
                 width={556}
                 height={556}
-                className='w-full bg-slate-50 dark:bg-lime-900 rounded-t-lg'
+                className='brand-image bg-slate-50 dark:bg-lime-900 rounded-t-lg'
               />
               <div className='flex items-center justify-center w-full px-2 py-2 bg-slate-50 rounded-b-lg'>
                 <h2 className='text-slate-600 w-full  border-0 font-semibold'>

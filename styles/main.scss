@@ -315,6 +315,11 @@ body {
 			width  : 100%;
 			height : 100%;
 		}
+
+		.brand-image {
+			width: 12rem;
+			height: 6rem;
+		}
 	}
 
 	.swiper-button-prev,
@@ -352,8 +357,9 @@ body {
 	}
 }
 
-.table-image, .order-image {
-	height: 6rem;
-	width : 6rem;
+.table-image,
+.order-image {
+	height   : 6rem;
+	width    : 6rem;
 	max-width: none;
 }

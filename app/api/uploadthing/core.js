@@ -20,12 +20,12 @@ export const ourFileRouter = {
     }
   ),
   productImageUploader: f({
-    image: { maxFileSize: '5MB', maxFileCount: 3 }
+    image: { maxFileSize: '5MB', maxFileCount: 1 }
   }).onUploadComplete(async ({ metadata, file }) => {
     return { uploadedBy: 'Anchovy' }
   }),
   trainingImageUploader: f({
-    image: { maxFileSize: '5MB', maxFileCount: 3 }
+    image: { maxFileSize: '5MB', maxFileCount: 1 }
   }).onUploadComplete(async ({ metadata, file }) => {
     return { uploadedBy: 'Anchovy' }
   }),
@@ -36,6 +36,11 @@ export const ourFileRouter = {
   }),
   customerProfileUploader: f({
     image: { maxFileSize: '5MB', maxFileCount: 1 }
+  }).onUploadComplete(async ({ metadata, file }) => {
+    return { uploadedBy: 'Anchovy' }
+  }),
+  multipleProductsUploader: f({
+    image: { maxFileSize: '10MB', maxFileCount: 4 }
   }).onUploadComplete(async ({ metadata, file }) => {
     return { uploadedBy: 'Anchovy' }
   })

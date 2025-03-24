@@ -16,13 +16,13 @@ export async function POST (request) {
       isWholeSale,
       wholeSalePrice,
       wholeSaleQty,
-      imageUrl,
       tags,
       description,
       isActive,
       productCode,
       slug,
-      qty
+      qty,
+      productImages
     } = await request.json()
     const existingProduct = await db.product.findUnique({
       where: {
@@ -55,7 +55,8 @@ export async function POST (request) {
         isWholeSale,
         wholeSalePrice: parseFloat(wholeSalePrice),
         wholeSaleQty: parseInt(wholeSaleQty),
-        imageUrl,
+        productImages,
+        imageUrl: productImages[0],
         tags,
         description,
         isActive,

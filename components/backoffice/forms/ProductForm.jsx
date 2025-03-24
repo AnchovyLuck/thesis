@@ -1,6 +1,6 @@
 'use client'
 import ArrayItemsInput from '@/components/formInputs/ArrayItemsInput'
-import ImageInput from '@/components/formInputs/ImageInput'
+import MultipleImageInput from '@/components/formInputs/MultipleImageInput'
 import SelectInput from '@/components/formInputs/SelectInput'
 import SubmitButton from '@/components/formInputs/SubmitButton'
 import TextareaInput from '@/components/formInputs/TextAreaInput'
@@ -17,7 +17,6 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
   const initialImageUrl = updateData?.imageUrl ?? ''
   const id = updateData?.id ?? ''
   const tagList = updateData?.tags ?? []
-  const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const [tags, setTags] = useState(tagList)
   const [loading, setLoading] = useState(false)
   const {
@@ -39,11 +38,13 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
   const redirect = () => {
     router.push('/dashboard/products')
   }
+  const [productImages, setProductImages] = useState([])
   async function onSubmit (data) {
+    console.log("SUBMITTED")
     const slug = generateSlug(data.title)
     const productCode = generateUserCode('PRODUCT', data.title)
     data.slug = slug
-    data.imageUrl = imageUrl
+    data.productImages = productImages
     data.tags = tags
     data.qty = 1
     data.productCode = productCode
@@ -172,10 +173,10 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
             />
           </>
         )}
-        <ImageInput
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-          endpoint='productImageUploader'
+        <MultipleImageInput
+          imageUrls={productImages}
+          setImageUrls={setProductImages}
+          endpoint='multipleProductsUploader'
           label='Ảnh sản phẩm'
         />
         <ArrayItemsInput setItems={setTags} items={tags} itemTitle='Thẻ' />

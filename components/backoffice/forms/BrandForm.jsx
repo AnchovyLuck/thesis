@@ -85,7 +85,7 @@ export default function BrandForm ({ categories, updateData = {} }) {
         imageUrl={imageUrl}
         setImageUrl={setImageUrl}
         endpoint='marketLogoUploader'
-        label='Logo chợ'
+        label='Logo thương hiệu'
       />
       <TextareaInput
         label='Mô tả thương hiệu *'
