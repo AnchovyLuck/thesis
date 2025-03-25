@@ -4,7 +4,10 @@ import Link from 'next/link'
 import React from 'react'
 
 export default async function SidebarCategories () {
-  const categories = await getData('categories')
+  const categoriesData = await getData('categories')
+  const categories = categoriesData.filter(
+    category => category.products.length > 0
+  )
   return (
     <div className='hidden lg:block col-span-3 bg-white border rounded-lg dark:bg-gray-600 text-slate-800 overflow-y-hidden h-[350px]'>
       <h2
@@ -20,7 +23,10 @@ export default async function SidebarCategories () {
               key={i}
               className='py-3 px-6 font-semibold hover:bg-slate-200 duration-75 transition-all dark:text-slate-300 dark:hover:bg-slate-500 rounded-md'
             >
-              <Link href='#' className='flex items-center gap-3 '>
+              <Link
+                href={`/category/${category.slug}`}
+                className='flex items-center gap-3 '
+              >
                 <Image
                   src={category.imageUrl}
                   width={556}
