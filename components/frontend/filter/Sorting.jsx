@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
-export default function Sorting ({ title, slug }) {
+export default function Sorting ({ title, isSearch }) {
   const pathname = usePathname()
   const [params, setParams] = useState('')
   const sortingLinks = [
@@ -22,7 +22,10 @@ export default function Sorting ({ title, slug }) {
   ]
   return (
     <div className='flex items-center justify-between'>
-      <h2 className='text-2xl font-medium'>{title}</h2>
+      <h2 className='text-2xl font-medium'>
+        {isSearch && 'Kết quả tìm kiếm - '}
+        {title}
+      </h2>
       <div className='flex text-sm items-center gap-3'>
         <p>Sắp xếp theo:</p>
         <div className='flex items-center'>

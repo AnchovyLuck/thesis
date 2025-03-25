@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react'
-import { ChevronsUpDown, Plus } from 'lucide-react'
+import { ChevronsUpDown, Circle, Plus } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -9,8 +9,13 @@ import {
   CollapsibleTrigger
 } from '@/components/ui/collapsible'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 
 export default function PriceFilter ({ slug }) {
+  const searchParams = useSearchParams()
+  const minParam = searchParams.get('min')
+  const maxParam = searchParams.get('max')
   const priceRanges = [
     {
       display: 'Dưới 10,000đ',
@@ -31,33 +36,95 @@ export default function PriceFilter ({ slug }) {
       min: 30000
     }
   ]
+  const router = useRouter()
+  const { handleSubmit, reset, register } = useForm()
+  const onSubmit = data => {
+    const { min, max } = data
+    let query = ''
+    if (min) {
+      query += `&min=${min}`
+    }
+    if (max) {
+      query += `&max=${max}`
+    }
+    router.push(`/category/${slug}?sort=asc${query}`)
+    reset()
+  }
   return (
     <div>
       <div className='px-5'>
-        <div className='flex justify-between'>
-          <h2>Giá</h2>
-          <Link href={`/category/${slug}?sort=asc`}>Đặt lại</Link>
+        <div className='flex justify-between items-center'>
+          <h2 className='text-xl font-medium'>Giá</h2>
+          <Link
+            href={`/category/${slug}`}
+            className='text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-lime-600 dark:hover:bg-lime-700 focus:outline-none dark:focus:ring-lime-800'
+          >
+            Đặt lại
+          </Link>
         </div>
         <div className='flex flex-col gap-3'>
           {priceRanges.map((range, i) => {
+            let query = ''
+            if (range.min) {
+              query += `&min=${range.min}`
+            }
+            if (range.max) {
+              query += `&max=${range.max}`
+            }
             return (
               <Link
-                key={i}
-                href={
-                  range.max && range.min
-                    ? `/category/${slug}?sort=asc&min=${range.min}&max=${range.max}`
-                    : range.max
-                    ? `/category/${slug}?sort=asc&max=${range.max}`
-                    : range.min
-                    ? `/category/${slug}?sort=asc&min=${range.min}`
-                    : `/category/${slug}?sort=asc`
+                className={
+                  (range.max && range.max == maxParam) ||
+                  (range.min && range.min == minParam) ||
+                  (range.min &&
+                    range.max &&
+                    range.min === minParam &&
+                    range.max === maxParam)
+                    ? 'flex gap-2 items-center text-lime-500'
+                    : 'flex gap-2 items-center'
                 }
+                key={i}
+                href={`/category/${slug}?sort=asc${query}`}
               >
+                <Circle className='w-4 h-4 flex-shrink-0' />
                 {range.display}
               </Link>
             )
           })}
         </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='grid grid-cols-3 gap-4 my-4'
+        >
+          <div className='col-span-1'>
+            <input
+              {...register('min')}
+              type='number'
+              min='0'
+              id='cvv-input'
+              aria-describedby='helper-text-explanation'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500'
+              placeholder='0'
+            />
+          </div>
+          <div className='col-span-1'>
+            <input
+              {...register('max')}
+              type='number'
+              min='0'
+              id='cvv-input'
+              aria-describedby='helper-text-explanation'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500'
+              placeholder='0'
+            />
+          </div>
+          <div className='col-span-1'>
+            <button
+              type='submit'
+              className='text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-lime-600 dark:hover:bg-lime-700 focus:outline-none dark:focus:ring-lime-800'
+            >Lọc</button>
+          </div>
+        </form>
       </div>
     </div>
   )
