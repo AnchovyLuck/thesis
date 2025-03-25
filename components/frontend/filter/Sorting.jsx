@@ -1,11 +1,10 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import React from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function Sorting ({ title, isSearch }) {
-  const pathname = usePathname()
-  const [params, setParams] = useState('')
+export default function Sorting ({ title, slug, isSearch }) {
+  const searchParams = useSearchParams()
   const sortingLinks = [
     {
       title: 'Liên quan',
@@ -13,13 +12,26 @@ export default function Sorting ({ title, isSearch }) {
     },
     {
       title: 'Giá cao đến thấp',
-      params: '?sort=desc'
+      params: 'desc'
     },
     {
       title: 'Giá thấp đến cao',
-      params: '?sort=asc'
+      params: 'asc'
     }
   ]
+  const createSortingUrl = sortParams => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (sortParams) {
+      params.set('sortBy', sortParams)
+    } else {
+      params.delete('sortBy')
+    }
+    params.set('page', '1')
+
+    return isSearch
+      ? `/search?${params.toString()}`
+      : `/category/${slug}?${params.toString()}`
+  }
   return (
     <div className='flex items-center justify-between'>
       <h2 className='text-2xl font-medium'>
@@ -30,14 +42,13 @@ export default function Sorting ({ title, isSearch }) {
         <p>Sắp xếp theo:</p>
         <div className='flex items-center'>
           {sortingLinks.map((link, i) => {
-            const actualPathName = `${pathname}${link.params}`
+            const currentSortBy = searchParams.get('sortBy') || ''
             return (
               <Link
                 key={i}
-                href={actualPathName}
-                onClick={() => setParams(link.params)}
+                href={createSortingUrl(link.params)}
                 className={`${
-                  params === link.params
+                  currentSortBy === link.params
                     ? 'border-2 bg-slate-800 border-lime-400 px-2 py-1 text-lime-400 -mx-0.5 z-0'
                     : 'border-2 border-slate-500 px-2 py-1 -mr-0.5'
                 }`}

@@ -13,11 +13,11 @@ export default function Filter ({ category, displayProducts }) {
     <div>
       <div className='bg-white space-y-6 text-slate-900 py-8 px-4 '>
         <Breadcrumb title={title} resultCount={productCount} />
-        <Sorting title={title} slug={slug} isSearch={category.isSearch} />
+        <Sorting title={title} slug={slug} isSearch={category?.isSearch} />
       </div>
       <div className='grid grid-cols-12 py-8 gap-4'>
         <div className='col-span-3'>
-          <Filters slug={slug} />
+          <Filters slug={slug} isSearch={category?.isSearch} />
         </div>
         <div className='col-span-9'>
           <FilteredProducts

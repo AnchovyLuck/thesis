@@ -3,29 +3,19 @@ import { getData } from '@/lib/getData'
 import React from 'react'
 
 export default async function page ({ params, searchParams }) {
-  const { sort, min, max } = await searchParams
-  const { page } = (await searchParams) || 1
+  const { sortBy = '', min = '', max = '', page = 1 } = await searchParams
   const { slug } = await params
   const category = await getData(`categories/filter/${slug}`)
-  let displayProducts
-  let query = ''
-  if (sort) {
-    query += `&sort=${sort}`
-  }
-  if (min) {
-    query += `&min=${min}`
-  }
-  if (max) {
-    query += `&max=${max}`
-  }
-  if (page) {
-    query += `&page=${page}`
-  }
-  displayProducts = await getData(`products?catId=${category.id}${query}`)
+  const allProducts = await getData(
+    `products?catId=${category.id}&page=${page}&sortBy=${sortBy}&min=${min}&max=${max}`
+  )
+  const displayProducts = await getData(
+    `products?catId=${category.id}&page=${page}&sortBy=${sortBy}&min=${min}&max=${max}`
+  )
   return (
     <div>
       <Filter
-        category={category}
+        category={{ ...category, products: allProducts }}
         displayProducts={displayProducts}
       />
     </div>

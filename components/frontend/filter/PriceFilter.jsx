@@ -12,8 +12,9 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-export default function PriceFilter ({ slug }) {
+export default function PriceFilter ({ slug, isSearch }) {
   const searchParams = useSearchParams()
+  console.log('search params: ' + searchParams)
   const minParam = searchParams.get('min')
   const maxParam = searchParams.get('max')
   const priceRanges = [
@@ -64,13 +65,6 @@ export default function PriceFilter ({ slug }) {
         </div>
         <div className='flex flex-col gap-3'>
           {priceRanges.map((range, i) => {
-            let query = ''
-            if (range.min) {
-              query += `&min=${range.min}`
-            }
-            if (range.max) {
-              query += `&max=${range.max}`
-            }
             return (
               <Link
                 className={
@@ -84,7 +78,22 @@ export default function PriceFilter ({ slug }) {
                     : 'flex gap-2 items-center'
                 }
                 key={i}
-                href={`/category/${slug}?sort=asc${query}`}
+                href={
+                  isSearch
+                    ? `?${new URLSearchParams({
+                        search: searchParams.search,
+                        page: searchParams.page || 1,
+                        sortBy: searchParams.sortBy || '',
+                        min: range.min || 0,
+                        max: range.max || ''
+                      })}`
+                    : `?${new URLSearchParams({
+                        page: searchParams.page || 1,
+                        sortBy: searchParams.sortBy || '',
+                        min: range.min || 0,
+                        max: range.max || ''
+                      })}`
+                }
               >
                 <Circle className='w-4 h-4 flex-shrink-0' />
                 {range.display}
@@ -122,7 +131,9 @@ export default function PriceFilter ({ slug }) {
             <button
               type='submit'
               className='text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-lime-600 dark:hover:bg-lime-700 focus:outline-none dark:focus:ring-lime-800'
-            >Lọc</button>
+            >
+              Lọc
+            </button>
           </div>
         </form>
       </div>

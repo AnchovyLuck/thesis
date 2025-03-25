@@ -14,16 +14,19 @@ import { useSearchParams } from 'next/navigation'
 export default function Paginate ({ totalPages }) {
   const searchParams = useSearchParams()
   const currentPage = parseInt(searchParams.get('page')) || 1
+  const generatePageUrl = page => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', page)
+    return `?${params.toString()}`
+  }
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={`${
-              currentPage === 1
-                ? `?${new URLSearchParams({ page: 1 })}`
-                : `?${new URLSearchParams({ page: parseInt(currentPage) - 1 })}`
-            }`}
+            href={generatePageUrl(
+              currentPage === 1 ? 1 : parseInt(currentPage) - 1
+            )}
           />
         </PaginationItem>
         {totalPages <= 3 ? (
@@ -32,7 +35,7 @@ export default function Paginate ({ totalPages }) {
               <PaginationItem key={index}>
                 <PaginationLink
                   isActive={index + 1 === currentPage}
-                  href={`?${new URLSearchParams({ page: index + 1 })}`}
+                  href={generatePageUrl(index + 1)}
                 >
                   {index + 1}
                 </PaginationLink>
@@ -46,7 +49,7 @@ export default function Paginate ({ totalPages }) {
                 <PaginationItem key={index}>
                   <PaginationLink
                     isActive={index + 1 === currentPage}
-                    href={`?${new URLSearchParams({ page: index + 1 })}`}
+                    href={generatePageUrl(index + 1)}
                   >
                     {index + 1}
                   </PaginationLink>
@@ -60,11 +63,11 @@ export default function Paginate ({ totalPages }) {
         )}
         <PaginationItem>
           <PaginationNext
-            href={`${
+            href={generatePageUrl(
               currentPage === totalPages
-                ? `?${new URLSearchParams({ page: totalPages })}`
-                : `?${new URLSearchParams({ page: parseInt(currentPage) + 1 })}`
-            }`}
+                ? totalPages
+                : parseInt(currentPage) + 1
+            )}
           />
         </PaginationItem>
       </PaginationContent>

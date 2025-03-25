@@ -81,7 +81,7 @@ export async function POST (request) {
 
 export async function GET (request) {
   const categoryId = request.nextUrl.searchParams.get('catId')
-  const sortBy = request.nextUrl.searchParams.get('sort')
+  const sortBy = request.nextUrl.searchParams.get('sortBy')
   const min = request.nextUrl.searchParams.get('min')
   const max = request.nextUrl.searchParams.get('max')
   const searchTerm = request.nextUrl.searchParams.get('search')
@@ -91,7 +91,6 @@ export async function GET (request) {
   let where = {
     categoryId
   }
-  console.log('categoryId: ' + categoryId)
   if (min && max) {
     where.salePrice = {
       gte: parseFloat(min),
@@ -120,27 +119,13 @@ export async function GET (request) {
           ]
         }
       })
-    } else if (categoryId && page) {
-      products = await db.product.findMany({
-        take: pageSize,
-        skip: (parseInt(page) - 1) * parseInt(pageSize),
-        orderBy: {
-          createdAt: 'desc'
-        },
-        where
-      })
-    } else if (categoryId && sortBy) {
-      products = await db.product.findMany({
-        orderBy: {
-          salePrice: `${sortBy}`
-        },
-        where
-      })
     } else if (categoryId) {
       products = await db.product.findMany({
-        orderBy: {
-          createdAt: 'desc'
-        },
+        orderBy: sortBy
+          ? { salePrice: sortBy }
+          : {
+              createdAt: 'desc'
+            },
         where
       })
     } else {
