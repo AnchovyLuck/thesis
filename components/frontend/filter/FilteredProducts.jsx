@@ -4,7 +4,7 @@ import ProductItem from '../ProductItem'
 import Paginate from './Paginate'
 import { useSearchParams } from 'next/navigation'
 
-export default async function FilteredProducts ({
+export default function FilteredProducts ({
   products = [],
   displayProducts = []
 }) {

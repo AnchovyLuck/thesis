@@ -37,7 +37,7 @@ export default function BrandCarousel ({ brands }) {
             key={i}
             className='flex flex-col border-0 bg-slate-300 rounded-lg dark:bg-lime-900'
           >
-            <Link href='#'>
+            <Link href={`/brand/${brand.slug}`}>
               <Image
                 src={brand.logoUrl}
                 alt={brand.title}

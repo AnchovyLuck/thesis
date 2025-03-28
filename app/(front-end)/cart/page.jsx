@@ -14,7 +14,7 @@ export default function page () {
   }, 0)
   return (
     <div>
-      <Breadcrumb />
+      <Breadcrumb title="Giỏ hàng" />
       {cartItems.length > 0 ? (
         <div className='grid grid-cols-12 gap-14'>
           <CartItems cartItems={cartItems} />

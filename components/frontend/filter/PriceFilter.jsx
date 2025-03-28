@@ -40,16 +40,24 @@ export default function PriceFilter ({ slug, isSearch }) {
   const router = useRouter()
   const { handleSubmit, reset, register } = useForm()
   const onSubmit = data => {
-    const { min, max } = data
-    let query = ''
-    if (min) {
-      query += `&min=${min}`
-    }
-    if (max) {
-      query += `&max=${max}`
-    }
-    router.push(`/category/${slug}?sort=asc${query}`)
+    router.push(createPriceFilterUrl(data))
     reset()
+  }
+  const createPriceFilterUrl = range => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (range.min) {
+      params.set('min', range.min)
+    } else {
+      params.delete('min')
+    }
+    if (range.max) {
+      params.set('max', range.max)
+    } else {
+      params.delete('max')
+    }
+    return isSearch
+      ? `/search?${params.toString()}`
+      : `/category/${slug}?${params.toString()}`
   }
   return (
     <div>
@@ -78,22 +86,7 @@ export default function PriceFilter ({ slug, isSearch }) {
                     : 'flex gap-2 items-center'
                 }
                 key={i}
-                href={
-                  isSearch
-                    ? `?${new URLSearchParams({
-                        search: searchParams.search,
-                        page: searchParams.page || 1,
-                        sortBy: searchParams.sortBy || '',
-                        min: range.min || 0,
-                        max: range.max || ''
-                      })}`
-                    : `?${new URLSearchParams({
-                        page: searchParams.page || 1,
-                        sortBy: searchParams.sortBy || '',
-                        min: range.min || 0,
-                        max: range.max || ''
-                      })}`
-                }
+                href={createPriceFilterUrl(range)}
               >
                 <Circle className='w-4 h-4 flex-shrink-0' />
                 {range.display}

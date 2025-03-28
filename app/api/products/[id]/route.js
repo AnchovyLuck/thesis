@@ -83,13 +83,13 @@ export async function PUT (request, { params }) {
       isWholeSale,
       wholeSalePrice,
       wholeSaleQty,
-      imageUrl,
       tags,
       description,
       isActive,
       productCode,
       slug,
-      qty
+      qty,
+      productImages
     } = await request.json()
     const existingProduct = await db.product.findUnique({
       where: {
@@ -123,7 +123,8 @@ export async function PUT (request, { params }) {
         isWholeSale,
         wholeSalePrice: parseFloat(wholeSalePrice),
         wholeSaleQty: parseInt(wholeSaleQty),
-        imageUrl,
+        productImages,
+        imageUrl: productImages[0],
         tags,
         description,
         isActive,

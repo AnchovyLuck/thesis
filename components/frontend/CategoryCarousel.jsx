@@ -8,7 +8,7 @@ import 'swiper/css/navigation'
 import React from 'react'
 import ProductItem from './ProductItem'
 
-export default function CategoryCarousel ({ products }) {
+export default function CategoryCarousel ({ products, isMarketPage = false }) {
   return (
     <Swiper
       direction={'horizontal'}
@@ -16,11 +16,11 @@ export default function CategoryCarousel ({ products }) {
       spaceBetween={0}
       breakpoints={{
         768: {
-          slidesPerView: 3,
+          slidesPerView: 2,
           spaceBetween: 0
         },
         1024: {
-          slidesPerView: 5,
+          slidesPerView: isMarketPage ? 3 : 5,
           spaceBetween: 0
         }
       }}

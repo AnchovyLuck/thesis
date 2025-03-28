@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function ProductForm ({ categories, farmers, updateData = {} }) {
-  const initialImageUrl = updateData?.imageUrl ?? ''
+  const initialImages = updateData?.productImages ?? []
   const id = updateData?.id ?? ''
   const tagList = updateData?.tags ?? []
   const [tags, setTags] = useState(tagList)
@@ -38,13 +38,15 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
   const redirect = () => {
     router.push('/dashboard/products')
   }
-  const [productImages, setProductImages] = useState([])
+  const [productImages, setProductImages] = useState(initialImages)
+  console.log(productImages)
   async function onSubmit (data) {
     console.log("SUBMITTED")
     const slug = generateSlug(data.title)
     const productCode = generateUserCode('PRODUCT', data.title)
     data.slug = slug
     data.productImages = productImages
+    console.log("product images:", productImages)
     data.tags = tags
     data.qty = 1
     data.productCode = productCode
