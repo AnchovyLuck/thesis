@@ -17,7 +17,7 @@ export async function GET (request, { params }) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị thông tin nông dân thất bại!',
+        message: 'Hiển thị thông tin cộng tác viên thất bại!',
         error
       },
       { status: 500 }
@@ -67,19 +67,12 @@ export async function PUT (request, { params }) {
   try {
     const {
       code,
-      contactPerson,
-      contactPersonPhone,
       profileImageUrl,
-      email,
-      userName,
+      firstName,
+      lastName,
       notes,
       phone,
       physicalAddress,
-      terms,
-      isActive,
-      products,
-      landSize,
-      mainCrop,
       userId
     } = await request.json()
     const existingFarmer = await db.farmerProfile.findUnique({

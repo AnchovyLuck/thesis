@@ -1,4 +1,5 @@
 import RegisterForm from "@/components/frontend/RegisterForm";
+import Image from "next/image";
 import React from "react";
 
 export default function page() {
@@ -9,7 +10,9 @@ export default function page() {
           href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
-          <img
+          <Image
+            width={128}
+            height={128}
             className="w-8 h-8 mr-2"
             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
             alt="logo"
@@ -21,7 +24,7 @@ export default function page() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
               Tạo tài khoản
             </h1>
-            <RegisterForm role="USER"/>
+            <RegisterForm role="USER" />
           </div>
         </div>
       </div>

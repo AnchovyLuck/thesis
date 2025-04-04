@@ -48,13 +48,6 @@ export default function NewStaff() {
             errors={errors}
           />
           <TextInput
-            label="ID nhân viên *"
-            name="staffId"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-          <TextInput
             label="Ngày sinh *"
             name="birthday"
             type="date"
@@ -94,7 +87,7 @@ export default function NewStaff() {
             name="physicalAddress"
             register={register}
             errors={errors}
-            className="w-full"
+            className="col-span-2"
           />
           <TextareaInput
             label="Ghi chú"

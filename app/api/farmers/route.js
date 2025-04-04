@@ -7,7 +7,7 @@ export async function POST (request) {
     console.log(farmerData)
     const existingUser = await db.user.findUnique({
       where: {
-        id: farmerData.id,
+        id: farmerData.userId,
       }
     })
     if (!existingUser) {
@@ -23,7 +23,7 @@ export async function POST (request) {
     }
     const updatedUser = await db.user.update({
       where: {
-        id: farmerData.id,
+        id: farmerData.userId,
       },
       data: {
         emailVerified: true
@@ -32,20 +32,13 @@ export async function POST (request) {
     const newFarmerProfile = await db.farmerProfile.create({
       data: {
         code: farmerData.code,
-        contactPerson: farmerData.contactPerson,
-        contactPersonPhone: farmerData.contactPersonPhone,
         profileImageUrl: farmerData.profileImageUrl,
-        email: farmerData.email,
-        userName: farmerData.userName,
+        firstName: farmerData.firstName,
+        lastName: farmerData.lastName,
         notes: farmerData.notes,
         phone: farmerData.phone,
         physicalAddress: farmerData.physicalAddress,
-        terms: farmerData.terms,
-        isActive: farmerData.isActive,
-        products: farmerData.products,
-        landSize: parseFloat(farmerData.landSize),
-        mainCrop: farmerData.mainCrop,
-        userId: farmerData.id
+        userId: farmerData.userId
       }
     })
     return NextResponse.json(newFarmerProfile)
@@ -79,7 +72,7 @@ export async function GET (request) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Hiển thị danh sách nông dân thất bại!',
+        message: 'Hiển thị danh sách cộng tác viên thất bại!',
         error
       },
       { status: 500 }

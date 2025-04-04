@@ -20,6 +20,7 @@ import {
   ScanSearch,
   SendToBack,
   Settings,
+  Truck,
   User,
   UserRoundPen,
   Users,
@@ -82,26 +83,26 @@ export default function Sidebar ({ showSidebar }) {
       icon: User,
       href: '/dashboard/staff'
     },
-    {
-      title: 'Bài viết',
-      icon: Building2,
-      href: '/dashboard/articles'
-    },
-    {
-      title: 'Ví',
-      icon: Wallet,
-      href: '/dashboard/wallet'
-    },
-    {
-      title: 'Hỗ trợ cộng tác viên',
-      icon: HeartHandshake,
-      href: '/dashboard/farmer-support'
-    },
-    {
-      title: 'Cài Đặt',
-      icon: Settings,
-      href: '/dashboard/settings'
-    },
+    // {
+    //   title: 'Bài viết',
+    //   icon: Building2,
+    //   href: '/dashboard/articles'
+    // },
+    // {
+    //   title: 'Ví',
+    //   icon: Wallet,
+    //   href: '/dashboard/wallet'
+    // },
+    // {
+    //   title: 'Hỗ trợ cộng tác viên',
+    //   icon: HeartHandshake,
+    //   href: '/dashboard/farmer-support'
+    // },
+    // {
+    //   title: 'Cài Đặt',
+    //   icon: Settings,
+    //   href: '/dashboard/settings'
+    // },
     {
       title: 'Cửa Hàng',
       icon: ExternalLink,
@@ -133,40 +134,15 @@ export default function Sidebar ({ showSidebar }) {
 
   if (role === 'FARMER') {
     sidebarLinks = [
+      // {
+      //   title: "Sales",
+      //   icon: Truck,
+      //   href: "/dashboard/sales"
+      // },
       {
-        title: 'Khách Hàng',
-        icon: Users,
-        href: '/dashboard/customers'
-      },
-      {
-        title: 'Thương hiệu',
-        icon: Warehouse,
-        href: '/dashboard/brands'
-      },
-      {
-        title: 'Đơn hàng',
+        title: 'Đơn hàng của tôi',
         icon: BadgeDollarSign,
         href: '/dashboard/orders'
-      },
-      {
-        title: 'Bài viết',
-        icon: Building2,
-        href: '/dashboard/articles'
-      },
-      {
-        title: 'Ví',
-        icon: Wallet,
-        href: '/dashboard/wallet'
-      },
-      {
-        title: 'Hỗ trợ cộng tác viên',
-        icon: HeartHandshake,
-        href: '/dashboard/farmer-support'
-      },
-      {
-        title: 'Cài Đặt',
-        icon: Settings,
-        href: '/dashboard/settings'
       },
       {
         title: 'Cửa Hàng',

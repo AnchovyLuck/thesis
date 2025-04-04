@@ -1,11 +1,9 @@
 "use client";
 import { ChevronRight } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 
 export default function Steps({ steps }) {
-  const cartItems = useSelector((store) => store.cart);
   const currentStep = useSelector((store) => store.onboarding.currentStep);
   return (
     <nav className="flex text-sm md:text-xl items-center justify-center mb-3">
@@ -14,17 +12,10 @@ export default function Steps({ steps }) {
         className="flex flex-wrap gap-y-5 md:gap-y-0 items-center gap-x-1.5"
       >
         <li>
-          <div>
-            <Link
-              href="/cart"
-              className="inline-flex items-center p-1 text-sm font-medium text-gray-500 rounded-md focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-gray-900 dark:hover:text-lime-500 hover:text-gray-700"
-            >
-              Giỏ hàng
-              <span className="inline-flex items-center justify-center w-5 h-5 ml-2 text-xs font-bold bg-lime-400 rounded-full text-gray-900">
-                {" "}
-                {cartItems.length}{" "}
-              </span>
-            </Link>
+          <div className="-m-1">
+            <h2 className="inline-flex items-center p-1 text-sm font-medium text-gray-500, rounded-md focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-gray-900 hover:text-gray-700 dark:hover:text-lime-500 md:text-base">
+              Tài khoản
+            </h2>
           </div>
         </li>
 

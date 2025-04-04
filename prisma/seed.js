@@ -4,12 +4,10 @@ const prisma = new PrismaClient()
 
 const load = async () => {
   try {
-    await prisma.category.createMany()
-    await prisma.product.deleteMany()
-    await prisma.category.createMany({
+    await prisma.category.upsert({
       data: categories
     })
-    await prisma.product.createMany({
+    await prisma.product.upsert({
       data: products
     })
   } catch (e) {

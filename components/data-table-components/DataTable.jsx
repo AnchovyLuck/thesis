@@ -4,10 +4,6 @@ import * as React from 'react'
 import { useState } from 'react'
 import { DataTablePagination } from './DataTablePagination'
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -31,7 +27,7 @@ import { DataTableToolbar } from './DataTableToolbar'
 export default function DataTable ({
   columns,
   data,
-  filterKeys = ['title']
+  filterKeys = []
 }) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState({})

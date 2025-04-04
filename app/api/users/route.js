@@ -3,13 +3,11 @@ import bcrypt from 'bcryptjs'
 import db from '@/lib/db'
 import { v4 as uuidv4 } from 'uuid'
 import { base64url } from 'jose'
-import { Resend } from 'resend'
 import { EmailTemplate } from '@/components/ui/email-template'
 import nodemailer from 'nodemailer'
 import { render } from '@react-email/components'
 
 export async function POST (request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
     const { userName, email, password, role } = await request.json()
     const existingUser = await db.user.findUnique({

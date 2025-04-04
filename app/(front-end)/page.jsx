@@ -9,9 +9,9 @@ import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 export default async function page() {
   const categories = await getData("categories");
-  const filteredCategories = categories.filter((category) => {
-    return category.products.length > 3;
-  });
+  // const filteredCategories = categories?.filter((category) => {
+  //   return category.products.length > 3;
+  // });
   const session = await getServerSession(authOptions);
   return (
     <>
@@ -25,16 +25,13 @@ export default async function page() {
           Trở thành đối tác của chúng tôi!
         </Link>
       </div>
-      {filteredCategories.map((category, i) => {
+      {categories.map((category, i) => {
         return (
           <div className="py-4" key={i}>
             <CategoryList isMarketPage={false} category={category} />
           </div>
         );
       })}
-      {/* <div className='py-4'>
-        <ArticleList />
-      </div> */}
     </>
   );
 }

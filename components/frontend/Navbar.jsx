@@ -26,6 +26,7 @@ export default function Navbar () {
             src={logo}
             alt='online shop logo'
             className='w-24 text-gray-200 dark:text-slate-800'
+            priority
           />
         </Link>
         <div className='flex-grow'>

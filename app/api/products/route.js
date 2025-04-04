@@ -107,7 +107,7 @@ export async function GET (request) {
   }
   try {
     if (searchTerm) {
-      products = await db.product.findMany({
+      products = await db.product.findMany({// db.product.findUnique(where: id})
         where: {
           OR: [
             {

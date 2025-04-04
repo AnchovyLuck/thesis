@@ -54,6 +54,7 @@ export default async function Hero () {
             alt='advert'
             className='w-full h-40 rounded-lg'
             unoptimized
+            priority
           />
         </div>
       </div>

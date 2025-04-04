@@ -1,17 +1,31 @@
-import FarmerForm from "@/components/backoffice/forms/FarmerForm";
-import { getData } from "@/lib/getData";
-import React from "react";
+import StepForm from '@/components/onboarding/StepForm'
+import Steps from '@/components/onboarding/Steps'
+import React from 'react'
 
-export default async function page({params}) {
-  const {id} = await params
-  const user = await getData(`users/${id}`)
-  console.log(user)
+export default async function page ({ params }) {
+  const { id } = await params
+  const steps = [
+    {
+      number: 1,
+      title: 'Thông tin cá nhân'
+    },
+    {
+      number: 2,
+      title: 'Thông tin khác'
+    },
+    {
+      number: 3,
+      title: 'Tóm tắt'
+    }
+  ]
   return (
-    <div className="flex flex-col gap-6 p-16">
-      <div className="max-w-4xl p-4 mx-auto">
-        <h2 className="text-3xl font-extrabold text-center">Xin chào {user?.userName}, vui lòng bổ sung thông tin!</h2>
+    <div className='bg-slate-200 dark:bg-slate-900 min-h-screen rounded-lg'>
+      <div className='max-w-5xl my-6 mx-auto border border-slate-300 p-4 rounded-lg'>
+        <Steps steps={steps} />
+        <div className='w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700'>
+          <StepForm farmerId={id} />
+        </div>
       </div>
-      <FarmerForm user={user}/>
     </div>
-  );
+  )
 }

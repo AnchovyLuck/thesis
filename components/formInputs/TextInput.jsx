@@ -14,7 +14,6 @@ export default function TextInput({
   defaultValue = "",
   beginYear = 0,
   length = 10,
-  placeholder = ""
 }) {
   return (
     <div className={className}>
