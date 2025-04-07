@@ -4,17 +4,17 @@ import { getData } from '@/lib/getData'
 import React from 'react'
 
 export default async function page () {
-  const categoriesData = await getData('categories')
-  const categories = categoriesData.map(category => {
+  const productsData = await getData('products')
+  const products = productsData.map(product => {
     return {
-      id: category.id,
-      title: category.title
+      id: product.id,
+      title: product.title
     }
   })
   return (
     <div>
       <FormHeader title='Thêm Thương Hiệu' />
-      <BrandForm categories={categories} />
+      <BrandForm products={products} />
     </div>
   )
 }

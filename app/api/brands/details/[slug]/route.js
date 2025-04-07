@@ -8,6 +8,9 @@ export async function GET(request, { params }) {
       where: {
         slug,
       },
+      include: {
+        products: true
+      }
     });
     return NextResponse.json(brand);
   } catch (error) {

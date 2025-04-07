@@ -21,7 +21,6 @@ export default function Filter ({ category, displayProducts }) {
         </div>
         <div className='col-span-9'>
           <FilteredProducts
-            products={category.products}
             displayProducts={displayProducts}
           />
         </div>

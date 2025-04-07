@@ -5,6 +5,7 @@ import React from 'react'
 
 export default async function page () {
   const categoriesData = await getData('categories')
+  const brandsData = await getData('brands')
   const usersData = await getData('users')
   const farmersData = usersData.filter(user => user.role === 'FARMER')
   const farmers = farmersData.map(farmer => {
@@ -19,10 +20,17 @@ export default async function page () {
       title: category.title
     }
   })
+  const brands = brandsData.map(brand => {
+    return {
+      id: brand.id,
+      title: brand.title
+    }
+  })
+  brands.unshift({ id: '111', title: 'Không có thương hiệu' })
   return (
     <div>
       <FormHeader title='Thêm Sản Phẩm' />
-      <ProductForm categories={categories} farmers={farmers} />
+      <ProductForm categories={categories} brands={brands} farmers={farmers} />
     </div>
   )
 }

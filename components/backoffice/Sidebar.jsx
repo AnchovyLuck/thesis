@@ -63,45 +63,25 @@ export default function Sidebar ({ showSidebar }) {
       icon: Warehouse,
       href: '/dashboard/brands'
     },
-    {
-      title: 'Nông Dân',
-      icon: UserSquare2,
-      href: '/dashboard/farmers'
-    },
-    {
-      title: 'Đơn Hàng',
-      icon: Compass,
-      href: '/dashboard/orders'
-    },
-    {
-      title: 'Sales',
-      icon: BadgeDollarSign,
-      href: '/dashboard/sales'
-    },
-    {
-      title: 'Nhân Viên',
-      icon: User,
-      href: '/dashboard/staff'
-    },
     // {
-    //   title: 'Bài viết',
-    //   icon: Building2,
-    //   href: '/dashboard/articles'
+    //   title: 'Cộng tác viên',
+    //   icon: UserSquare2,
+    //   href: '/dashboard/farmers'
     // },
     // {
-    //   title: 'Ví',
-    //   icon: Wallet,
-    //   href: '/dashboard/wallet'
+    //   title: 'Đơn Hàng',
+    //   icon: Compass,
+    //   href: '/dashboard/orders'
     // },
     // {
-    //   title: 'Hỗ trợ cộng tác viên',
-    //   icon: HeartHandshake,
-    //   href: '/dashboard/farmer-support'
+    //   title: 'Sales',
+    //   icon: BadgeDollarSign,
+    //   href: '/dashboard/sales'
     // },
     // {
-    //   title: 'Cài Đặt',
-    //   icon: Settings,
-    //   href: '/dashboard/settings'
+    //   title: 'Nhân Viên',
+    //   icon: User,
+    //   href: '/dashboard/staff'
     // },
     {
       title: 'Cửa Hàng',
@@ -134,11 +114,6 @@ export default function Sidebar ({ showSidebar }) {
 
   if (role === 'FARMER') {
     sidebarLinks = [
-      // {
-      //   title: "Sales",
-      //   icon: Truck,
-      //   href: "/dashboard/sales"
-      // },
       {
         title: 'Đơn hàng của tôi',
         icon: BadgeDollarSign,

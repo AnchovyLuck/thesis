@@ -43,24 +43,21 @@ model Category {
   description String?
   isActive    Boolean
   products    Product[]
-  Article     Article[]
-  brands      Brand[]   @relation(fields: [brandIds], references: [id])
-  brandIds    String[]  @db.ObjectId
+  article     Article[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
 model Brand {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  title       String     @unique
-  slug        String     @unique
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String    @unique
+  slug        String    @unique
   logoUrl     String?
   description String?
   isActive    Boolean
-  categoryIds String[]   @db.ObjectId
-  categories  Category[] @relation(fields: [categoryIds], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  products    Product[] 
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Product {
@@ -85,14 +82,16 @@ model Product {
   tags            String[]
   category        Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   categoryId      String         @db.ObjectId
+  brand           Brand?         @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId         String?        @db.ObjectId
   user            User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId          String         @db.ObjectId
   orderItems      OrderItem[]
-  sales           Sale[]
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
   farmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
   farmerProfileId String?        @db.ObjectId
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Sale            Sale[]
 }
 
 model Staff {

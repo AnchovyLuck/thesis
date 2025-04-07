@@ -29,7 +29,7 @@ export default async function page () {
       }
       <div className='py-8'>
         {role === 'ADMIN' ? (
-          <DataTable data={farmerProducts} columns={columns} />
+          <DataTable data={products} columns={columns} />
         ) : (
           <DataTable data={farmerProducts} columns={columns} />
         )}

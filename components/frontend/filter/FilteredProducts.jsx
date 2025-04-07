@@ -4,17 +4,17 @@ import ProductItem from '../ProductItem'
 import Paginate from './Paginate'
 import { useSearchParams } from 'next/navigation'
 
-export default function FilteredProducts ({
-  products = [],
-  displayProducts = []
-}) {
+export default function FilteredProducts ({ displayProducts = [] }) {
   const searchParams = useSearchParams()
   const currentPage = parseInt(searchParams.get('page') || '1')
   const pageSize = 3
 
   const startIndex = (currentPage - 1) * pageSize
   const endIndex = startIndex + pageSize
-  const paginatedProducts = displayProducts.slice(startIndex, endIndex)
+  const paginatedProducts = []
+  if (displayProducts.length > 0) {
+    const paginatedProducts = displayProducts.slice(startIndex, endIndex)
+  }
   const totalProductCount = displayProducts.length
   const totalPages = Math.ceil(totalProductCount / pageSize)
   return (

@@ -13,7 +13,12 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function ProductForm ({ categories, farmers, updateData = {} }) {
+export default function ProductForm ({
+  categories,
+  brands,
+  farmers,
+  updateData = {}
+}) {
   const initialImages = updateData?.productImages ?? []
   const id = updateData?.id ?? ''
   const tagList = updateData?.tags ?? []
@@ -41,12 +46,14 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
   const [productImages, setProductImages] = useState(initialImages)
   console.log(productImages)
   async function onSubmit (data) {
-    console.log("SUBMITTED")
+    if (data.brandId === '111') {
+      data.brandId = null
+    }
     const slug = generateSlug(data.title)
     const productCode = generateUserCode('PRODUCT', data.title)
     data.slug = slug
     data.productImages = productImages
-    console.log("product images:", productImages)
+    console.log('product images:', productImages)
     data.tags = tags
     data.qty = 1
     data.productCode = productCode
@@ -138,6 +145,14 @@ export default function ProductForm ({ categories, farmers, updateData = {} }) {
           errors={errors}
           className='w-full'
           options={categories}
+        />
+        <SelectInput
+          label='Chọn thương hiệu *'
+          name='brandId'
+          register={register}
+          errors={errors}
+          className='w-full'
+          options={brands}
         />
         <SelectInput
           label='Chọn người bán *'

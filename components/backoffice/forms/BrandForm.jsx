@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function BrandForm ({ categories, updateData = {} }) {
+export default function BrandForm ({ products, updateData = {} }) {
   const initialImageUrl = updateData?.logoUrl ?? ''
   const id = updateData?.id ?? ''
   const [imageUrl, setImageUrl] = useState(initialImageUrl)
@@ -26,7 +26,7 @@ export default function BrandForm ({ categories, updateData = {} }) {
   } = useForm({
     defaultValues: {
       isActive: true,
-      categoryIds: updateData?.categoryIds || [],
+      productIds: updateData?.products?.map(product => product.id) || [],
       ...updateData
     }
   })
@@ -74,13 +74,13 @@ export default function BrandForm ({ categories, updateData = {} }) {
           className='w-full'
         />
         <SelectInput
-          label='Chọn loại sản phẩm *'
-          name='categoryIds'
+          label='Chọn sản phẩm *'
+          name='productIds'
           register={register}
           control={control}
           errors={errors}
           className='w-full'
-          options={categories}
+          options={products}
           multiple={true}
         />
         <ImageInput

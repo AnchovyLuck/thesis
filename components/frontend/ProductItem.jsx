@@ -21,7 +21,7 @@ export default function ProductItem({ product }) {
             className="bg-slate-100 dark:bg-slate-700 rounded-t-lg"
           />
         </div>
-        <h2 className="h-16 w-64 text-center text-slate-600 dark:text-slate-200 px-2 bg-slate-300 dark:bg-slate-800 border-0 font-semibold">
+        <h2 className="h-16 w-full text-center text-slate-600 dark:text-slate-200 px-2 bg-slate-300 dark:bg-slate-800 border-0 font-semibold">
           {product.title}
         </h2>
       </Link>

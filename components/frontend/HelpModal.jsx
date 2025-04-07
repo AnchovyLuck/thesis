@@ -48,7 +48,7 @@ export default function HelpModal() {
               <span>Theo dõi đơn hàng</span>
             </Link>
             <Link
-              href="tel:0785800160"
+              href="#"
               className="flex items-center space-x-2 text-green-950 dark:text-slate-100"
             >
               <div className="flex items-center w-10 h-10 bg-lime-100 justify-center rounded-full">
@@ -57,7 +57,7 @@ export default function HelpModal() {
               <span>Trả hàng</span>
             </Link>
             <Link
-              href="tel:0785800160"
+              href="#"
               className="flex items-center space-x-2 text-green-950 dark:text-slate-100"
             >
               <div className="flex items-center w-10 h-10 bg-lime-100 justify-center rounded-full">
