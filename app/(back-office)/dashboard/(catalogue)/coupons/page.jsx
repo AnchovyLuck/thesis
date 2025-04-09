@@ -17,7 +17,7 @@ export default async function page () {
   const id = session?.user?.id
   const role = session?.user?.role
   const farmerCouponFilter = (coupon) => {
-    return product.userId === id
+    return coupon.userId === id
   }
   const farmerCoupons = allCoupons.filter(farmerCouponFilter)
   return (

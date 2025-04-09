@@ -49,9 +49,7 @@ export default function ProductForm ({
     if (data.brandId === '111') {
       data.brandId = null
     }
-    const slug = generateSlug(data.title)
     const productCode = generateUserCode('PRODUCT', data.title)
-    data.slug = slug
     data.productImages = productImages
     console.log('product images:', productImages)
     data.tags = tags

@@ -9,7 +9,7 @@ export default function ProductItem({ product }) {
   return (
     <div className="bg-slate-100 dark:bg-slate-700  rounded-lg shadow-md">
       <Link
-        href={`/products/${product.slug}`}
+        href={`/products/${product.id}`}
         className="flex flex-col items-center"
       >
         <div className="w-full h-32">

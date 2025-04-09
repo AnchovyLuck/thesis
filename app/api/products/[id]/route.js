@@ -88,7 +88,6 @@ export async function PUT (request, { params }) {
       description,
       isActive,
       productCode,
-      slug,
       qty,
       productImages
     } = await request.json()
@@ -131,7 +130,6 @@ export async function PUT (request, { params }) {
         description,
         isActive,
         productCode,
-        slug,
         qty: parseInt(qty)
       }
     })

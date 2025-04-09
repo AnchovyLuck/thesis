@@ -21,7 +21,6 @@ export async function POST (request) {
       description,
       isActive,
       productCode,
-      slug,
       qty,
       productImages
     } = await request.json()
@@ -63,7 +62,6 @@ export async function POST (request) {
         description,
         isActive,
         productCode,
-        slug,
         qty: parseInt(qty)
       }
     })

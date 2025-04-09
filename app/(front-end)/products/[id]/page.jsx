@@ -8,8 +8,8 @@ import Image from "next/image";
 import React from "react";
 
 export default async function page({ params }) {
-  const { slug } = await params;
-  const product = await getData(`/products/product/${slug}`);
+  const { id } = await params;
+  const product = await getData(`/products/product/${id}`);
   const category = await getData(`/categories/${product.categoryId}`);
   return (
     <div>

@@ -2,11 +2,11 @@ import db from '@/lib/db'
 import { NextResponse } from 'next/server'
 
 export async function GET (request, { params }) {
-  const { slug } = await params
+  const { id } = await params
   try {
     const product = await db.product.findUnique({
       where: {
-        slug
+        id
       },
     })
     return NextResponse.json(product)

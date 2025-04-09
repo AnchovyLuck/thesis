@@ -11,12 +11,13 @@ export default function FilteredProducts ({ displayProducts = [] }) {
 
   const startIndex = (currentPage - 1) * pageSize
   const endIndex = startIndex + pageSize
-  const paginatedProducts = []
+  let paginatedProducts = []
   if (displayProducts.length > 0) {
-    const paginatedProducts = displayProducts.slice(startIndex, endIndex)
+    paginatedProducts = displayProducts.slice(startIndex, endIndex)
   }
   const totalProductCount = displayProducts.length
   const totalPages = Math.ceil(totalProductCount / pageSize)
+  console.log('paginated products', paginatedProducts)
   return (
     <>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>

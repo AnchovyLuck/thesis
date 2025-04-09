@@ -32,7 +32,7 @@ export default function CategoryCarousel ({ products, isMarketPage = false }) {
       modules={[Navigation, Mousewheel]}
       className='rounded-lg'
     >
-      {products.length > 0 &&
+       {products.length > 0 &&
         products.map((product, i) => {
           return (
             <SwiperSlide className='flex flex-col rounded-lg border-0 bg-slate-100 dark:bg-slate-700'>
