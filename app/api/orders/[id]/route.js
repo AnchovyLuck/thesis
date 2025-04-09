@@ -1,63 +1,88 @@
-import db from '@/lib/db'
-import { NextResponse } from 'next/server'
+import db from "@/lib/db";
+import { NextResponse } from "next/server";
 
-export async function GET (request, { params }) {
-  const { id } = await params
+export async function GET(request, { params }) {
+  const { id } = await params;
   try {
     const order = await db.order.findUnique({
       where: {
-        id
+        id,
       },
       include: {
-        orderItems: true
-      }
-    })
-    return NextResponse.json(order)
+        orderItems: true,
+      },
+    });
+    return NextResponse.json(order);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json(
       {
-        message: 'Hiển thị đơn hàng thất bại!',
-        error
+        message: "Hiển thị đơn hàng thất bại!",
+        error,
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }
 
-export async function DELETE (request, { params }) {
-  const { id } = await params
+export async function DELETE(request, { params }) {
+  const { id } = await params;
   try {
     const existingOrder = await db.order.findUnique({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
     if (!existingOrder) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Không tìm thấy đơn hàng!'
+          message: "Không tìm thấy đơn hàng!",
         },
         {
-          status: 404
-        }
-      )
+          status: 404,
+        },
+      );
     }
     const deletedOrder = await db.order.delete({
       where: {
-        id
-      }
-    })
-    return NextResponse.json(deletedOrder)
+        id,
+      },
+    });
+    return NextResponse.json(deletedOrder);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json(
       {
-        message: 'Xoá đơn hàng thất bại!',
-        error
+        message: "Xoá đơn hàng thất bại!",
+        error,
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
+  }
+}
+
+export async function PUT(request, { params }) {
+  const { id } = await params;
+  try {
+    const { orderStatus } = await request.json();
+
+    const updatedOrder = await prisma.order.update({
+      where: { id },
+      data: {
+        orderStatus,
+      },
+    });
+
+    return NextResponse.json(updatedOrder);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      {
+        message: "Xác nhận đơn hàng thất bại!",
+        error,
+      },
+      { status: 500 },
+    );
   }
 }

@@ -68,11 +68,11 @@ export default function Sidebar ({ showSidebar }) {
     //   icon: UserSquare2,
     //   href: '/dashboard/farmers'
     // },
-    // {
-    //   title: 'Đơn Hàng',
-    //   icon: Compass,
-    //   href: '/dashboard/orders'
-    // },
+    {
+      title: 'Đơn Hàng',
+      icon: Compass,
+      href: '/dashboard/orders'
+    },
     // {
     //   title: 'Sales',
     //   icon: BadgeDollarSign,

@@ -8,11 +8,19 @@ export default async function page () {
   const session = await getServerSession(authOptions)
   if (!session) return
   const userId = session?.user?.id
-  const userOrders = await getData(`orders/user/${userId}`)
-  if (userOrders.length === 0 || !userOrders) {
+  const userRole = session?.user?.role
+  let orders
+  if (userRole === 'ADMIN') {
+    orders = await getData('orders')
+  } else {
+    orders = await getData(`orders/user/${userId}`)
+  }
+  if (orders.length === 0 || !orders) {
     return (
       <div className='text-center py-12'>
-        <h1 className='text-xl font-bold text-gray-900'>Chưa có đơn hàng nào.</h1>
+        <h1 className='text-xl font-bold text-gray-900'>
+          Chưa có đơn hàng nào.
+        </h1>
       </div>
     )
   }
@@ -21,22 +29,24 @@ export default async function page () {
       <div className='px-4 m-auto sm:px-6 lg:px-8 max-w-7xl'>
         <div className='max-w-6xl mx-auto'>
           <div>
-            <h1 className='text-2xl font-bold text-gray-900 dark:text-slate-200 sm:text-3xl'>
-              Danh sách các đơn hàng của bạn
-            </h1>
+            {userRole === 'ADMIN' ? (
+              <h1 className='text-2xl font-bold text-gray-900 dark:text-slate-200 sm:text-3xl'>
+                Tất cả đơn hàng
+              </h1>
+            ) : (
+              <h1 className='text-2xl font-bold text-gray-900 dark:text-slate-200 sm:text-3xl'>
+                Danh sách đơn hàng của bạn
+              </h1>
+            )}
             <p className='mt-2 text-sm font-normal text-gray-600 dark:text-slate-400'>
               Kiểm tra trạng thái các đơn hàng.
             </p>
           </div>
 
           <ul className='mt-8 space-y-5 lg:mt-12 sm:space-y-6 lg:space-y-10'>
-            {
-              userOrders.map((order, i) => {
-                return (
-                  <OrderCard order={order} key={i}/>
-                )
-              })
-            }
+            {orders.map((order, i) => {
+              return <OrderCard order={order} userRole={userRole} key={i} />
+            })}
           </ul>
         </div>
       </div>
