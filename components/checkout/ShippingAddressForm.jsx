@@ -11,7 +11,7 @@ import {
   updateCheckoutFormData
 } from '@/redux/slices/checkoutSlice'
 
-export default function ShippingAddressForm () {
+export default function ShippingAddressForm ({ session }) {
   const dispatch = useDispatch()
   const currentStep = useSelector(store => store.checkout.currentStep)
   const existingFormData = useSelector(store => store.checkout.checkoutFormData)
@@ -52,6 +52,7 @@ export default function ShippingAddressForm () {
           register={register}
           errors={errors}
           className='w-full col-span-full'
+          defaultValue={session?.user?.userProfile?.streetAddress}
         />
         <TextInput
           label='Phường/xã'
@@ -59,6 +60,7 @@ export default function ShippingAddressForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.ward}
         />
         <TextInput
           label='Quận/huyện'
@@ -66,6 +68,7 @@ export default function ShippingAddressForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.district}
         />
         <TextInput
           label='Tỉnh'
@@ -73,6 +76,7 @@ export default function ShippingAddressForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.province}
         />
         <TextInput
           label='Zip code'
@@ -80,6 +84,7 @@ export default function ShippingAddressForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.zipCode}
         />
 
         <div className='col-span-full'>

@@ -21,7 +21,7 @@ export default function UserAvatar ({ user = {} }) {
   const initials = generateInitials(userName)
   const role = user?.role
   const handleLogout = async () => {
-    await signOut()
+    await signOut({redirect: false})
     router.push('/')
   }
   return (

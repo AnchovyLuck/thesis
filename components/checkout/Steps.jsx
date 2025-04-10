@@ -4,9 +4,14 @@ import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function Steps({ steps }) {
+export default function Steps({ steps, isCheckout = false }) {
   const cartItems = useSelector((store) => store.cart);
-  const currentStep = useSelector((store) => store.onboarding.currentStep);
+  let currentStep 
+  if (isCheckout) {
+    currentStep = useSelector((store) => store.checkout.currentStep);
+  } else {
+    currentStep = useSelector((store) => store.onboarding.currentStep);
+  }
   return (
     <nav className="flex text-sm md:text-xl items-center justify-center mb-3">
       <ol

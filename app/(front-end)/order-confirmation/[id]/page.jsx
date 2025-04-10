@@ -1,6 +1,5 @@
 import { getData } from '@/lib/getData'
 import { numberWithCommas } from '@/lib/numberWithCommas'
-import { Item } from '@radix-ui/react-dropdown-menu'
 import { CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,7 +33,7 @@ export default async function page ({ params }) {
                   <CheckCircle2 className='w-10 h-10 mx-auto text-lime-500' />
 
                   <h1 className='mt-4 text-2xl font-bold text-gray-900 dark:text-lime-50'>
-                    Tạo đơn hàng thành công!
+                    Tạo đơn hàng thành công, nhân viên hỗ trợ sẽ liên hệ với bạn để xác nhận đơn hàng!
                   </h1>
                 </div>
 

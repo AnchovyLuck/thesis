@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import TextInput from '../formInputs/TextInput'
-import SubmitButton from '../formInputs/SubmitButton'
 import { useForm } from 'react-hook-form'
 import NavButtons from './NavButtons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,10 +8,8 @@ import {
   setCurrentStep,
   updateCheckoutFormData
 } from '@/redux/slices/checkoutSlice'
-import { useSession } from 'next-auth/react'
 
-export default function PersonalDetailsForm () {
-  const { data: session, status } = useSession()
+export default function PersonalDetailsForm ({ session }) {
   const userId = session?.user?.id
   const dispatch = useDispatch()
   const currentStep = useSelector(store => store.checkout.currentStep)
@@ -48,6 +45,7 @@ export default function PersonalDetailsForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.firstName}
         />
         <TextInput
           label='Họ'
@@ -55,6 +53,7 @@ export default function PersonalDetailsForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.lastName}
         />
         <TextInput
           label='Email'
@@ -62,6 +61,7 @@ export default function PersonalDetailsForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.email}
         />
         <TextInput
           label='Số điện thoại'
@@ -69,6 +69,7 @@ export default function PersonalDetailsForm () {
           register={register}
           errors={errors}
           className='w-full'
+          defaultValue={session?.user?.userProfile?.phone}
         />
       </div>
       <NavButtons />

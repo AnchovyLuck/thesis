@@ -1,5 +1,6 @@
 'use client'
 import { numberWithCommas } from '@/lib/numberWithCommas'
+import { clearCart } from '@/redux/slices/cartSlice'
 import { setCurrentStep } from '@/redux/slices/checkoutSlice'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
@@ -39,6 +40,7 @@ export default function OrderSummaryForm () {
       const responseData = await response.json()
       if (response.ok) {
         setLoading(false)
+        dispatch(clearCart())
         toast.success('Đơn hàng đã được tạo!')
         router.push(`/order-confirmation/${responseData.id}`)
       } else {
