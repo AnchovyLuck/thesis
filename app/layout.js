@@ -12,7 +12,10 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin']
 })
-
+console.log(
+  '%c☯️  Web chậm không phải do framework lỏ, mà là do nội công chưa đủ thâm hậu.',
+  'color: orange; font-weight: bold;'
+)
 export default function RootLayout ({ children }) {
   return (
     <html lang='en' className="dark" suppressHydrationWarning>

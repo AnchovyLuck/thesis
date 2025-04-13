@@ -41,39 +41,39 @@ export async function POST (request) {
       }
     })
 
-    if (role === 'FARMER') {
-      const transporter = nodemailer.createTransport({
-        host: process.env.MAILTRAP_HOST,
-        port: process.env.MAILTRAP_PORT,
-        auth: {
-          user: process.env.MAILTRAP_USER,
-          pass: process.env.MAILTRAP_PASS
-        }
-      })
-      const linkText = 'Xác thực tài khoản'
-      const userId = newUser.id
-      const redirectUrl = `onboarding/${userId}?token=${token}`
-      const description =
-        'Cảm ơn bạn vì đã tạo tài khoản trên web của chúng tôi. Vui lòng nhấp vào đường dẫn bên dưới để xác minh tài khoản của bạn.'
-      const subject = 'Xác thực tài khoản'
-      const emailTemplateHtml = await render(
-        <EmailTemplate
-          userName={userName}
-          redirectUrl={redirectUrl}
-          linkText={linkText}
-          description={description}
-          subject={subject}
-        />
-      )
-      const info = await transporter.sendMail({
-        from: process.env.MAILTRAP_FROM,
-        to: email,
-        subject: subject,
-        html: emailTemplateHtml
-      })
-      console.log(info)
-    }
-
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAILTRAP_HOST,
+      port: process.env.MAILTRAP_PORT,
+      auth: {
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS
+      }
+    })
+    const linkText = 'Xác thực tài khoản'
+    const userId = newUser.id
+    const redirectUrl =
+      role === 'FARMER'
+        ? `onboarding/${userId}?token=${token}`
+        : `api/auth/verify?token=${token}`
+    const description =
+      'Cảm ơn bạn vì đã tạo tài khoản trên web của chúng tôi. Vui lòng nhấp vào đường dẫn bên dưới để xác minh tài khoản của bạn.'
+    const subject = 'Xác thực tài khoản'
+    const emailTemplateHtml = await render(
+      <EmailTemplate
+        userName={userName}
+        redirectUrl={redirectUrl}
+        linkText={linkText}
+        description={description}
+        subject={subject}
+      />
+    )
+    const info = await transporter.sendMail({
+      from: process.env.MAILTRAP_FROM,
+      to: email,
+      subject: subject,
+      html: emailTemplateHtml
+    })
+    console.log(info)
     return NextResponse.json({
       data: newUser,
       message: 'Tạo tài khoản thành công!'

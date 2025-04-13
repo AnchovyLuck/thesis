@@ -36,16 +36,12 @@ import {
 
 import { usePathname, useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
-import Loading from '@/app/Loading'
 
 export default function Sidebar ({ showSidebar }) {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const pathname = usePathname()
   const [openMenu, setOpenMenu] = useState(false)
   const router = useRouter()
-  if (status === 'loading') {
-    return <Loading />
-  }
   const role = session?.user?.role
 
   const handleLogout = async () => {

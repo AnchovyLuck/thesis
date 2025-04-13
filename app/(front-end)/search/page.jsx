@@ -3,15 +3,14 @@ import { getData } from '@/lib/getData'
 import React from 'react'
 
 export default async function page ({ searchParams }) {
-  const { sort, min, max, search } = await searchParams
-  const { page } = (await searchParams) || 1
-  let displayProducts
+  const { sortBy = '', min = '', max = '', page = 1 , search} = await searchParams
   let query = ''
   if (search) {
     query += `${search}`
   }
-  console.log(query)
-  displayProducts = await getData(`products?search=${query}`)
+  const displayProducts = await getData(
+      `products?search=${query}&page=${page}&sortBy=${sortBy}&min=${min}&max=${max}`
+    )
   const category = {
     title: search,
     slug: '',

@@ -12,7 +12,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function CouponForm ({ updateData = {} }) {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
   const initialImageUrl = updateData?.imageUrl ?? ''
   const [imageUrl, setImageUrl] = useState(initialImageUrl)
@@ -29,9 +29,6 @@ export default function CouponForm ({ updateData = {} }) {
       ...updateData
     }
   })
-  if (status === 'loading') {
-    return <Loading />
-  }
   const vendorId = session?.user?.id
   
   const id = updateData?.id ?? ''

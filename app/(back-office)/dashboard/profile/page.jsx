@@ -1,3 +1,5 @@
+import CustomerForm from '@/components/backoffice/forms/CustomerForm'
+import FormHeader from '@/components/backoffice/forms/FormHeader'
 import { authOptions } from '@/lib/authOptions'
 import { getServerSession } from 'next-auth'
 import React from 'react'
@@ -7,7 +9,8 @@ export default async function page () {
   const { user } = session
   return (
     <div>
-      <h2>Xin chào {user?.userName}</h2>
+      <FormHeader title='Cập Nhật Tài Khoản' />
+      <CustomerForm user={user} />
     </div>
   )
 }

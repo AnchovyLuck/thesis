@@ -13,10 +13,6 @@ export default async function page () {
   //   return category.products.length > 3;
   // });
   const session = await getServerSession(authOptions)
-  console.log(
-    '%c☯️  Web chậm không phải do framework lỏ, mà là do nội công chưa đủ thâm hậu.',
-    'color: orange; font-weight: bold;'
-  )
   return (
     <>
       <Hero />

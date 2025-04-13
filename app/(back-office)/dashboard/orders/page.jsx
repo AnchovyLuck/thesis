@@ -9,12 +9,7 @@ export default async function page () {
   if (!session) return
   const userId = session?.user?.id
   const userRole = session?.user?.role
-  let orders
-  if (userRole === 'ADMIN') {
-    orders = await getData('orders')
-  } else {
-    orders = await getData(`orders/user/${userId}`)
-  }
+  const orders = (userRole === 'ADMIN') ? await getData('orders') : await getData(`orders/user/${userId}`)
   if (orders.length === 0 || !orders) {
     return (
       <div className='text-center py-12'>

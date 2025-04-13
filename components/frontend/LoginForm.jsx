@@ -1,16 +1,24 @@
 'use client'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
-import { FaGoogle } from 'react-icons/fa'
-import { FaGithub } from 'react-icons/fa'
 export default function LoginForm () {
+  const searchParams = useSearchParams()
+  const [verificationSuccess, setVerificationSuccess] = useState(false)
+  useEffect(() => {
+    const verified = searchParams.get('verified')
+    if (verified === 'true') {
+      setVerificationSuccess(true)
+      const timer = setTimeout(() => {
+        setVerificationSuccess(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [searchParams])
   const router = useRouter()
-  // const token = searchParams.get('token')
- 
   const {
     register,
     handleSubmit,
@@ -47,6 +55,17 @@ export default function LoginForm () {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
+      {verificationSuccess && (
+        <div
+          className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4'
+          role='alert'
+        >
+          <strong className='font-bold'>Thành công! </strong>
+          <span className='block sm:inline'>
+            Email của bạn đã được xác thực. Giờ đây bạn có thể đăng nhập.
+          </span>
+        </div>
+      )}
       <div>
         <label
           htmlFor='email'
@@ -63,9 +82,7 @@ export default function LoginForm () {
           placeholder='name@company.com'
         />
         {errors.email && (
-          <small className='text-red-600 text-sm '>
-            Cần điền email!
-          </small>
+          <small className='text-red-600 text-sm '>Cần điền email!</small>
         )}
       </div>
       <div>
@@ -84,9 +101,7 @@ export default function LoginForm () {
           className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
         />
         {errors.password && (
-          <small className='text-red-600 text-sm '>
-            Cần điền mật khẩu!
-          </small>
+          <small className='text-red-600 text-sm '>Cần điền mật khẩu!</small>
         )}
       </div>
       <div className='flex gap-4 items-center'>

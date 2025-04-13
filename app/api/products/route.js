@@ -1,7 +1,7 @@
-import db from '@/lib/db'
-import { NextResponse } from 'next/server'
+import db from "@/lib/db";
+import { NextResponse } from "next/server";
 
-export async function POST (request) {
+export async function POST(request) {
   try {
     const {
       title,
@@ -22,23 +22,23 @@ export async function POST (request) {
       isActive,
       productCode,
       qty,
-      productImages
-    } = await request.json()
+      productImages,
+    } = await request.json();
     const existingProduct = await db.product.findUnique({
       where: {
-        slug
-      }
-    })
+        slug,
+      },
+    });
     if (existingProduct) {
       return NextResponse.json(
         {
           data: null,
-          message: 'Sản phẩm đã tồn tại!'
+          message: "Sản phẩm đã tồn tại!",
         },
         {
-          status: 409
-        }
-      )
+          status: 409,
+        },
+      );
     }
     const newProduct = await db.product.create({
       data: {
@@ -62,89 +62,94 @@ export async function POST (request) {
         description,
         isActive,
         productCode,
-        qty: parseInt(qty)
-      }
-    })
-    console.log(newProduct)
-    return NextResponse.json(newProduct)
+        qty: parseInt(qty),
+      },
+    });
+    console.log(newProduct);
+    return NextResponse.json(newProduct);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json(
       {
-        message: 'Thêm sản phẩm thất bại!',
-        error
+        message: "Thêm sản phẩm thất bại!",
+        error,
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }
 
-export async function GET (request) {
-  const categoryId = request.nextUrl.searchParams.get('catId')
-  const sortBy = request.nextUrl.searchParams.get('sortBy')
-  const min = request.nextUrl.searchParams.get('min')
-  const max = request.nextUrl.searchParams.get('max')
-  const searchTerm = request.nextUrl.searchParams.get('search')
-  const page = request.nextUrl.searchParams.get('page') || 1
-  const pageSize = 3
-  let products
+export async function GET(request) {
+  const categoryId = request.nextUrl.searchParams.get("catId");
+  const sortBy = request.nextUrl.searchParams.get("sortBy");
+  const min = request.nextUrl.searchParams.get("min");
+  const max = request.nextUrl.searchParams.get("max");
+  const searchTerm = request.nextUrl.searchParams.get("search");
+  const page = request.nextUrl.searchParams.get("page") || 1;
+  const pageSize = 3;
+  let products;
   let where = {
-    categoryId
-  }
+    categoryId,
+  };
   if (min && max) {
     where.salePrice = {
       gte: parseFloat(min),
-      lte: parseFloat(max)
-    }
+      lte: parseFloat(max),
+    };
   } else if (max) {
     where.salePrice = {
-      lte: parseFloat(max)
-    }
+      lte: parseFloat(max),
+    };
   } else if (min) {
     where.salePrice = {
-      gte: parseFloat(min)
-    }
+      gte: parseFloat(min),
+    };
   }
   try {
     if (searchTerm) {
-      products = await db.product.findMany({// db.product.findUnique(where: id})
+      products = await db.product.findMany({
+        orderBy: sortBy
+          ? { salePrice: sortBy }
+          : {
+              createdAt: "desc",
+            },
         where: {
           OR: [
             {
-              title: { contains: searchTerm, mode: 'insensitive' }
+              title: { contains: searchTerm, mode: "insensitive" },
             },
             {
-              description: { contains: searchTerm, mode: 'insensitive' }
-            }
-          ]
-        }
-      })
+              description: { contains: searchTerm, mode: "insensitive" },
+            },
+          ],
+        },
+      });
     } else if (categoryId) {
       products = await db.product.findMany({
         orderBy: sortBy
           ? { salePrice: sortBy }
           : {
-              createdAt: 'desc'
+              createdAt: "desc",
             },
-        where
-      })
+        where,
+      });
     } else {
       products = await db.product.findMany({
         orderBy: {
-          createdAt: 'desc'
-        }
-      })
+          createdAt: "desc",
+        },
+      });
     }
 
-    return NextResponse.json(products)
+    return NextResponse.json(products);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json(
       {
-        message: 'Hiển thị danh sách sản phẩm thất bại!',
-        error
+        message: "Hiển thị danh sách sản phẩm thất bại!",
+        error,
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

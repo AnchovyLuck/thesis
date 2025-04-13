@@ -14,9 +14,6 @@ import UserAvatar from '../backoffice/UserAvatar'
 
 export default function Navbar () {
   const { data: session, status } = useSession()
-  if (status === 'loading') {
-    return <Loading />
-  }
 
   return (
     <div className='bg-gray-200 dark:bg-slate-800 h-28 fixed w-full'>

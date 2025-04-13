@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 
 export default function StepForm ({ user }) {
   const currentStep = useSelector(store => store.checkout.currentStep)
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const renderFormByStep = step => {
     if (step === 1) {
       return <PersonalDetailsForm session={session} />
