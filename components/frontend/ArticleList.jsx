@@ -3,6 +3,7 @@ import React from 'react'
 import ArticleCarousel from './ArticleCarousel'
 import { getData } from '@/lib/getData'
 
+export const dynamic = 'force-dynamic';
 export default async function ArticleList () {
   const articles = await getData('articles')
   return (

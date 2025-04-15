@@ -36,11 +36,7 @@ export default function RegisterForm ({ role = 'USER' }) {
         toast.success('Tạo tài khoản thành công!')
         reset()
         const userRole = responseData.data.role
-        if (userRole === 'USER') {
-          router.push('/')
-        } else {
-          router.push('/verify-email')
-        }
+        router.push('/verify-email')
       } else {
         setLoading(false)
         if (response.status === 409) {
@@ -118,7 +114,7 @@ export default function RegisterForm ({ role = 'USER' }) {
         <p className='mb-4 text-[0.8rem] font-light text-gray-500 dark:text-gray-400'>
           Bạn đã có tài khoản?{' '}
           <Link
-            href='/register-farmer'
+            href='/login'
             className='font-medium text-primary-600 hover:underline dark:text-primary-500'
           >
             Đăng nhập

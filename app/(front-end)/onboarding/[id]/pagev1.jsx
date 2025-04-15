@@ -2,6 +2,7 @@ import FarmerForm from "@/components/backoffice/forms/FarmerForm";
 import { getData } from "@/lib/getData";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
 export default async function page({params}) {
   const {id} = await params
   const user = await getData(`users/${id}`)

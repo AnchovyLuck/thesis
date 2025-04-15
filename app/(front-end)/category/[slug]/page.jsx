@@ -2,6 +2,7 @@ import Filter from '@/components/frontend/filter/Filter'
 import { getData } from '@/lib/getData'
 import React from 'react'
 
+export const dynamic = 'force-dynamic';
 export default async function page ({ params, searchParams }) {
   const { sortBy = '', min = '', max = '', page = 1 } = await searchParams
   const { slug } = await params

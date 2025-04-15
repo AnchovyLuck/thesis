@@ -2,6 +2,7 @@ import React from 'react'
 import { getData } from '@/lib/getData'
 import BrandCarousel from './BrandCarousel'
 
+export const dynamic = 'force-dynamic';
 export default async function BrandList() {
   const brands = await getData("brands")
   return (

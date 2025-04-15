@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin']
 })
 console.log(
-  '%c☯️  Web chậm không phải do framework lỏ, mà là do nội công chưa đủ thâm hậu.',
+  '%c☯️  Web chậm không phải do framework lỏ, mà là do nội công không đủ thâm hậu.',
   'color: orange; font-weight: bold;'
 )
 export default function RootLayout ({ children }) {

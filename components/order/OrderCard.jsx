@@ -61,7 +61,14 @@ export default function OrderCard ({ order, userRole }) {
                   #{order.orderNumber}
                 </p>
               </div>
-
+              <div>
+                <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>
+                  Số điện thoại khách hàng
+                </p>
+                <p className='text-sm font-bold text-gray-900 mt-0.5'>
+                  {order.phone}
+                </p>
+              </div>
               <div>
                 <p className='text-sm font-medium text-gray-500 dark:text-gray-300'>
                   Ngày tạo
@@ -197,7 +204,7 @@ export default function OrderCard ({ order, userRole }) {
           <hr className='mt-8 border-gray-200' />
 
           <div className='flex items-center mt-8 space-x-5'>
-            {order.orderStatus === 'PROCESSING' && userRole === 'ADMIN' && (
+            {(currentStatus === 'ĐANG XỬ LÝ' && userRole === 'ADMIN') && (
               <button
                 className='inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 bg-lime-500 border border-lime-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 hover:bg-lime-400'
                 onClick={handleSubmit(onSubmit)}

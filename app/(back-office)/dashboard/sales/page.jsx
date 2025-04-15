@@ -6,6 +6,7 @@ import { columns } from './columns'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 
+export const dynamic = 'force-dynamic';
 export default async function page () {
   const session = await getServerSession(authOptions)
     if (!session) {

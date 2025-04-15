@@ -7,6 +7,7 @@ import advert from '../../public/adv.gif'
 import SidebarCategories from './SidebarCategories'
 import { getData } from '@/lib/getData'
 
+export const dynamic = 'force-dynamic';
 export default async function Hero () {
   const banners = await getData("banners")
   return (

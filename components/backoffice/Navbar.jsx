@@ -27,7 +27,7 @@ import { useSession } from 'next-auth/react'
 import Loading from '@/app/Loading'
 
 export default function Navbar ({ setShowSidebar, showSidebar }) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   return (
     <div
       className={

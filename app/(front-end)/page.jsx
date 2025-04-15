@@ -1,4 +1,3 @@
-import ArticleList from '@/components/frontend/ArticleList'
 import CategoryList from '@/components/frontend/CategoryList'
 import Hero from '@/components/frontend/Hero'
 import { getData } from '@/lib/getData'
@@ -7,11 +6,13 @@ import React from 'react'
 import BrandList from '@/components/frontend/BrandList'
 import { authOptions } from '@/lib/authOptions'
 import { getServerSession } from 'next-auth'
+
+export const dynamic = 'force-dynamic';
 export default async function page () {
   const categories = await getData('categories')
-  // const filteredCategories = categories?.filter((category) => {
-  //   return category.products.length > 3;
-  // });
+  const filteredCategories = categories?.filter((category) => {
+    return category.products.length > 3;
+  });
   const session = await getServerSession(authOptions)
   return (
     <>
@@ -25,8 +26,8 @@ export default async function page () {
           Trở thành đối tác của chúng tôi!
         </Link>
       </div>
-      {categories?.length > 0 &&
-        categories.map((category, i) => {
+      {filteredCategories?.length > 0 &&
+        filteredCategories.map((category, i) => {
           return (
             <div className='py-4' key={i}>
               <CategoryList isMarketPage={false} category={category} />

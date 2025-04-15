@@ -1,4 +1,6 @@
+import Loading from '@/app/Loading'
 import ResetPasswordForm from '@/components/frontend/ResetPasswordForm'
+import { Suspense } from 'react'
 
 export default function PasswordReset () {
   return (
@@ -9,7 +11,9 @@ export default function PasswordReset () {
             <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center'>
               Đặt lại mật khẩu
             </h1>
-            <ResetPasswordForm />
+            <Suspense fallback={<Loading />}>
+              <ResetPasswordForm />
+            </Suspense>
           </div>
         </div>
       </div>

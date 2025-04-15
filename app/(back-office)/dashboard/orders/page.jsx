@@ -4,6 +4,7 @@ import { getData } from '@/lib/getData'
 import { getServerSession } from 'next-auth'
 import React from 'react'
 
+export const dynamic = 'force-dynamic';
 export default async function page () {
   const session = await getServerSession(authOptions)
   if (!session) return

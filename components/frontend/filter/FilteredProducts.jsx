@@ -1,8 +1,9 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 import ProductItem from '../ProductItem'
 import Paginate from './Paginate'
 import { useSearchParams } from 'next/navigation'
+import Loading from '@/app/Loading'
 
 export default function FilteredProducts ({ displayProducts = [] }) {
   const searchParams = useSearchParams()
@@ -28,7 +29,9 @@ export default function FilteredProducts ({ displayProducts = [] }) {
       </div>
       {totalPages > 1 && (
         <div className='pt-12 flex items-center justify-center'>
-          <Paginate totalPages={totalPages} />
+          <Suspense fallback={<Loading />}>
+            <Paginate totalPages={totalPages} />
+          </Suspense>
         </div>
       )}
     </>

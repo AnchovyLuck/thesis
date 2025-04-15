@@ -44,7 +44,7 @@ export default function LoginForm () {
         // Sign-in was successful
         toast.success('Đăng nhập thành công')
         reset()
-        router.push('/')
+        router.push('/dashboard')
       }
     } catch (error) {
       setLoading(false)

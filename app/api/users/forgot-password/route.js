@@ -6,7 +6,6 @@ import { render } from '@react-email/components'
 import EmailTemplate from '@/components/ui/email-template'
 import nodemailer from 'nodemailer'
 export async function PUT (request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
     const { email } = await request.json()
     const existingUser = await db.user.findUnique({

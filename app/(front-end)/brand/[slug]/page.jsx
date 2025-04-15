@@ -1,15 +1,19 @@
+import Loading from '@/app/Loading'
 import Breadcrumb from '@/components/frontend/Breadcrumb'
 import CategoryCarousel from '@/components/frontend/CategoryCarousel'
 import { getData } from '@/lib/getData'
 import Image from 'next/image'
-import React from 'react'
+import React, { Suspense } from 'react'
 
+export const dynamic = 'force-dynamic'
 export default async function page ({ params }) {
   const { slug } = await params
   const brand = await getData(`brands/details/${slug}`)
   return (
     <>
-      <Breadcrumb title={`Thương hiệu ${brand.title}`} />
+      <Suspense fallback={<Loading />}>
+        <Breadcrumb title={`Thương hiệu ${brand.title}`} />
+      </Suspense>
       <div className='bg-white border rounded-lg dark:bg-gray-800 dark:text-slate-200 p-4'>
         <div className='flex items-center justify-between gap-12'>
           <div className=''>
